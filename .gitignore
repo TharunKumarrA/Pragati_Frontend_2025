@@ -39,6 +39,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Prevent tracking of package-lock.json to avoid conflicts in team environments
-# Developers are expected to regenerate package-lock.json locally using npm install
+# Prevent tracking of package-lock.json to avoid conflicts
 package-lock.json

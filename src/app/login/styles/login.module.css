@@ -1,0 +1,224 @@
+.container {
+  background-image: url("/Images/backgrounds/mount_olympus_view.webp");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-blend-mode: darken;
+}
+
+.navbar {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: absolute;
+  top: 0;
+}
+
+.title {
+  font-family: "Serif";
+  font-size: 32px;
+  color: white;
+  text-transform: uppercase;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+}
+
+.profile {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: white;
+  background-image: url("/profile_icon_placeholder.webp");
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+
+.separator {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-top: 80px;
+}
+
+.loginBox {
+  background-color: #352B1F;
+  border-radius: 20px;
+  padding: 40px 50px 70px;
+  width: 500px;
+  height: auto;
+  margin: auto;
+  margin-top: 130px;
+  text-align: left;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.loginBox::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-image: url('/Assets/border_style_1.jpg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  z-index: 2;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  overflow: hidden;
+}
+
+.loginBox::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-image: url('/Assets/border_style_2.jpg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  z-index: 2;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  overflow: hidden;
+}
+
+.signInTitle {
+  font-size: 24px;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: white;
+}
+
+.label.emailLabel {
+  margin-bottom: 20px;
+}
+
+.label.passwordLabel {
+  margin-bottom: 20px;
+  margin-top: 15px;
+}
+
+.label:nth-of-type(2) {
+  margin-top: 20px;
+}
+
+.input {
+  width: 100%;
+  padding: 5px 0;
+  border: none;
+  border-bottom: 2px solid #E5C055;
+  background: none;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border-bottom 0.3s ease;
+}
+
+.input:focus {
+  border-bottom: 2px solid #E5C055;
+}
+
+.input::placeholder {
+  color: #E5C055;
+}
+
+.linkContainer {
+  text-align: right;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.forgotPassword {
+  color: #E5C055;
+  text-decoration: none;
+}
+
+.signInButton {
+  background-color: #E5C055;
+  color: black;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  padding: 15px 20px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+  position: relative;
+}
+
+.register {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.register a {
+  color: #E5C055;
+  text-decoration: none;
+}
+
+.loader {
+  border: 6px solid rgba(255, 255, 255, 0.3);
+  border-top: 6px solid #fff;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: transparent;
+}
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}

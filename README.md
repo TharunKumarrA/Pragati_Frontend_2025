@@ -19,9 +19,10 @@ This is the frontend repository for **Pragati 2025**, the annual fest of the Amr
 3. [Usage](#usage)
 4. [Commit Guidelines](#commit-guidelines)
 5. [Technologies Used](#technologies-used)
-6. [Learn More](#learn-more)
-7. [Deploy on Vercel](#deploy-on-vercel)
-8. [Contributing](#contributing)
+6. [Using `next/font/local` for Custom Fonts](#using-nextfontlocal-for-custom-fonts)
+7. [Learn More](#learn-more)
+8. [Deploy on Vercel](#deploy-on-vercel)
+9. [Contributing](#contributing)
 
 ---
 
@@ -131,6 +132,36 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ---
 
+## Using `next/font/local` for Custom Fonts
+
+When using `next/font/local` for custom fonts, **font files must be placed inside the `src` directory**. The `next/font/local` function resolves paths relative to the file that imports the font. Placing fonts in the `public` directory will not work because the `public` folder is meant for assets served via HTTP (e.g., images in `<img src="/image.png">`).
+
+### Steps to Add Custom Fonts
+
+1. **Create a Fonts Directory**:
+
+   Add a `fonts` folder inside `src`, e.g., `src/fonts`.
+
+   ```plaintext
+   src/
+     └── fonts/
+         ├── ChicAvenue.woff
+         └── Poppins.woff
+   ```
+
+2. **Use `next/font/local`** in Your Component:
+
+   Import the font in your component using `next/font/local`.
+
+
+### Important Notes
+
+- **Relative Paths**: The paths in `next/font/local` should be relative to the file importing the font.
+- **Avoid Public Directory**: Do not place font files in the `public` folder; `next/font/local` only works with files inside `src`.
+- **Automatic Optimization**: Fonts imported with `next/font/local` are automatically optimized by Next.js.
+
+---
+
 ## Learn More
 
 To learn more about Next.js, explore the following resources:
@@ -169,7 +200,7 @@ To contribute to this project:
    
    ```bash
    git add <files>
-   npm install --save-dev commitizen cz-conventional-changelog  #Install Commitizen (if not already installed)
+   npm install --save-dev commitizen cz-conventional-changelog  # Install Commitizen (if not already installed)
    npx cz
    ```
 
@@ -185,6 +216,4 @@ To contribute to this project:
 
 Since this is a **private repository**, only collaborators have access to contribute. Please ensure your pull request follows the project's coding standards and commit message guidelines.
 
---- 
-
-
+---

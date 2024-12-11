@@ -1,5 +1,5 @@
-{/*Components for Login and Page */}
 "use client";
+{/*Components for Login and Page */}
 import styles from './styles/login.module.css';
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";

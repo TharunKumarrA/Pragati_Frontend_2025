@@ -1,3 +1,4 @@
+{/*Components for Login and Page */}
 "use client";
 import styles from './styles/login.module.css';
 import React, { useState, useEffect } from "react";

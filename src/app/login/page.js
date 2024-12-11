@@ -69,19 +69,25 @@ const Page = () => {
   
   return (
     <ToastProvider>
-      <div className={styles.container}>
-        <div className={styles.navbar}>
-          <div className={styles.hamburger}>
-            <div></div>
-            <div></div>
-            <div></div>
+      <div 
+  className="bg-cover bg-center h-screen flex flex-col items-center justify-start relative bg-black bg-opacity-50 bg-blend-darken"
+  style={{ backgroundImage: "url('/Images/backgrounds/mount_olympus_view.webp')" }}
+>
+          <div className="w-full h-[80px] flex items-center justify-between px-[20px] absolute top-0">
+          <div className="flex flex-col gap-[5px] cursor-pointer">
+            <div className="w-[25px] h-[3px] bg-white rounded-[2px]"></div>
+            <div className="w-[25px] h-[3px] bg-white rounded-[2px]"></div>
+            <div className="w-[25px] h-[3px] bg-white rounded-[2px]"></div>
           </div>
-          <h1 className={styles.title}>PRAGATI</h1>
-          <div className={styles.profile}></div>
+          <h1 className="font-serif text-[32px] text-white uppercase">PRAGATI</h1>
+          <div 
+  className="w-[35px] h-[35px] rounded-full bg-white bg-cover bg-center cursor-pointer"
+  style={{ backgroundImage: "url('/profile_icon_placeholder.webp')" }}></div>
+
         </div>
-        <div className={styles.separator}></div>
+        <div className="w-full h-[1px] bg-white/50 mt-[80px]"></div>
         <div className={styles.loginBox}>
-          <h2 className={styles.signInTitle}>Sign In</h2>
+        <h2 className="text-[24px] text-center mt-[30px] mb-[20px]">Sign In</h2>
           <form onSubmit={handleSubmit}>
             <label htmlFor="email" className={styles.label}>
               Email ID
@@ -105,15 +111,15 @@ const Page = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <div className={styles.linkContainer}>
-              <Link href="/forgot-password" className={styles.forgotPassword}>
+            <div className="text-right mt-[15px] mb-[25px]">
+              <Link href="/forgot-password" className="text-[#E5C055] no-underline">
                 Forgot Password?
               </Link>
             </div>
-            <p className={styles.register}>
-              Don’t have an account? <Link href="/register">Register</Link>
+            <p className="mt-[10px] text-[14px]">
+              Don’t have an account? <Link href="/register" className="text-[#E5C055] no-underline">Register</Link>
             </p>
-            <button type="submit" className={styles.signInButton} disabled={isLoading}>
+            <button type="submit" className="bg-[#E5C055] text-black text-[16px] border-none rounded-[5px] py-[15px] px-[20px] cursor-pointer w-full mt-[20px] relative" disabled={isLoading}>
               {isLoading ? <div className={styles.loader}></div> : "Sign In"}
             </button>
           </form>

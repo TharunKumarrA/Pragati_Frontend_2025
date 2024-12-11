@@ -6,7 +6,7 @@ const StatsBox = ({ title, value }) => {
       <p className="text-[1.3rem] leading-[80%] md:leading-[70%] mt-2 md:text-3xl font-bold  text-[#352B1E]/90">
         {value}
       </p>
-      <h2 className="text-lg md:text-xl font-normal text-[#352B1E]/90">
+      <h2 className="text-xl font-normal text-[#352B1E]/90">
         {title}
       </h2>
     </div>

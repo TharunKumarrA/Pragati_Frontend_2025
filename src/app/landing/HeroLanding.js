@@ -20,7 +20,7 @@ const HeroLanding = () => {
             </p>
           </div>
         </div>
-        <h1 className="mt-8 px-8 text-center font-bold text-[3.5rem] md:text-[3rem] lg:text-[7.2rem] leading-[85%] heading text-white">
+        <h1 className="mt-8 px-8 text-center font-bold text-[3.5rem] md:text-[6.2rem] heading md:leading-[75%] leading-[85%] text-white">
           PRAGATI 2025
         </h1>
         <p className="text-xl md:text-2xl leading-[100%] px-8 text-white text-center mt-0 ">

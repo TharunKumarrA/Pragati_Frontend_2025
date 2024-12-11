@@ -11,6 +11,7 @@ import {
   ToastClose,
 } from "./components/tcomponents/ui/toast";
 import { Input } from "./components/input";
+import Link from "next/link";
 
 const Page = () => {
   const [email, setEmail] = useState("");
@@ -105,13 +106,12 @@ const Page = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <div className={styles.linkContainer}>
-              <a href="#" className={styles.forgotPassword}>
+              <Link href="/forgot-password" className={styles.forgotPassword}>
                 Forgot Password?
-              </a>
+              </Link>
             </div>
             <p className={styles.register}>
-              {/*Link to route to the sign-up page*/}
-              Don’t have an account? <a href="#">Register</a>
+              Don’t have an account? <Link href="/register">Register</Link>
             </p>
             <button type="submit" className={styles.signInButton} disabled={isLoading}>
               {isLoading ? <div className={styles.loader}></div> : "Sign In"}

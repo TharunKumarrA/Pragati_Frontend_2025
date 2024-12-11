@@ -98,6 +98,7 @@ const Login = () => {
             </a>
           </div>
           <p className={styles.register}>
+            {/*Link to route to the sign-up page*/}
             Don’t have an account? <a href="#">Register</a>
           </p>
           <button type="submit" className={styles.signInButton} disabled={isLoading}>

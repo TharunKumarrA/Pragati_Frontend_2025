@@ -20,10 +20,7 @@ const Login = () => {
     return emailRegex.test(email);
   };
 
-  const validatePassword = (password) => {
-    const passwordRegex = /^(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-    return passwordRegex.test(password);
-  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,12 +31,6 @@ const Login = () => {
       return;
     }
 
-    if (!validatePassword(password)) {
-      toast.error(
-        "Password must be at least 8 characters long and include at least one special character."
-      );
-      return;
-    }
 
     setIsLoading(true);
 

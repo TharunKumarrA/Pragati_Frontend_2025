@@ -64,26 +64,6 @@
   margin-top: 20px;
 }
 
-.input {
-  width: 100%;
-  padding: 5px 0;
-  border: none;
-  border-bottom: 2px solid #E5C055;
-  background: none;
-  color: #fff;
-  font-size: 14px;
-  outline: none;
-  transition: border-bottom 0.3s ease;
-}
-
-.input:focus {
-  border-bottom: 2px solid #E5C055;
-}
-
-.input::placeholder {
-  color: #E5C055;
-}
-
 .loader {
   border: 6px solid rgba(255, 255, 255, 0.3);
   border-top: 6px solid #fff;

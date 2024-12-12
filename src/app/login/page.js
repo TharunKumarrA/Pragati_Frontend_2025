@@ -95,7 +95,7 @@ const Page = () => {
             <Input
               type="email"
               id="email"
-              className={styles.input}
+              className="w-full py-1.5 border-0 border-b-2 border-[#E5C055] bg-transparent text-white text-sm outline-none transition-colors duration-300 focus:border-[#E5C055] placeholder-[#E5C055]"
               placeholder="Enter your registered Email ID"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -106,7 +106,7 @@ const Page = () => {
             <Input
               type="password"
               id="password"
-              className={styles.input}
+              className="w-full py-1.5 border-0 border-b-2 border-[#E5C055] bg-transparent text-white text-sm outline-none transition-colors duration-300 focus:border-[#E5C055] placeholder-[#E5C055]"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

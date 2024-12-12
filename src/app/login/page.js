@@ -12,6 +12,7 @@ import {
 } from "./components/tcomponents/ui/toast";
 import { Input } from "./components/input";
 import Link from "next/link";
+import axios from "axios"; // Import axios
 
 const Page = () => {
   const [email, setEmail] = useState("");
@@ -38,27 +39,43 @@ const Page = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
     setToasts([]);
-  
+
     if (!validateEmail(email)) {
       addToast("Error", "Please enter a valid email address.", "destructive");
       return;
     }
-  
+
     if (!password) {
       addToast("Error", "Please enter your password.", "destructive");
       return;
     }
-  
+
     setIsLoading(true);
-  
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Using axios to send the POST request
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`,
+        { email, password },
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      // Handling successful response
       addToast("Success", "Login successful!");
-      console.log("Form submitted successfully!");
+      console.log("Login Response:", response.data);
     } catch (error) {
-      addToast("Error", "Login failed. Please try again.", "destructive");
+      // Handling error
+      if (error.response) {
+        // If the error has a response (i.e., 4xx, 5xx errors)
+        const errorMessage = error.response.data.MESSAGE || "Login failed. Please try again.";
+        addToast("Error", errorMessage, "destructive");
+        console.log("Error Response:", error.response.data);
+      } else {
+        // For network errors, timeouts, etc.
+        console.error("Error logging in:", error);
+        addToast("Error", "An unexpected error occurred. Please try again.", "destructive");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -66,12 +83,12 @@ const Page = () => {
 
   return (
     <ToastProvider>
-      <div 
+      <div
         className="bg-cover bg-center h-screen flex items-center justify-center relative bg-black bg-opacity-50 bg-blend-darken"
         style={{ backgroundImage: "url('/Images/backgrounds/mount_olympus_view.webp')" }}
       >
         {/* Updated box with smaller size for mobile */}
-        <div className={`${styles.loginBox}`}>
+        <div className={`${styles.loginBox} `}>
           <h2 className="text-[24px] text-center mt-[30px] mb-[20px] [font-family:var(--font-chicavenue)]">Sign In</h2>
           <form onSubmit={handleSubmit} className="[font-family:var(--font-poppins)]">
             <label htmlFor="email" className={styles.label}>

@@ -64,3 +64,12 @@
     @apply bg-background text-foreground;
   }
 }
+  
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-chicavenue, sans-serif);
+    @apply bg-gradient-to-b from-[#fffdeb] to-[#f3e5c0];
+    background-size: 100% 100%;
+    min-height: 100vh;
+  }
+

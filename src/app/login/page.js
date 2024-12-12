@@ -87,15 +87,15 @@ const Page = () => {
         </div>
         <div className="w-full h-[1px] bg-white/50 mt-[80px]"></div>
         <div className={styles.loginBox}>
-        <h2 className="text-[24px] text-center mt-[30px] mb-[20px]">Sign In</h2>
-          <form onSubmit={handleSubmit}>
+        <h2 className="text-[24px] text-center mt-[30px] mb-[20px] [font-family:var(--font-chicavenue)]">Sign In</h2>
+          <form onSubmit={handleSubmit} className="[font-family:var(--font-poppins)]">
             <label htmlFor="email" className={styles.label}>
               Email ID
             </label>
             <Input
               type="email"
               id="email"
-              className="w-full py-1.5 border-0 border-b-2 border-[#E5C055] bg-transparent text-white text-sm outline-none transition-colors duration-300 focus:border-[#E5C055] placeholder-[#E5C055]"
+              className="w-full py-1.5 "
               placeholder="Enter your registered Email ID"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -106,7 +106,7 @@ const Page = () => {
             <Input
               type="password"
               id="password"
-              className="w-full py-1.5 border-0 border-b-2 border-[#E5C055] bg-transparent text-white text-sm outline-none transition-colors duration-300 focus:border-[#E5C055] placeholder-[#E5C055]"
+              className="w-full py-1.5 "
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

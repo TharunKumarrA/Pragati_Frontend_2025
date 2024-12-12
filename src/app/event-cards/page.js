@@ -1,4 +1,4 @@
-import EventCards from ".components/EventCards";
+import EventCards from "./components/EvenCards";
 
 export default function Home() {
   return (

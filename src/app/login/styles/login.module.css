@@ -11,8 +11,22 @@
   color: white;
   position: relative;
   overflow: hidden;
+  
+}
+@media (max-width: 640px) {
+  .loginBox {
+    width: 24rem; /* sm:w-96 equivalent */
+    padding-left: 1.5rem; /* sm:px-6 equivalent */
+    padding-right: 1.5rem;
+  }
 }
 
+/* For large screens (min-width: 1024px) */
+@media (min-width: 1024px) {
+  .loginBox {
+    width: 32%; /* lg:w-[35%] equivalent */
+  }
+}
 .loginBox::before {
   content: '';
   position: absolute;

@@ -63,14 +63,15 @@ const Page = () => {
       setIsLoading(false);
     }
   };
-  
+
   return (
     <ToastProvider>
       <div 
         className="bg-cover bg-center h-screen flex items-center justify-center relative bg-black bg-opacity-50 bg-blend-darken"
         style={{ backgroundImage: "url('/Images/backgrounds/mount_olympus_view.webp')" }}
       >
-        <div className={styles.loginBox}>
+        {/* Updated box with smaller size for mobile */}
+        <div className={`${styles.loginBox}`}>
           <h2 className="text-[24px] text-center mt-[30px] mb-[20px] [font-family:var(--font-chicavenue)]">Sign In</h2>
           <form onSubmit={handleSubmit} className="[font-family:var(--font-poppins)]">
             <label htmlFor="email" className={styles.label}>

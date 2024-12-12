@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { toast } from "./hooks/use-toast";
 import { Input } from './input';
 import { Button } from './button';
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from './select';
 import { RadioGroup, RadioGroupItem } from './radio-group';
 import { Checkbox } from './checkbox';
 import styles from "./SignUp.module.css";
@@ -260,22 +259,18 @@ const Signup = () => {
                 />
               </div>
               <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor="userDepartment">Department</label>
-                <Select
-                  value={formData.userDepartment}
-                  onValueChange={(value) => setFormData((prevData) => ({ ...prevData, userDepartment: value }))}>
-                  <SelectTrigger className={styles.inputField}>
-                    <SelectValue placeholder="Select your department" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="CSE">CSE</SelectItem>
-                    <SelectItem value="ECE">ECE</SelectItem>
-                    <SelectItem value="Mechanical">Mechanical</SelectItem>
-                    <SelectItem value="Civil">Civil</SelectItem>
-                    <SelectItem value="IT">IT</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+                  <label className={styles.label} htmlFor="userDepartment">Department</label>
+                  <Input
+                    className={styles.inputField}
+                    type="text"
+                    id="userDepartment"
+                    name="userDepartment"
+                    value={formData.userDepartment}
+                    onChange={handleInputChange}
+                    placeholder="Enter your department"
+                    required
+                  />
+                </div>
               <div className={styles.formGroup}>
                 <label className={styles.label} htmlFor="academicYear">Academic Year</label>
                 <Input

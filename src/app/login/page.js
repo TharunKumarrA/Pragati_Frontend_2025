@@ -79,7 +79,7 @@ const Page = () => {
             <Input
               type="email"
               id="email"
-              className="w-full py-1.5 "
+              className="w-full py-1.5 text-black"
               placeholder="Enter your registered Email ID"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

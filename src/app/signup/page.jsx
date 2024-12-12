@@ -1,5 +1,5 @@
 import React from 'react';
-import Signup from './components/Signup';
+import Signup from './components/SignUp.jsx';
 import { Toaster } from './components/toaster';
 import { ToastProvider } from './components/toast';
 

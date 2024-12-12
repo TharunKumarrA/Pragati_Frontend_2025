@@ -1,4 +1,4 @@
-import EventCards from ".components/EventCards";
+import EventCards from "./components/EventCards";
 
 export default function Home() {
   return (
@@ -8,8 +8,8 @@ export default function Home() {
         date="19th Feb"
         type="Individual"
         price="₹200"
-        image="/Images/1a. Athena.png" 
-        symbols={["/Images/4b. Demeter.png","/Images/4a. Plutus.png"]}  
+        image="/Images/backgrounds/owlcard.png" 
+        symbols={["/Images/Emblems/4b_demeter.webp","/Images/Emblems/4a_plutus.webp"]}  
       />
     </div>
   );

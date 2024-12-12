@@ -7,7 +7,7 @@ import { Button } from './button';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from './select';
 import { RadioGroup, RadioGroupItem } from './radio-group';
 import { Checkbox } from './checkbox';
-import styles from "./Signup.module.css";
+import styles from "./SignUp.module.css";
 
 const Signup = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -121,13 +121,13 @@ const Signup = () => {
 
   return (
     <div className={styles.signupPage}>
-      <div className={styles.brandName}>PRAGATI</div>
-      <div className={styles.signupCard}>
-        {loading && (
-          <div className={styles.loadingOverlay}>
-            <div className={`${styles.loadingSpinner} ${styles[spinnerSize]}`}></div>
-          </div>
-        )}
+    <div className={styles.signupCard}>
+      <h2 className={styles.cardTitle}>Sign Up</h2>
+      {loading && (
+        <div className={styles.loadingOverlay}>
+          <div className={`${styles.loadingSpinner} ${styles[spinnerSize]}`}></div>
+        </div>
+      )}
         <form className={styles.signupForm} onSubmit={handleSubmit}>
           <div className={styles.row}>
             {/* Left Column */}

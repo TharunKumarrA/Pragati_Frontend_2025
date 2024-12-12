@@ -17,7 +17,7 @@ const Page = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [toasts, setToasts] = useState([]); // Manage toasts
+  const [toasts, setToasts] = useState([]);
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -25,7 +25,7 @@ const Page = () => {
   };
 
   const addToast = (title, description, variant = "default") => {
-    const id = Math.random().toString(36).substr(2, 9); // Unique ID for each toast
+    const id = Math.random().toString(36).substr(2, 9);
     setToasts((prevToasts) => [
       ...prevToasts,
       { id, title, description, variant },
@@ -39,16 +39,13 @@ const Page = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Clear all toasts before adding new ones
     setToasts([]);
   
-    // Validate email
     if (!validateEmail(email)) {
       addToast("Error", "Please enter a valid email address.", "destructive");
       return;
     }
   
-    // Validate password
     if (!password) {
       addToast("Error", "Please enter your password.", "destructive");
       return;
@@ -70,24 +67,11 @@ const Page = () => {
   return (
     <ToastProvider>
       <div 
-  className="bg-cover bg-center h-screen flex flex-col items-center justify-start relative bg-black bg-opacity-50 bg-blend-darken"
-  style={{ backgroundImage: "url('/Images/backgrounds/mount_olympus_view.webp')" }}
->
-          <div className="w-full h-[80px] flex items-center justify-between px-[20px] absolute top-0">
-          <div className="flex flex-col gap-[5px] cursor-pointer">
-            <div className="w-[25px] h-[3px] bg-white rounded-[2px]"></div>
-            <div className="w-[25px] h-[3px] bg-white rounded-[2px]"></div>
-            <div className="w-[25px] h-[3px] bg-white rounded-[2px]"></div>
-          </div>
-          <h1 className="font-serif text-[32px] text-white uppercase">PRAGATI</h1>
-          <div 
-  className="w-[35px] h-[35px] rounded-full bg-white bg-cover bg-center cursor-pointer"
-  style={{ backgroundImage: "url('/profile_icon_placeholder.webp')" }}></div>
-
-        </div>
-        <div className="w-full h-[1px] bg-white/50 mt-[80px]"></div>
+        className="bg-cover bg-center h-screen flex items-center justify-center relative bg-black bg-opacity-50 bg-blend-darken"
+        style={{ backgroundImage: "url('/Images/backgrounds/mount_olympus_view.webp')" }}
+      >
         <div className={styles.loginBox}>
-        <h2 className="text-[24px] text-center mt-[30px] mb-[20px] [font-family:var(--font-chicavenue)]">Sign In</h2>
+          <h2 className="text-[24px] text-center mt-[30px] mb-[20px] [font-family:var(--font-chicavenue)]">Sign In</h2>
           <form onSubmit={handleSubmit} className="[font-family:var(--font-poppins)]">
             <label htmlFor="email" className={styles.label}>
               Email ID
@@ -106,7 +90,7 @@ const Page = () => {
             <Input
               type="password"
               id="password"
-              className="w-full py-1.5 "
+              className="w-full py-1.5 text-black"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

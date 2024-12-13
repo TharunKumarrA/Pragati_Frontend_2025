@@ -1,4 +1,4 @@
-import HeroLanding from "./landing/HeroLanding";
+import HeroLanding from "./components/HeroLanding";
 
 export default function Home() {
   return (

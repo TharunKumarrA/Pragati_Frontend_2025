@@ -40,39 +40,46 @@ const Page = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setToasts([]);
-
+  
     if (!validateEmail(email)) {
       addToast("Error", "Please enter a valid email address.", "destructive");
       return;
     }
-
+  
     if (!password) {
       addToast("Error", "Please enter your password.", "destructive");
       return;
     }
-
+  
     setIsLoading(true);
-
+  
     try {
-      // Using axios to send the POST request
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`,
         { email, password },
         { headers: { "Content-Type": "application/json" } }
       );
-
-      // Handling successful response
-      addToast("Success", "Login successful!");
-      console.log("Login Response:", response.data);
+      if (response.status === 200) {
+        addToast("Success", "Login successful!");
+        console.log("Login Response:", response.data);
+      }
     } catch (error) {
-      // Handling error
       if (error.response) {
-        // If the error has a response (i.e., 4xx, 5xx errors)
-        const errorMessage = error.response.data.MESSAGE || "Login failed. Please try again.";
-        addToast("Error", errorMessage, "destructive");
+        const status = error.response.status;
+        const errorMessage = error.response.data.MESSAGE || "An error occurred.";
+  
+        if (status === 400) {
+          addToast("Error", errorMessage, "destructive");
+        } else if (status === 500) {
+          addToast("Error", "Something went wrong. Please try again later.", "destructive");
+        } else if (status === 502) {
+          addToast("Error", "The system is under maintenance. Please try again later.", "destructive");
+        } else {
+          addToast("Error", "Login failed. Please try again.", "destructive");
+        }
+  
         console.log("Error Response:", error.response.data);
       } else {
-        // For network errors, timeouts, etc.
         console.error("Error logging in:", error);
         addToast("Error", "An unexpected error occurred. Please try again.", "destructive");
       }
@@ -80,6 +87,7 @@ const Page = () => {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <ToastProvider>

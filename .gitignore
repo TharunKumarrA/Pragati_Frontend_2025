@@ -38,3 +38,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Prevent tracking of package-lock.json to avoid conflicts
+package-lock.json

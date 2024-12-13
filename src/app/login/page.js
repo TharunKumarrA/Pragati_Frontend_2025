@@ -57,7 +57,10 @@ const Page = () => {
       // Using axios to send the POST request
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`,
-        { email, password },
+        JSON.stringify({
+            userEmail: email,
+            userPassword: password,
+        }),
         { headers: { "Content-Type": "application/json" } }
       );
 

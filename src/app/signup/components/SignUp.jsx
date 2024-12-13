@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { toast } from "./hooks/use-toast";
 import { Input } from './input';
 import { Button } from './button';
-import { RadioGroup, RadioGroupItem } from './radio-group';
 import { Checkbox } from './checkbox';
 import styles from "./SignUp.module.css";
 
@@ -34,11 +33,38 @@ const Signup = () => {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+  
+    // Update form data
+    setFormData((prevData) => {
+      const updatedData = {
+        ...prevData,
+        [name]: type === "checkbox" ? checked : value,
+      };
+  
+      // Autofill "College Name" if "isAmrita" is checked
+      if (name === "isAmrita" && checked) {
+        updatedData.collegeName = "Amrita Vishwa Vidyapeetham";
+  
+        // Autofill "College City" if the email starts with "cb."
+        if (updatedData.userEmail.startsWith("cb.")) {
+          updatedData.collegeCity = "Coimbatore";
+        }
+      } else if (name === "isAmrita" && !checked) {
+        updatedData.collegeName = ""; // Clear the field if unchecked
+        updatedData.collegeCity = ""; // Clear the city field if unchecked
+      }
+  
+      // Autofill "College City" based on email if already entered
+      if (name === "userEmail" && updatedData.isAmrita && value.startsWith("cb.")) {
+        updatedData.collegeCity = "Coimbatore";
+      }
+  
+      return updatedData;
+    });
   };
+
+  const amritaRegex =
+    /^[a-zA-Z0-9._%+-]+@(cb\.students\.amrita\.edu|cb\.amrita\.edu|av\.students\.amrita\.edu|av\.amrita\.edu)$/;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,17 +73,30 @@ const Signup = () => {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[0-9]{10}$/;
-
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-    if (!emailRegex.test(formData.userEmail)) {
-      toast({
-        title: "Invalid email format.",
-        variant: "destructive",
-      });
-      setLoading(false);
-      setSpinnerSize("small");
-      return;
+    if (formData.isAmrita) {
+      if (!amritaRegex.test(formData.userEmail)) {
+        toast({
+          title: "Invalid email format for Amrita student.",
+          description: "Use an Amrita domain email (e.g., @cb.students.amrita.edu).",
+          variant: "destructive",
+        });
+        setLoading(false);
+        setSpinnerSize("small");
+        return;
+      }
+    } else {
+      if (!emailRegex.test(formData.userEmail)) {
+        toast({
+          title: "Invalid email format.",
+          description: "Enter a valid email address.",
+          variant: "destructive",
+        });
+        setLoading(false);
+        setSpinnerSize("small");
+        return;
+      }
     }
 
     if (!phoneRegex.test(formData.phoneNumber)) {
@@ -120,21 +159,21 @@ const Signup = () => {
 
   return (
     <div className={styles.signupPage}>
-    <div className={styles.signupCard}>
-      <h2 className={styles.cardTitle}>Sign Up</h2>
-      {loading && (
-        <div className={styles.loadingOverlay}>
-          <div className={`${styles.loadingSpinner} ${styles[spinnerSize]}`}></div>
-        </div>
-      )}
-        <form className={styles.signupForm} onSubmit={handleSubmit}>
-          <div className={styles.row}>
+      <div className={`${styles.signupCard} sm:w-11/12 md:w-8/12 lg:w-1/2`}>
+        <h2 className="text-center text-white mt-12 mb-5 z-20 text-2xl">Sign Up</h2>
+        {loading && (
+          <div className={styles.loadingOverlay}>
+            <div className={`${styles.loadingSpinner} ${styles[spinnerSize]}`}></div>
+          </div>
+        )}
+        <form className="flex flex-col" onSubmit={handleSubmit}>
+          <div className="flex justify-between gap-5 mt-8 mb-5">
             {/* Left Column */}
-            <div className={styles.leftColumn}>
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor="userName">Name</label>
+            <div className="flex-1 flex flex-col gap-5">
+              <div className="flex-1 flex flex-col">
+                <label className="text-white mb-2 font-light" htmlFor="userName">Name</label>
                 <Input
-                  className={styles.inputField}
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   id="userName"
                   name="userName"
                   value={formData.userName}
@@ -143,10 +182,10 @@ const Signup = () => {
                   required
                 />
               </div>
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor="userEmail">Email</label>
+              <div className="flex-1 flex flex-col">
+                <label className="text-white mb-2 font-light" htmlFor="userEmail">Email</label>
                 <Input
-                  className={styles.inputField}
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="email"
                   id="userEmail"
                   name="userEmail"
@@ -156,10 +195,10 @@ const Signup = () => {
                   required
                 />
               </div>
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor="userPassword">Password</label>
+              <div className="flex-1 flex flex-col">
+                <label className="text-white mb-2 font-light" htmlFor="userPassword">Password</label>
                 <Input
-                  className={styles.inputField}
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="password"
                   id="userPassword"
                   name="userPassword"
@@ -169,10 +208,10 @@ const Signup = () => {
                   required
                 />
               </div>
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor="confirmPassword">Confirm Password</label>
+              <div className="flex-1 flex flex-col">
+                <label className="text-white mb-2 font-light" htmlFor="confirmPassword">Confirm Password</label>
                 <Input
-                  className={styles.inputField}
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="password"
                   id="confirmPassword"
                   name="confirmPassword"
@@ -182,10 +221,10 @@ const Signup = () => {
                   required
                 />
               </div>
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor="phoneNumber">Phone Number</label>
+              <div className="flex-1 flex flex-col">
+                <label className="text-white mb-2 font-light" htmlFor="phoneNumber">Phone Number</label>
                 <Input
-                  className={styles.inputField}
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="text"
                   id="phoneNumber"
                   name="phoneNumber"
@@ -195,34 +234,30 @@ const Signup = () => {
                   required
                 />
               </div>
-
-              <div className={styles.formGroup}>
-                <label className={styles.label}>Are you an Amrita Student?</label>
-                <RadioGroup
-                  value={formData.isAmrita ? "yes" : "no"}
-                  onValueChange={(value) => setFormData((prevData) => ({ ...prevData, isAmrita: value === "yes" }))}>
-                  <div className={styles.radioGroup}>
-                    <div className={styles.radioItem}>
-                      <RadioGroupItem value="yes" id="yes" />
-                      <label htmlFor="yes">Yes</label>
-                    </div>
-                    <div className={styles.radioItem}>
-                      <RadioGroupItem value="no" id="no" />
-                      <label htmlFor="no">No</label>
-                    </div>
-                  </div>
-                </RadioGroup>
+              <div className="flex-1 flex flex-col">
+                <div className="flex items-center gap-2.5 mt-5 text-white">
+                  <Checkbox
+                    id="isAmrita"
+                    name="isAmrita"
+                    checked={formData.isAmrita}
+                    onCheckedChange={(checked) =>
+                      handleInputChange({ target: { name: "isAmrita", type: "checkbox", checked } })
+                    }
+                  />
+                  <label htmlFor="isAmrita" className="text-[#d4af37] text-sm font-normal">
+                    Are you an Amrita Student?
+                  </label>
+                </div>
               </div>
             </div>
 
-            <div className={styles.separator}></div>
+            <div className="w-px bg-white mx-5"></div>
 
-
-            <div className={styles.rightColumn}>
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor="collegeName">College Name</label>
+            <div className="flex-1 flex flex-col gap-5">
+              <div className="flex-1 flex flex-col">
+                <label className="text-white mb-2 font-light" htmlFor="collegeName">College Name</label>
                 <Input
-                  className={styles.inputField}
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="text"
                   id="collegeName"
                   name="collegeName"
@@ -232,10 +267,10 @@ const Signup = () => {
                   required
                 />
               </div>
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor="collegeCity">College City</label>
+              <div className="flex-1 flex flex-col">
+                <label className="text-white mb-2 font-light" htmlFor="collegeCity">College City</label>
                 <Input
-                  className={styles.inputField}
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="text"
                   id="collegeCity"
                   name="collegeCity"
@@ -245,10 +280,10 @@ const Signup = () => {
                   required
                 />
               </div>
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor="rollNumber">Roll Number</label>
+              <div className="flex-1 flex flex-col">
+                <label className="text-white mb-2 font-light" htmlFor="rollNumber">Roll Number</label>
                 <Input
-                  className={styles.inputField}
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="text"
                   id="rollNumber"
                   name="rollNumber"
@@ -258,23 +293,23 @@ const Signup = () => {
                   required
                 />
               </div>
-              <div className={styles.formGroup}>
-                  <label className={styles.label} htmlFor="userDepartment">Department</label>
-                  <Input
-                    className={styles.inputField}
-                    type="text"
-                    id="userDepartment"
-                    name="userDepartment"
-                    value={formData.userDepartment}
-                    onChange={handleInputChange}
-                    placeholder="Enter your department"
-                    required
-                  />
-                </div>
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor="academicYear">Academic Year</label>
+              <div className="flex-1 flex flex-col">
+                <label className="text-white mb-2 font-light" htmlFor="userDepartment">Department</label>
                 <Input
-                  className={styles.inputField}
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+                  type="text"
+                  id="userDepartment"
+                  name="userDepartment"
+                  value={formData.userDepartment}
+                  onChange={handleInputChange}
+                  placeholder="Enter your department"
+                  required
+                />
+              </div>
+              <div className="flex-1 flex flex-col">
+                <label className="text-white mb-2 font-light" htmlFor="academicYear">Academic Year</label>
+                <Input
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="text"
                   id="academicYear"
                   name="academicYear"
@@ -284,10 +319,10 @@ const Signup = () => {
                   required
                 />
               </div>
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor="degree">Degree</label>
+              <div className="flex-1 flex flex-col">
+                <label className="text-white mb-2 font-light" htmlFor="degree">Degree</label>
                 <Input
-                  className={styles.inputField}
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="text"
                   id="degree"
                   name="degree"
@@ -300,34 +335,33 @@ const Signup = () => {
             </div>
           </div>
 
-
-          <div className={styles.termsGroup}>
-            <Checkbox
-              id="termsAccepted"
-              name="termsAccepted"
-              checked={formData.termsAccepted}
-              onCheckedChange={(checked) => setFormData((prevData) => ({
-                ...prevData,
-                termsAccepted: checked,
-              }))} />
-            <label htmlFor="termsAccepted" className={styles.termsLabel}>
-              I accept the <a href="/terms" className={styles.link}>Terms and Conditions</a>.
-            </label>
-          </div>
-
-          <Button type="submit" className={styles.submitBtn} disabled={loading}>
-            {!loading && "Sign Up"}
-          </Button>
-
-          {/* Footer */}
-          <div className={styles.footer}>
-            <p>
-              Already have an account? <a href="/login">Login</a>
-            </p>
-          </div>
-        </form>
+          <div className="flex items-center mt-5 mb-1.5 ml-64 text-white text-sm gap-2.5">
+        <Checkbox
+          id="termsAccepted"
+          name="termsAccepted"
+          checked={formData.termsAccepted}
+          onCheckedChange={(checked) =>
+            setFormData((prevData) => ({ ...prevData, termsAccepted: checked }))
+          }
+        />
+        <label htmlFor="termsAccepted" className="text-[#d4af37] font-normal">
+          I accept the <a href="/terms" className="text-[#ffcc00] no-underline hover:underline">Terms and Conditions</a>.
+        </label>
       </div>
+
+        <Button type="submit" className={styles.submitBtn} disabled={loading}>
+          {!loading && "Sign Up"}
+        </Button>
+
+        {/* Footer */}
+        <div className="relative z-20 mt-4 text-center text-white">
+          <p className="mb-6">
+            Already have an account? <a href="/login" className="text-[#d4af37] no-underline  hover:underline">Login</a>
+          </p>
+        </div>
+      </form>
     </div>
+  </div>
   );
 };
 

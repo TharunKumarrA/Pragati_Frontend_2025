@@ -4,7 +4,7 @@ import { cva } from "class-variance-authority";
 import { X } from "lucide-react";
 import * as React from "react";
 
-import { cn } from "./lib/utils";
+import { cn } from "@/app/otp/lib_toast/utils";
 
 const ToastProvider = ToastPrimitives.Provider;
 
@@ -27,7 +27,7 @@ const toastVariants = cva(
       variant: {
         default: "border bg-white text-black",
         destructive:
-          "destructive group border-red-800 bg-red-600 text-white",
+          "destructive group border-red-800 bg-red-600 text-white", // Updated background color to red
       },
     },
     defaultVariants: {

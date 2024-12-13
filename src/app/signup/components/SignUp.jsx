@@ -159,8 +159,8 @@ const Signup = () => {
 
   return (
     <div className={styles.signupPage}>
-      <div className={`${styles.signupCard} sm:w-11/12 md:w-8/12 lg:w-1/2`}>
-        <h2 className="text-center text-white mt-12 mb-5 z-20 text-2xl">Sign Up</h2>
+      <div className={`${styles.signupCard} sm:w-11/12 md:w-8/12 lg:w-1/2  [font-family:var(--font-poppins)]`}>
+        <h2 className="text-center text-white mt-12 mb-5 z-20 text-2xl [font-family:var(--font-chicavenue)]">Sign Up</h2>
         {loading && (
           <div className={styles.loadingOverlay}>
             <div className={`${styles.loadingSpinner} ${styles[spinnerSize]}`}></div>

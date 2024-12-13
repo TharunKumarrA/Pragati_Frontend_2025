@@ -4,7 +4,7 @@ import { cva } from "class-variance-authority";
 import { X } from "lucide-react";
 import * as React from "react";
 
-import { cn } from "@/app/otp/lib_toast/utils";
+import { cn } from "@/app/signup/components/lib/utils";
 
 const ToastProvider = ToastPrimitives.Provider;
 

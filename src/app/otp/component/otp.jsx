@@ -22,7 +22,7 @@ const Otp = () => {
                 description: "A new OTP has been sent to your email.",
                 variant: "success",
             });
-            setTimer(120); // Reset timer
+            setTimer(120);
         }
     };
 
@@ -46,7 +46,7 @@ const Otp = () => {
 
     const handleOtpChange = (index, value) => {
         const updatedOtp = [...otp];
-        updatedOtp[index] = value.replace(/[^0-9]/g, ""); // Allow only digits
+        updatedOtp[index] = value.replace(/[^0-9]/g, "");
         setOtp(updatedOtp);
     };
 

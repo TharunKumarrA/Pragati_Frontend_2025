@@ -1,5 +1,5 @@
 import React from "react";
-import StatsBox from "./components/StatsBox";
+import StatsBox from "./StatsBox";
 import Image from "next/image";
 import Link from 'next/link';
 

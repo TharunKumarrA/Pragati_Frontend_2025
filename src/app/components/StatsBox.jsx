@@ -1,5 +1,3 @@
-import React from "react";
-
 const StatsBox = ({ title, value }) => {
   return (
     <div className="flex flex-col items-center justify-center px-4 py-2 md:py-4 border-2 border-white sm:p-6 bg-[#EBE3BC]/80 shadow-md rounded-lg">

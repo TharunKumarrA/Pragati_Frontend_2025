@@ -333,7 +333,7 @@ const Signup = () => {
             </div>
           </div>
 
-          <div className="flex items-center mt-5 mb-1.5 ml-64 text-white text-sm gap-2.5">
+          <div className="flex items-center mt-5 mb-1.5 ml-60  text-white text-sm gap-2.5">
         <Checkbox
           id="termsAccepted"
           name="termsAccepted"
@@ -376,7 +376,7 @@ const Signup = () => {
           <div className="flex-1 flex flex-col">
             <label className="text-white mb-2 font-light" htmlFor="userName">Name</label>
             <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
               id="userName"
               name="userName"
               value={formData.userName}
@@ -388,7 +388,7 @@ const Signup = () => {
           <div className="flex-1 flex flex-col">
             <label className="text-white mb-2 font-light" htmlFor="userEmail">Email</label>
             <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+              className="w-full py-1.5 text-black text-base bg-white border-b-2 placeholder:opacity-50 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
               type="email"
               id="userEmail"
               name="userEmail"
@@ -401,7 +401,7 @@ const Signup = () => {
           <div className="flex-1 flex flex-col">
             <label className="text-white mb-2 font-light" htmlFor="userPassword">Password</label>
             <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
               type="password"
               id="userPassword"
               name="userPassword"
@@ -414,7 +414,7 @@ const Signup = () => {
           <div className="flex-1 flex flex-col">
             <label className="text-white mb-2 font-light" htmlFor="confirmPassword">Confirm Password</label>
             <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
               type="password"
               id="confirmPassword"
               name="confirmPassword"
@@ -427,7 +427,7 @@ const Signup = () => {
           <div className="flex-1 flex flex-col">
             <label className="text-white mb-2 font-light" htmlFor="phoneNumber">Phone Number</label>
             <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
               type="text"
               id="phoneNumber"
               name="phoneNumber"
@@ -456,7 +456,7 @@ const Signup = () => {
           <div className="flex-1 flex flex-col">
             <label className="text-white mb-2 font-light" htmlFor="collegeName">College Name</label>
             <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+              className="w-full py-1.5 text-black text-base bg-white border-b-2 placeholder:opacity-50 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
               type="text"
               id="collegeName"
               name="collegeName"
@@ -469,7 +469,7 @@ const Signup = () => {
           <div className="flex-1 flex flex-col">
             <label className="text-white mb-2 font-light" htmlFor="collegeCity">College City</label>
             <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+              className="w-full py-1.5 text-black text-base bg-white  placeholder:opacity-50 border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
               type="text"
               id="collegeCity"
               name="collegeCity"
@@ -482,7 +482,7 @@ const Signup = () => {
           <div className="flex-1 flex flex-col">
             <label className="text-white mb-2 font-light" htmlFor="rollNumber">Roll Number</label>
             <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
               type="text"
               id="rollNumber"
               name="rollNumber"
@@ -495,7 +495,7 @@ const Signup = () => {
           <div className="flex-1 flex flex-col">
             <label className="text-white mb-2 font-light" htmlFor="userDepartment">Department</label>
             <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
               type="text"
               id="userDepartment"
               name="userDepartment"
@@ -508,7 +508,7 @@ const Signup = () => {
           <div className="flex-1 flex flex-col">
             <label className="text-white mb-2 font-light" htmlFor="academicYear">Academic Year</label>
             <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
               type="text"
               id="academicYear"
               name="academicYear"
@@ -521,7 +521,7 @@ const Signup = () => {
           <div className="flex-1 flex flex-col">
             <label className="text-white mb-2 font-light" htmlFor="degree">Degree</label>
             <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
               type="text"
               id="degree"
               name="degree"

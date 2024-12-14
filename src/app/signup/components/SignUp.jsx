@@ -159,13 +159,13 @@ const Signup = () => {
     <>
     <div className={styles.signupPage}>
       <div className={`${styles.signupCard} sm:w-11/12 md:w-8/12 lg:w-1/2`}>
-        <h2 className="text-center text-white mt-12 mb-5 z-20 text-2xl">Sign Up</h2>
+        <h2 className="text-center text-white mt-12 mb-5 z-20 text-2xl [font-family:var(--font-chicavenue)]">Sign Up</h2>
         {loading && (
           <div className={styles.loadingOverlay}>
             <div className={`${styles.loadingSpinner} ${styles[spinnerSize]}`}></div>
           </div>
         )}
-        <form className="flex flex-col" onSubmit={handleSubmit}>
+        <form className="flex flex-col [font-family:var(--font-poppins)]" onSubmit={handleSubmit}>
           <div className="flex justify-between gap-5 mt-8 mb-5">
             <div className="flex-1 flex flex-col gap-5">
               <div className="flex-1 flex flex-col">
@@ -363,13 +363,13 @@ const Signup = () => {
 
   <div className={styles.signupMobilePage}>
   <div className={styles.signupCard}>
-    <h2 className="text-center text-white mt-12 mb-5 z-20 text-2xl">Sign Up</h2>
+    <h2 className="text-center text-white mt-12 mb-5 z-20 text-2xl [font-family:var(--font-chicavenue)]">Sign Up</h2>
     {loading && (
       <div className={styles.loadingOverlay}>
         <div className={`${styles.loadingSpinner} ${styles[spinnerSize]}`}></div>
       </div>
     )}
-    <form className="flex flex-col" onSubmit={handleSubmit}>
+    <form className="flex flex-col [font-family:var(--font-poppins)]" onSubmit={handleSubmit}>
       <div className="flex flex-col gap-5 mt-3 mb-5">
 
         <div className="flex flex-col gap-5">

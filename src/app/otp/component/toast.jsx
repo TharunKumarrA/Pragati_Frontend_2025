@@ -76,7 +76,7 @@ ToastClose.displayName = Close.displayName;
 const ToastTitle = forwardRef(({ className, ...props }, ref) => (
   <Title
     ref={ref}
-    className={cn("text-lg font-semibold [&+div]:text-base", className)}
+    className={cn("text-lg font-semibold [&+div]:text-base [font-family:var(--font-poppins)]", className)}
     {...props}
   />
 ));
@@ -85,7 +85,7 @@ ToastTitle.displayName = Title.displayName;
 const ToastDescription = forwardRef(({ className, ...props }, ref) => (
   <Description
     ref={ref}
-    className={cn("text-base opacity-90", className)} 
+    className={cn("text-base opacity-90 [font-family:var(--font-poppins)]", className)} 
     {...props}
   />
 ));

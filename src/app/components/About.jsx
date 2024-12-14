@@ -36,7 +36,7 @@ const About = () => {
         ScrollTrigger.create({
           trigger: headline,
           start: "top 80%",
-          end: "top 40%",
+          end: "top 50%",
           animation: animation,
           scrub: 1.4,
           markers: false,
@@ -57,6 +57,7 @@ const About = () => {
   return (
     <div className="spacer">
       <div className="gallery flex">
+      
         {/* Left Section */}
         <div className="left w-1/2">
           <div className="desktopContent mx-auto w-4/5">
@@ -77,8 +78,8 @@ const About = () => {
           <div className="topImage w-full h-[10vh] relative overflow-hidden shadow-lg">
             <Image
               src="/Assets/border_style_3.jpg"
-              width={300}
-              height={300}
+              width={1000}
+              height={500}
               alt="Top Image"
               className="w-full h-full object-cover"
             />
@@ -89,8 +90,8 @@ const About = () => {
             <div className="desktopPhoto absolute w-full h-full">
               <Image
                 src="/Images/pragati.webp"
-                width={300}
-                height={300}
+                width={1000}
+                height={1000}
                 alt="Pragati"
                 className="w-full h-full object-cover"
               />
@@ -98,8 +99,8 @@ const About = () => {
             <div className="desktopPhoto absolute w-full h-full">
               <Image
                 src="/Images/asb.webp"
-                width={300}
-                height={300}
+                width={700}
+                height={700}
                 alt="ASB"
                 className="w-full h-full object-cover"
               />
@@ -110,7 +111,7 @@ const About = () => {
           <div className="bottomImage w-full h-[10vh] relative overflow-hidden shadow-lg">
             <Image
               src="/Assets/border_style_3.jpg"
-              width={300}
+              width={1000}
               height={300}
               alt="Bottom Image"
               className="w-full h-full object-cover"

@@ -28,12 +28,8 @@ const About = () => {
 
       details.forEach((detail, index) => {
         let headline = detail.querySelector("h1");
-        let animation = gsap
-          .timeline()
-          .to(photos[index], { yPercent: 0, ease: "power2.inOut" })
-          .set(allPhotos[index], { autoAlpha: 0 });
-          
-
+        let animation = gsap.timeline()
+        animation.to(photos[index], { yPercent: 0, ease: "power2.inOut" }).set(allPhotos[index], { autoAlpha: 0 });
         ScrollTrigger.create({
           trigger: headline,
           start: "top 80%",

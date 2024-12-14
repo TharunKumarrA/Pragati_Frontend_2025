@@ -10,28 +10,28 @@ const GodModal = ({ god, closeModal }) => {
   console.log(god);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4">
       {/* Modal Container */}
-      <div className="relative w-[90%] max-w-5xl bg-gradient-to-br from-white to-gray-100 rounded-lg p-8 shadow-lg">
+      <div className="relative w-full max-w-2xl bg-gradient-to-br from-white to-gray-100 rounded-lg p-6 shadow-lg max-md:w-[95%] max-md:p-4">
         {/* Close Button */}
         <button
           onClick={closeModal}
-          className="absolute top-4 right-4 text-gray-600 hover:text-black"
+          className="absolute top-3 right-3 text-gray-600 hover:text-black z-50"
         >
           <X size={24} />
         </button>
 
         {/* Content Flexbox */}
-        <div className="flex flex-row">
+        <div className="flex flex-row max-md:flex-col max-md:items-center">
           {/* Left Image */}
-          <div className="w-[35%] relative p-4">
-            <div className="border-4 border-gray-300 rounded-lg shadow-md">
+          <div className="w-[40%] relative p-2 max-md:w-[80%] max-md:p-0 max-md:mb-4">
+            <div className="border-2 border-gray-300 rounded-lg shadow-md overflow-hidden">
               <Image
                 src={god.god_image_src}
                 alt={`${god.god_details.god_name} Image`}
                 layout="responsive"
-                width={500}
-                height={500}
+                width={300}
+                height={300}
                 className="rounded-lg"
                 priority
               />
@@ -39,28 +39,26 @@ const GodModal = ({ god, closeModal }) => {
           </div>
 
           {/* Right Details */}
-          <div className="w-[65%] px-6 flex flex-col justify-center">
+          <div className="w-[60%] px-6 flex flex-col justify-center max-md:w-full max-md:px-0">
             {/* Title */}
-            <h2 className="text-3xl font-bold mb-4 uppercase text-gray-800">
-              Hearken to {god.god_details.god_name}&apos;<span className="text-xl">s</span> call
+            <h2 className="text-2xl font-bold mb-2 uppercase text-gray-800 max-md:text-lg text-center">
+              {god.god_details.god_name}&apos;s Call
             </h2>
 
             {/* Description with Markdown */}
-            <div className="text-gray-700 leading-relaxed text-sm [font-family:var(--font-poppins)]">
-              <ReactMarkdown>
-                {god.god_details.description}
-              </ReactMarkdown>
+            <div className="text-gray-600 leading-relaxed text-sm [font-family:var(--font-poppins)] max-md:text-xs max-md:text-center">
+              <ReactMarkdown>{god.god_details.description}</ReactMarkdown>
             </div>
 
             {/* Emblems and Button Row */}
-            <div className="flex flex-row items-center justify-between gap-4 mt-6">
+            <div className="flex flex-row items-center justify-between gap-4 mt-4 max-md:flex-col max-md:gap-2">
               {/* Emblems */}
               {god.emblems_src && (
-                <div className="flex flex-row gap-4">
+                <div className="flex flex-row gap-2 max-md:justify-center">
                   {god.emblems_src.map((emblem, index) => (
                     <div
                       key={index}
-                      className="w-20 h-20 relative rounded-full border-2 border-gray-300"
+                      className="w-12 h-12 relative rounded-full border-2 border-gray-300"
                     >
                       <Image
                         src={emblem}
@@ -76,7 +74,7 @@ const GodModal = ({ god, closeModal }) => {
               )}
 
               {/* Button */}
-              <div className="button px-8 py-2 text-2xl tracking-wider text-center text-black border-2 border-black bg-[linear-gradient(90deg, #FACC15, #E8D096)] rounded-full hover:bg-opacity-80">
+              <div className="button px-6 py-2 text-lg tracking-wider text-center text-black border-2 border-black bg-[linear-gradient(90deg, #FACC15, #E8D096)] rounded-full hover:bg-opacity-80 max-md:text-sm max-md:px-4 max-md:py-1">
                 MY EVENTS
               </div>
             </div>

@@ -1,11 +1,10 @@
-import React from "react";
 import StatsBox from "./StatsBox";
 import Image from "next/image";
 import Link from 'next/link';
 
 const HeroLanding = () => {
   return (
-    <div className="relative h-screen flex flex-col">
+    <div className="relative h-screen flex flex-col cursor-default">
       <div
         className="flex flex-col items-center sm:justify-center md:justify-start pt-12 flex-grow bg-cover bg-center"
         style={{ backgroundImage: "url('/Images/Hero.webp')" }}

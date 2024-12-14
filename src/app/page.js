@@ -1,9 +1,20 @@
+"use client";
+import Home from './components/home_page';
+import HeroSection from './components/animation_page/hero_section';
+import LargeInnovationBanner from './components/animation_page/large_innovation_banner';
+import MediumInnovationBanner from './components/animation_page/medium_innovation_banner';
+import SmallInnovationBanner from './components/animation_page/small_innovation_banner';
+import ChallengePrompt from './components/animation_page/challenge_prompt';
 
-export default function Home() {
+export default function AnimationPage() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-6xl font-bold">Welcome to Pragati 2025</h1>
-      <p className="mt-4 text-2xl">ASB fest</p>
-    </div>
+    <main>
+      <Home />
+      <HeroSection />
+      <LargeInnovationBanner />
+      <MediumInnovationBanner />
+      <SmallInnovationBanner />
+      <ChallengePrompt />
+    </main>
   );
 }

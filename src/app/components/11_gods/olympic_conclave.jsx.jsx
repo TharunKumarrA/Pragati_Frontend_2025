@@ -1,3 +1,4 @@
+"use client"
 import GodsGallery from "./gods_gallery";
 
 function OlympicConclave() {

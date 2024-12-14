@@ -20,10 +20,19 @@ const Page = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [toasts, setToasts] = useState([]);
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+const validate = require('validate.js');
+const constraints = {
+  email: {
+    presence: true, 
+    email: true   
+  }
+};
+
+const validateEmail = (email) => {
+  const result = validate({ email }, constraints);
+  return !result; 
+};
+
 
   const addToast = (title, description, variant = "default") => {
     const id = Math.random().toString(36).substr(2, 9);

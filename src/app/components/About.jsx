@@ -13,7 +13,7 @@ const About = () => {
     );
     const photos = gsap.utils.toArray(".desktopPhoto:not(:first-child)");
 
-    gsap.set(photos, { xPercent: 101 });
+    gsap.set(photos, { yPercent: -101 });
 
     const allPhotos = gsap.utils.toArray(".desktopPhoto");
 
@@ -30,8 +30,9 @@ const About = () => {
         let headline = detail.querySelector("h1");
         let animation = gsap
           .timeline()
-          .to(photos[index], { xPercent: 0, ease: "power2.inOut" })
+          .to(photos[index], { yPercent: 0, ease: "power2.inOut" })
           .set(allPhotos[index], { autoAlpha: 0 });
+          
 
         ScrollTrigger.create({
           trigger: headline,

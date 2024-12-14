@@ -20,18 +20,11 @@ const Page = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [toasts, setToasts] = useState([]);
 
-const validate = require('validate.js');
-const constraints = {
-  email: {
-    presence: true, 
-    email: true   
-  }
-};
+  const validator = require('validator');
 
-const validateEmail = (email) => {
-  const result = validate({ email }, constraints);
-  return !result; 
-};
+  const validateEmail = (email) => {
+    return validator.isEmail(email);
+  };  
 
 
   const addToast = (title, description, variant = "default") => {

@@ -174,11 +174,13 @@ function GodsGallery() {
     setSelectedGod(null);
   };
 
+
   return (
     <div>
       {/* Cards for larger screens */}
-      <div className="hidden md:flex flex-wrap gap-4 justify-center mt-10">
+      <div className="hidden md:flex flex-nowrap gap-1 justify-center mt-10 w-full">
         {gods.map((god, index) => (
+          console.log(god),
           <div
             key={index}
             className={`transition-transform duration-300 transform ${
@@ -193,40 +195,39 @@ function GodsGallery() {
           </div>
         ))}
       </div>
-  
+
       {/* Carousel for small screens */}
       <div className="block md:hidden mt-5">
         <Swiper
           modules={[Pagination]}
-          spaceBetween={15}
-          slidesPerView={1.2} // Show parts of next/previous slides
-          centeredSlides={true} // Center the active slide
+          spaceBetween={15} // Reduced spacing for better mobile fit
+          slidesPerView={1}
           pagination={{ clickable: true }}
           className="w-full max-w-screen-md mx-auto"
         >
           {gods.map((god, index) => (
             <SwiperSlide key={index}>
               <div
-                className="flex justify-center items-center h-full p-4"
+                className="flex justify-center items-center h-full p-4" // Added padding for proper spacing
                 onClick={() => openModal(god)}
               >
                 <GodCard
                   god_image_src={god.god_image_src}
                   god_details={god.god_details}
-                  className="max-w-[90%] mx-auto transition-transform duration-300"
+                  className="max-w-[90%] mx-auto" // Ensure the card stays responsive
                 />
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-  
+
       {/* Modal */}
       {selectedGod && (
         <GodModal
           god={selectedGod}
           closeModal={closeModal}
-          className="z-50"
+          className="z-50" // Ensure the modal overlays correctly
         />
       )}
     </div>

@@ -12,7 +12,7 @@ function OlympicConclave() {
         <div className="text-5xl tracking-wider text-center text-black max-md:max-w-full max-md:text-3xl">
           GODS & GODDESS
         </div>
-        <div className="w-full mt-4 overflow-hidden">
+        <div className="w-full mt-3 overflow-hidden px-8 max-md:px-0">
           <GodsGallery />
         </div>
       </div>

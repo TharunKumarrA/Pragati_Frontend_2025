@@ -1,4 +1,3 @@
-import React from "react";
 import {
   ArrowRight,
   Facebook,
@@ -17,6 +16,7 @@ import Link from "next/link";
 const Footer = ({ current_page }) => {
   const pages = [
     { name: "HOME", href: "/" },
+    {name: "EVENTS", href: "/events"},
     { name: "TEAM", href: "/team" },
     { name: "PRIVACY POLICY", href: "/privacy-policy" },
   ];
@@ -63,7 +63,7 @@ const Footer = ({ current_page }) => {
               >
                 <span className="text-gray-400 hover:text-white flex">
                   <p>Amrita School of Business</p>
-                  <MapPin className="ml-[4px]" />
+                  <MapPin className="ml-[4px] w-5 h-5" />
                 </span>
               </Link>
               <p className="text-gray-500 text-sm">Coimbatore Campus</p>
@@ -75,31 +75,31 @@ const Footer = ({ current_page }) => {
             {/* Social Media Links */}
             <div className="mt-3">
               <h2 className="text-white font-bold">FOLLOW US</h2>
-              <div className="flex flex-wrap mt-1 w-28 gap-2">
+              <div className="flex flex-wrap mt-1 w-36 gap-2">
                 {[
                   {
                     href: "", // need to add the social media links
-                    icon: <Facebook />,
+                    icon: <Facebook className="w-4 h-4"/>,
                   },
                   {
                     href: "",
-                    icon: <Twitter />,
+                    icon: <Twitter className="w-4 h-4"/>,
                   },
                   {
                     href: "",
-                    icon: <Instagram />,
+                    icon: <Instagram className="w-4 h-4"/>,
                   },
                   {
                     href: "",
-                    icon: <Linkedin />,
+                    icon: <Linkedin className="w-4 h-4"/>,
                   },
                   {
                     href: "",
-                    icon: <Youtube />,
+                    icon: <Youtube className="w-4 h-4"/>,
                   },
                 ].map((link, index) => (
                   <Link key={index} href={link.href} target="_blank">
-                    <span className="text-gray-600 hover:text-white">
+                    <span className="text-gray-500 hover:text-white">
                       {link.icon}
                     </span>
                   </Link>
@@ -116,7 +116,7 @@ const Footer = ({ current_page }) => {
                   >
                     AMRITA.EDU
                   </Link>
-                  <ExternalLink className="pr-1 pl-1 text-gray-500 text-xl mt-0.5 hover:scale-120" />
+                  <ExternalLink className="pr-1 pl-1 text-gray-500 text-xl -mt-0.5 hover:scale-120" />
                 </div>
               </div>
             </div>
@@ -127,7 +127,7 @@ const Footer = ({ current_page }) => {
                 <div key={page.name} className="text-gray-400 hover:text-white">
                   {current_page === page.name.toLowerCase() ? (
                     <div className="flex items-center text-white">
-                      <CircleDot className="align-middle mr-1" />
+                      <CircleDot className="align-middle mr-1 w-4 h-4" />
                       <Link href={page.href}>{page.name}</Link>
                     </div>
                   ) : (

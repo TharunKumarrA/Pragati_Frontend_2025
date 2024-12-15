@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+  
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-poppins, sans-serif);
+    @apply bg-gradient-to-b from-[#fffdeb] to-[#f3e5c0];
+    background-size: 100% 100%;
+    min-height: 100vh;
+  }
+
+h1{
+  font-family: var(--font-chicavenue, sans-serif);
+}
+p{
+  font-family: var(--font-poppins, sans-serif);
+}

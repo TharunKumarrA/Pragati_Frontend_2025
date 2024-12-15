@@ -1,12 +1,19 @@
 "use client";
-import HomePage from './components/home_page';
-import AnimationPage from './components/animation_page/animation_page';
+import AnimationPage from '@/app/components/animation_page/animation_page';
+import About from "@/app/components/About";
+import HeroLanding from "@/app/components/HeroLanding";
+import Sponsors from "@/app/components/Sponsors";
+import OlympicConclave from "@/app/components/11_gods/olympic_conclave.jsx";
 
 export default function Home() {
   return (
-    <main>
-      <HomePage />
+    <div>
+      <HeroLanding/>
+      <Sponsors/>
+      <About/>
       <AnimationPage />
-    </main>
+      <OlympicConclave />
+    </div>
   );
 }
+

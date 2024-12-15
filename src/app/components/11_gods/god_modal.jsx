@@ -39,7 +39,7 @@ const GodModal = ({ god, closeModal }) => {
           {/* Right Details */}
           <div className="w-[60%] px-6 flex flex-col justify-center max-md:w-full max-md:px-0">
             {/* Title */}
-            <h2 className="text-2xl font-bold mb-2 uppercase text-gray-800 max-md:text-lg text-center">
+            <h2 className="text-2xl font-bold mb-2 uppercase text-gray-800 max-md:text-lg text-center [font-family:var(--font-chicavenue)]">
               {god.god_details.god_name}&apos;s Call
             </h2>
 
@@ -72,7 +72,7 @@ const GodModal = ({ god, closeModal }) => {
               )}
 
               {/* Button */}
-              <div className="button px-6 py-2 text-lg tracking-wider text-center text-black border-2 border-black bg-[linear-gradient(90deg, #FACC15, #E8D096)] rounded-full hover:bg-opacity-80 max-md:text-sm max-md:px-4 max-md:py-1">
+              <div className="button px-6 py-2 text-lg tracking-wider text-center text-black border-2 border-black bg-[linear-gradient(90deg, #FACC15, #E8D096)] rounded-full hover:bg-opacity-80 max-md:text-sm max-md:px-4 max-md:py-1 [font-family:var(--font-chicavenue)]">
                 MY EVENTS
               </div>
             </div>

@@ -6,6 +6,7 @@ import Footer from "@/app/components/footer";
 import HeroLanding from "@/app/components/HeroLanding";
 import Sponsors from "@/app/components/Sponsors";
 import OlympicConclave from "@/app/components/11_gods/olympic_conclave.jsx";
+import FilmGallery from "./components/gallery";
 
 export default function Home() {
   const pathname = usePathname(); // Get the current pathname
@@ -17,7 +18,8 @@ export default function Home() {
       <Sponsors />
       <About />
       <OlympicConclave />
-      <Footer current_page={currentPage} /> {/* Pass currentPage to Footer */}
+      <FilmGallery />
+      <Footer current_page={currentPage} />
     </div>
   );
 }

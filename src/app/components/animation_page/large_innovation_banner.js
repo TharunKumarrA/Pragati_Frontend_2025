@@ -2,8 +2,13 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import robotHand from "/public/images/robot_hand_alpha.png";
 import humanHand from "/public/images/human_hand_alpha.png";
+
+// Register ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
 
 export default function LargeInnovationBanner() {
   const containerRef = useRef(null);
@@ -12,12 +17,6 @@ export default function LargeInnovationBanner() {
   const textRef = useRef(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const { gsap } = require("gsap");
-    const { ScrollTrigger } = require("gsap/ScrollTrigger");
-    gsap.registerPlugin(ScrollTrigger);
-
     const ctx = gsap.context(() => {
       // Robot Hand Animation
       gsap.fromTo(

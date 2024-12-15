@@ -35,7 +35,7 @@ function GodCard({ god_image_src, god_details }) {
         transition-all duration-300 ease-out 
         max-md:opacity-100 max-md:translate-y-0"
       >
-        <div className="text-xl font-bold">{god_name}</div>
+        <div className="text-xl font-bold [font-family:var(--font-chicavenue)]">{god_name}</div>
         <div className="text-sm text-gray-500 leading-tight whitespace-nowrap overflow-hidden [font-family:var(--font-poppins)]">
           {god_type}
         </div>

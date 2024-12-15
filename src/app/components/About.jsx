@@ -7,14 +7,11 @@ import Image from "next/image";
 const About = () => {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-
     const details = gsap.utils.toArray(
       ".desktopContentSection:not(:first-child)"
     );
     const photos = gsap.utils.toArray(".desktopPhoto:not(:first-child)");
-
     gsap.set(photos, { yPercent: -101 });
-
     const allPhotos = gsap.utils.toArray(".desktopPhoto");
 
     let mm = gsap.matchMedia();
@@ -28,19 +25,45 @@ const About = () => {
 
       details.forEach((detail, index) => {
         let headline = detail.querySelector("h1");
-        let animation = gsap.timeline()
-        animation.to(photos[index], { yPercent: 0, ease: "power2.inOut" }).set(allPhotos[index], { autoAlpha: 0 });
+        let animation_1 = gsap.timeline();
+        animation_1
+          .to(photos[index], { yPercent: 0, ease: "power2.inOut" })
+          .set(allPhotos[index], { autoAlpha: 0 });
         ScrollTrigger.create({
           trigger: headline,
           start: "top 80%",
           end: "top 50%",
-          animation: animation,
+          animation: animation_1,
           scrub: 1.4,
           markers: false,
         });
       });
     });
 
+    mm.add("(max-width: 599px)", () => {
+      ScrollTrigger.create({
+        trigger: ".gallery",
+        start: "top top",
+        end: "bottom 50%",
+        pin: ".right",
+      });
+      details.forEach((detail, index) => {
+        let headline = detail.querySelector("h1");
+        console.log(headline);
+        let animation_2 = gsap.timeline();
+        animation_2
+          .to(photos[index], { yPercent: 0, ease: "power2.inOut" })
+          .set(allPhotos[index], { autoAlpha: 0 });
+
+        ScrollTrigger.create({
+          trigger: headline,
+          start: "top 80%",
+          end: "bottom 50%",
+          animation: animation_2,
+          scrub: 1,
+        });
+      });
+    });
     return () => {
       mm.revert();
     };
@@ -53,26 +76,29 @@ const About = () => {
 
   return (
     <div className="spacer">
-      <div className="gallery flex">
-      
+      <div className="gallery flex flex-col-reverse md:flex-row">
         {/* Left Section */}
-        <div className="left w-1/2">
-          <div className="desktopContent mx-auto w-4/5">
-            <div className="desktopContentSection flex flex-col justify-center min-h-screen">
-              <h1 className="font-chicavenue text-[3rem]">About Pragati</h1>
-              <p className="text-lg text-justify">{pragati}</p>
+        <div className="left w-full md:w-1/2">
+          <div className="desktopContent mx-auto w-[85%] md:w-4/5">
+            <div className="desktopContentSection flex flex-col justify-center min-h-[50vh] md:min-h-screen">
+              <h1 className="font-chicavenue text-[2rem] md:text-[3rem]">
+                About Pragati
+              </h1>
+              <p className="text-md md:text-lg text-justify">{pragati}</p>
             </div>
             <div className="desktopContentSection flex flex-col justify-center min-h-screen">
-              <h1 className="text-[3rem] font-bold">About ASB</h1>
-              <p className="text-lg text-justify">{asb}</p>
+              <h1 className="text-[2rem] md:text-[3rem] font-bold">
+                About ASB
+              </h1>
+              <p className="text-md md:text-lg text-justify">{asb}</p>
             </div>
           </div>
         </div>
 
         {/* Right Section */}
-        <div className="right h-screen w-1/2 flex flex-col justify-center">
+        <div className="right h-[45vh] md:h-screen w-full md:w-1/2 flex flex-col justify-center">
           {/* Top Image */}
-          <div className="topImage w-full h-[10vh] relative overflow-hidden shadow-lg">
+          <div className="topImage w-full h-[5vh] md:h-[10vh] relative overflow-hidden shadow-lg">
             <Image
               src="/Assets/border_style_3.jpg"
               width={1000}
@@ -83,7 +109,7 @@ const About = () => {
           </div>
 
           {/* Main Images */}
-          <div className="desktopPhotos h-[80vh] relative overflow-hidden shadow-lg">
+          <div className="desktopPhotos h-[40vh] md:h-[80vh] relative overflow-hidden shadow-lg">
             <div className="desktopPhoto absolute w-full h-full">
               <Image
                 src="/Images/pragati.webp"
@@ -105,7 +131,7 @@ const About = () => {
           </div>
 
           {/* Bottom Image */}
-          <div className="bottomImage w-full h-[10vh] relative overflow-hidden shadow-lg">
+          <div className="bottomImage w-full h-[5vh] md:h-[10vh] relative overflow-hidden shadow-lg">
             <Image
               src="/Assets/border_style_3.jpg"
               width={1000}

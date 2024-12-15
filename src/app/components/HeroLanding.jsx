@@ -10,7 +10,8 @@ const HeroLanding = () => {
         style={{ backgroundImage: "url('/Images/Hero.webp')" }}
       >
         <Link href="https://www.amrita.edu/school/business/coimbatore/" target="_blank" passHref>
-        <div className="mt-3 px-3 py-2 bg-white/5 backdrop-blur-sm border border-white rounded-xl">
+        <div className="mt-3 px-3 py-2 bg-white/5 backdrop-blur-sm border border-white rounded-xl transform transition-all duration-500 ease-in-out hover:scale-105 hover:shadow-lg hover:shadow-[#f3e5c0]/50 hover:ring-2 hover:ring-[#f3e5c0]/50">
+
           <div className="flex gap-2 items-center justify-center">
             <Image
               src="/Assets/location.png"

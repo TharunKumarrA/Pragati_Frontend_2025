@@ -1,6 +1,7 @@
 import About from "./components/About";
 import HeroLanding from "./components/HeroLanding";
 import Sponsors from "./components/Sponsors";
+import OlympicConclave from "@/app/components/11_gods/olympic_conclave.jsx";
 
 export default function Home() {
   return (
@@ -8,7 +9,8 @@ export default function Home() {
       <HeroLanding/>
       <Sponsors/>
       <About/>
-      <div className="p-10 text-center">Storyline Starts here</div>
+      <OlympicConclave />
     </div>
   );
 }
+

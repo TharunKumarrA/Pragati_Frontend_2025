@@ -56,7 +56,7 @@ const GodModal = ({ god, closeModal }) => {
                   {god.emblems_src.map((emblem, index) => (
                     <div
                       key={index}
-                      className="w-12 h-12 relative rounded-full border-2 border-gray-300"
+                      className="w-16 h-16 relative rounded-full border-2 border-gray-300"
                     >
                       <Image
                         src={emblem}

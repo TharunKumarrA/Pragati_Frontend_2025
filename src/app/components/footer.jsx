@@ -27,7 +27,7 @@ const Footer = ({ current_page }) => {
         {/* Footer Image */}
         <div className="p-6">
           <Image
-            src="/images/footer_image.png"
+            src="/Images/footer_image.png"
             alt="footerImage"
             width={600}
             height={600}

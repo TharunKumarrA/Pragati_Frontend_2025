@@ -6,6 +6,7 @@ import { Checkbox } from './checkbox';
 import { toast } from "./hooks/use-toast";
 import { Input } from './input';
 import styles from "./SignUp.module.css";
+import axios from 'axios';
 
 const Signup = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -64,92 +65,129 @@ const Signup = () => {
   const amritaRegex =
     /^[a-zA-Z0-9._%+-]+@(cb\.students\.amrita\.edu|cb\.amrita\.edu|av\.students\.amrita\.edu|av\.amrita\.edu)$/;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setSpinnerSize("large");
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^[0-9]{10}$/;
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-    if (formData.isAmrita) {
-      if (!amritaRegex.test(formData.userEmail)) {
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      setLoading(true);
+      setSpinnerSize("large");
+    
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^[0-9]{10}$/;
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    
+      if (formData.isAmrita) {
+        if (!amritaRegex.test(formData.userEmail)) {
+          toast({
+            title: "Invalid email format for Amrita student.",
+            description: "Use an Amrita domain email (e.g., @cb.students.amrita.edu).",
+            variant: "destructive",
+          });
+          setLoading(false);
+          setSpinnerSize("small");
+          return;
+        }
+      } else {
+        if (!emailRegex.test(formData.userEmail)) {
+          toast({
+            title: "Invalid email format.",
+            description: "Enter a valid email address.",
+            variant: "destructive",
+          });
+          setLoading(false);
+          setSpinnerSize("small");
+          return;
+        }
+      }
+    
+      if (!phoneRegex.test(formData.phoneNumber)) {
         toast({
-          title: "Invalid email format for Amrita student.",
-          description: "Use an Amrita domain email (e.g., @cb.students.amrita.edu).",
+          title: "Phone number must be 10 digits.",
           variant: "destructive",
         });
         setLoading(false);
         setSpinnerSize("small");
         return;
       }
-    } else {
-      if (!emailRegex.test(formData.userEmail)) {
+    
+      if (formData.userPassword !== formData.confirmPassword) {
         toast({
-          title: "Invalid email format.",
-          description: "Enter a valid email address.",
+          title: "Passwords do not match.",
           variant: "destructive",
         });
         setLoading(false);
         setSpinnerSize("small");
         return;
       }
-    }
-
-    if (!phoneRegex.test(formData.phoneNumber)) {
-      toast({
-        title: "Phone number must be 10 digits.",
-        variant: "destructive",
-      });
-      setLoading(false);
-      setSpinnerSize("small");
-      return;
-    }
-
-    if (formData.userPassword !== formData.confirmPassword) {
-      toast({
-        title: "Passwords do not match.",
-        variant: "destructive",
-      });
-      setLoading(false);
-      setSpinnerSize("small");
-      return;
-    }
-
-    if (!passwordRegex.test(formData.userPassword)) {
-      toast({
-        title: "Weak password.",
-        description:
-          "Password must be at least 8 characters long, include uppercase, lowercase, a number, and a special character.",
-        variant: "destructive",
-      });
-      setLoading(false);
-      setSpinnerSize("small");
-      return;
-    }
-
-    if (!formData.termsAccepted) {
-      toast({
-        title: "Terms not accepted.",
-        description: "You must accept the terms and conditions.",
-        variant: "destructive",
-      });
-      setLoading(false);
-      setSpinnerSize("small");
-      return;
-    }
-
-    setTimeout(() => {
-      toast({
-        title: "Success!",
-        description: "Form submitted successfully.",
-        variant: "success",
-      });
-      setLoading(false);
-      setSpinnerSize("small");
-    }, 1500);
-  };
+    
+      if (!passwordRegex.test(formData.userPassword)) {
+        toast({
+          title: "Weak password.",
+          description:
+            "Password must be at least 8 characters long, include uppercase, lowercase, a number, and a special character.",
+          variant: "destructive",
+        });
+        setLoading(false);
+        setSpinnerSize("small");
+        return;
+      }
+    
+      if (!formData.termsAccepted) {
+        toast({
+          title: "Terms not accepted.",
+          description: "You must accept the terms and conditions.",
+          variant: "destructive",
+        });
+        setLoading(false);
+        setSpinnerSize("small");
+        return;
+      }
+    
+      try {
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/signup`,
+          JSON.stringify({
+            userEmail: formData.userEmail,
+            userPassword: formData.userPassword,
+            userName: formData.userName,
+            rollNumber: formData.rollNumber,
+            phoneNumber: formData.phoneNumber,
+            collegeName: formData.collegeName,
+            collegeCity: formData.collegeCity,
+            userDepartment: formData.userDepartment,
+            academicYear: formData.academicYear,
+            degree:formData.degree,
+            isAmrita: formData.isAmrita,
+          }),
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+    
+        if (response.status === 200 || response.status === 201) {
+          toast({
+            title: "Success!",
+            description: "Form submitted successfully.",
+            variant: "success",
+          });
+        } else {
+          toast({
+            title: "Submission failed.",
+            description: "Something went wrong. Please try again later.",
+            variant: "destructive",
+          });
+        }
+      } catch (error) {
+        toast({
+          title: "Error occurred.",
+          description: error.response?.data?.message || "An error occurred while submitting the form.",
+          variant: "destructive",
+        });
+      } finally {
+        setLoading(false);
+        setSpinnerSize("small");
+      }
+    };
 
   if (!isMounted) {
     return null;

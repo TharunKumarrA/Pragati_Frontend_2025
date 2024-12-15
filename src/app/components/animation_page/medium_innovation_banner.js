@@ -15,7 +15,7 @@ export default function MediumInnovationBanner() {
 
       {/* Robot Hand */}
       <Image
-        src={"Images/robot_hand_alpha.png"}
+        src={"/Images/robot_hand_alpha.png"}
         alt="Robot Hand"
         width={300}
         height={200}
@@ -25,7 +25,7 @@ export default function MediumInnovationBanner() {
 
       {/* Human Hand */}
       <Image
-        src={"Images/human_hand_alpha.png"}
+        src={"/Images/human_hand_alpha.png"}
         alt="Human Hand"
         width={300}
         height={200}

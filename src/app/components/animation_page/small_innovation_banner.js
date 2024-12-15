@@ -15,7 +15,7 @@ export default function SmallInnovationBanner() {
 
       {/* Robot Hand */}
       <Image
-        src={"Images/robot_hand_alpha.png"}
+        src={"/Images/robot_hand_alpha.png"}
         alt="Robot Hand"
         width={200}
         height={150}
@@ -25,7 +25,7 @@ export default function SmallInnovationBanner() {
 
       {/* Human Hand */}
       <Image
-        src={"Images/human_hand_alpha.png"}
+        src={"/Images/human_hand_alpha.png"}
         alt="Human Hand"
         width={200}
         height={150}

@@ -1,14 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react"; // Import Swiper and SwiperSlide components
 import { Pagination } from "swiper/modules"; // Correct way to import Pagination module
 import "swiper/css";
 import "swiper/css/pagination";
-import { X } from "lucide-react";
-import Image from "next/image";
 import GodCard from "./god_card";
 import GodModal from "./god_modal";
-
+  
 function GodsGallery() {
   const gods = [
     {
@@ -180,7 +178,6 @@ function GodsGallery() {
       {/* Cards for larger screens */}
       <div className="hidden md:flex flex-nowrap gap-1 justify-center mt-10 w-full">
         {gods.map((god, index) => (
-          console.log(god),
           <div
             key={index}
             className={`transition-transform duration-300 transform ${

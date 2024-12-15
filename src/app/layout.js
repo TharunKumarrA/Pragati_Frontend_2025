@@ -1,6 +1,6 @@
 import Head from "next/head";
 import localFont from "next/font/local";
-import "./styles/globals.css";
+import "@/app/styles/globals.css";
 
 const chicAvenue = localFont({
   src: "/fonts/ChicAvenue.woff",

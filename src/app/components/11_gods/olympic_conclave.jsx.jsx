@@ -1,5 +1,5 @@
 "use client";
-import GodsGallery from "./gods_gallery";
+import GodsGallery from "@/app/components/11_gods/gods_gallery";
 
 function OlympicConclave() {
   return (

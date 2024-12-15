@@ -7,12 +7,10 @@ import ReactMarkdown from "react-markdown";
 const GodModal = ({ god, closeModal }) => {
   if (!god) return null;
 
-  console.log(god);
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4">
       {/* Modal Container */}
-      <div className="relative w-full max-w-2xl bg-gradient-to-br from-white to-gray-100 rounded-lg p-6 shadow-lg max-md:w-[95%] max-md:p-4">
+      <div className="relative w-full max-w-4xl bg-gradient-to-br from-white to-gray-100 rounded-lg p-6 shadow-lg max-md:w-[95%] max-md:p-4">
         {/* Close Button */}
         <button
           onClick={closeModal}
@@ -24,7 +22,7 @@ const GodModal = ({ god, closeModal }) => {
         {/* Content Flexbox */}
         <div className="flex flex-row max-md:flex-col max-md:items-center">
           {/* Left Image */}
-          <div className="w-[40%] relative p-2 max-md:w-[80%] max-md:p-0 max-md:mb-4">
+          <div className="w-[40%] flex items-center justify-center relative p-2 max-md:w-[80%] max-md:p-0 max-md:mb-4">
             <div className="border-2 border-gray-300 rounded-lg shadow-md overflow-hidden">
               <Image
                 src={god.god_image_src}
@@ -51,7 +49,7 @@ const GodModal = ({ god, closeModal }) => {
             </div>
 
             {/* Emblems and Button Row */}
-            <div className="flex flex-row items-center justify-between gap-4 mt-4 max-md:flex-col max-md:gap-2">
+            <div className="flex flex-row items-center justify-between gap-4 mt-6 lg:mt-8 max-md:flex-col max-md:gap-2">
               {/* Emblems */}
               {god.emblems_src && (
                 <div className="flex flex-row gap-2 max-md:justify-center">

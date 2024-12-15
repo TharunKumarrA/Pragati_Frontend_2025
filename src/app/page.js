@@ -1,4 +1,4 @@
-import OlympicConclave from "./components/11_gods/olympic_conclave.jsx";
+import OlympicConclave from "@/app/components/11_gods/olympic_conclave.jsx";
 
 export default function Home() {
   return (

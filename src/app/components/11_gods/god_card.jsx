@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import React from "react";
 
 function GodCard({ god_image_src, god_details }) {
   const { god_name, god_type, dept } = god_details;
@@ -15,7 +14,7 @@ function GodCard({ god_image_src, god_details }) {
         className="relative w-full h-[272px] rounded-xl overflow-hidden 
         transition-all duration-300 ease-out 
         group-hover:w-[160%] group-hover:h-[300px] 
-        max-md:w-[160%] max-md:h-[300px]"
+        max-md:w-[200%] max-md:h-[300px]"
       >
         <Image
           src={god_image_src}

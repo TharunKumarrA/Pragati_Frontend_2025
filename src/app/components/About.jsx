@@ -49,7 +49,7 @@ const About = () => {
       });
       details.forEach((detail, index) => {
         let headline = detail.querySelector("h1");
-        console.log(headline);
+        //console.log(headline);
         let animation_2 = gsap.timeline();
         animation_2
           .to(photos[index], { yPercent: 0, ease: "power2.inOut" })

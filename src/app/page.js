@@ -7,7 +7,6 @@ import About from "@/app/components/About";
 import OlympicConclave from "@/app/components/11_gods/olympic_conclave.jsx";
 import AnimationPage from "@/app/components/animation_page/animation_page";
 import Footer from "@/app/components/footer";
-import FilmGallery from "./components/gallery";
 
 export default function Home() {
   const pathname = usePathname(); 
@@ -20,7 +19,6 @@ export default function Home() {
       <About />
       <AnimationPage />
       <OlympicConclave />
-      <FilmGallery />
       <Footer current_page={currentPage} /> {}
     </div>
   );

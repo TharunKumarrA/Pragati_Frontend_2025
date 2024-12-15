@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import robotHand from "/public/images/robot_hand_alpha.png";
-import humanHand from "/public/images/human_hand_alpha.png";
 
 export default function MediumInnovationBanner() {
   return (
@@ -17,7 +15,7 @@ export default function MediumInnovationBanner() {
 
       {/* Robot Hand */}
       <Image
-        src={robotHand}
+        src={"Images/robot_hand_alpha.png"}
         alt="Robot Hand"
         width={300}
         height={200}
@@ -27,7 +25,7 @@ export default function MediumInnovationBanner() {
 
       {/* Human Hand */}
       <Image
-        src={humanHand}
+        src={"Images/human_hand_alpha.png"}
         alt="Human Hand"
         width={300}
         height={200}

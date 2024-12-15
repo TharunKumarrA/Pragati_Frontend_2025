@@ -4,8 +4,6 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import robotHand from "/public/images/robot_hand_alpha.png";
-import humanHand from "/public/images/human_hand_alpha.png";
 
 // Register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
@@ -104,7 +102,7 @@ export default function LargeInnovationBanner() {
       {/* Robot Hand */}
       <Image
         ref={robotHandRef}
-        src={robotHand}
+        src={"Images/robot_hand_alpha.png"}
         alt="Robot Hand"
         width={600}
         height={600}
@@ -120,7 +118,7 @@ export default function LargeInnovationBanner() {
       {/* Human Hand */}
       <Image
         ref={humanHandRef}
-        src={humanHand}
+        src={"Images/human_hand_alpha.png"}
         alt="Human Hand"
         width={600}
         height={600}

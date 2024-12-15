@@ -1,8 +1,14 @@
+import About from "./components/About";
+import HeroLanding from "./components/HeroLanding";
+import Sponsors from "./components/Sponsors";
 import OlympicConclave from "@/app/components/11_gods/olympic_conclave.jsx";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div>
+      <HeroLanding/>
+      <Sponsors/>
+      <About/>
       <OlympicConclave />
     </div>
   );

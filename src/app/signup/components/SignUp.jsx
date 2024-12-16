@@ -7,6 +7,7 @@ import { toast } from "./hooks/use-toast";
 import { Input } from './input';
 import styles from "./SignUp.module.css";
 import axios from 'axios';
+import validator from 'validator';
 
 const Signup = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -34,18 +35,16 @@ const Signup = () => {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-  
+
     setFormData((prevData) => {
       const updatedData = {
         ...prevData,
         [name]: type === "checkbox" ? checked : value,
       };
-  
-      
+
       if (name === "isAmrita" && checked) {
         updatedData.collegeName = "Amrita Vishwa Vidyapeetham";
-  
-        
+
         if (updatedData.userEmail.startsWith("cb.")) {
           updatedData.collegeCity = "Coimbatore";
         }
@@ -53,141 +52,140 @@ const Signup = () => {
         updatedData.collegeName = "";
         updatedData.collegeCity = "";
       }
-  
+
       if (name === "userEmail" && updatedData.isAmrita && value.startsWith("cb.")) {
         updatedData.collegeCity = "Coimbatore";
       }
-  
+
       return updatedData;
     });
   };
 
-  const amritaRegex =
-    /^[a-zA-Z0-9._%+-]+@(cb\.students\.amrita\.edu|cb\.amrita\.edu|av\.students\.amrita\.edu|av\.amrita\.edu)$/;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setSpinnerSize("large");
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      setLoading(true);
-      setSpinnerSize("large");
-    
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const phoneRegex = /^[0-9]{10}$/;
-      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    
-      if (formData.isAmrita) {
-        if (!amritaRegex.test(formData.userEmail)) {
-          toast({
-            title: "Invalid email format for Amrita student.",
-            description: "Use an Amrita domain email (e.g., @cb.students.amrita.edu).",
-            variant: "destructive",
-          });
-          setLoading(false);
-          setSpinnerSize("small");
-          return;
+    if (formData.isAmrita) {
+      if (!validator.matches(formData.userEmail, /^[a-zA-Z0-9._%+-]+@(cb\.students\.amrita\.edu|cb\.amrita\.edu|av\.students\.amrita\.edu|av\.amrita\.edu)$/)) {
+        toast({
+          title: "Invalid email format for Amrita student.",
+          description: "Use an Amrita domain email (e.g., @cb.students.amrita.edu).",
+          variant: "destructive",
+        });
+        setLoading(false);
+        setSpinnerSize("small");
+        return;
+      }
+    } else {
+      if (!validator.isEmail(formData.userEmail)) {
+        toast({
+          title: "Invalid email format.",
+          description: "Enter a valid email address.",
+          variant: "destructive",
+        });
+        setLoading(false);
+        setSpinnerSize("small");
+        return;
+      }
+    }
+
+    if (!validator.isMobilePhone(formData.phoneNumber, 'en-IN')) {
+      toast({
+        title: "Phone number must be valid.",
+        variant: "destructive",
+      });
+      setLoading(false);
+      setSpinnerSize("small");
+      return;
+    }
+
+    if (formData.userPassword !== formData.confirmPassword) {
+      toast({
+        title: "Passwords do not match.",
+        variant: "destructive",
+      });
+      setLoading(false);
+      setSpinnerSize("small");
+      return;
+    }
+
+    if (!validator.isStrongPassword(formData.userPassword, {
+      minLength: 8,
+      minLowercase: 1,
+      minUppercase: 1,
+      minNumbers: 1,
+      minSymbols: 1,
+    })) {
+      toast({
+        title: "Weak password.",
+        description:
+          "Password must be at least 8 characters long, include uppercase, lowercase, a number, and a special character.",
+        variant: "destructive",
+      });
+      setLoading(false);
+      setSpinnerSize("small");
+      return;
+    }
+
+    if (!formData.termsAccepted) {
+      toast({
+        title: "Terms not accepted.",
+        description: "You must accept the terms and conditions.",
+        variant: "destructive",
+      });
+      setLoading(false);
+      setSpinnerSize("small");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/signup`,
+        {
+          userEmail: formData.userEmail,
+          userPassword: formData.userPassword,
+          userName: formData.userName,
+          rollNumber: formData.rollNumber,
+          phoneNumber: formData.phoneNumber,
+          collegeName: formData.collegeName,
+          collegeCity: formData.collegeCity,
+          userDepartment: formData.userDepartment,
+          academicYear: formData.academicYear,
+          degree: formData.degree,
+          isAmrita: formData.isAmrita,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
+      );
+
+      if (response.status === 200 || response.status === 201) {
+        toast({
+          title: "Success!",
+          description: "Form submitted successfully.",
+          variant: "success",
+        });
       } else {
-        if (!emailRegex.test(formData.userEmail)) {
-          toast({
-            title: "Invalid email format.",
-            description: "Enter a valid email address.",
-            variant: "destructive",
-          });
-          setLoading(false);
-          setSpinnerSize("small");
-          return;
-        }
-      }
-    
-      if (!phoneRegex.test(formData.phoneNumber)) {
         toast({
-          title: "Phone number must be 10 digits.",
+          title: "Submission failed.",
+          description: "Something went wrong. Please try again later.",
           variant: "destructive",
         });
-        setLoading(false);
-        setSpinnerSize("small");
-        return;
       }
-    
-      if (formData.userPassword !== formData.confirmPassword) {
-        toast({
-          title: "Passwords do not match.",
-          variant: "destructive",
-        });
-        setLoading(false);
-        setSpinnerSize("small");
-        return;
-      }
-    
-      if (!passwordRegex.test(formData.userPassword)) {
-        toast({
-          title: "Weak password.",
-          description:
-            "Password must be at least 8 characters long, include uppercase, lowercase, a number, and a special character.",
-          variant: "destructive",
-        });
-        setLoading(false);
-        setSpinnerSize("small");
-        return;
-      }
-    
-      if (!formData.termsAccepted) {
-        toast({
-          title: "Terms not accepted.",
-          description: "You must accept the terms and conditions.",
-          variant: "destructive",
-        });
-        setLoading(false);
-        setSpinnerSize("small");
-        return;
-      }
-    
-      try {
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/signup`,
-          JSON.stringify({
-            userEmail: formData.userEmail,
-            userPassword: formData.userPassword,
-            userName: formData.userName,
-            rollNumber: formData.rollNumber,
-            phoneNumber: formData.phoneNumber,
-            collegeName: formData.collegeName,
-            collegeCity: formData.collegeCity,
-            userDepartment: formData.userDepartment,
-            academicYear: formData.academicYear,
-            degree:formData.degree,
-            isAmrita: formData.isAmrita,
-          }),
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-    
-        if (response.status === 200 || response.status === 201) {
-          toast({
-            title: "Success!",
-            description: "Form submitted successfully.",
-            variant: "success",
-          });
-        } else {
-          toast({
-            title: "Submission failed.",
-            description: "Something went wrong. Please try again later.",
-            variant: "destructive",
-          });
-        }
-      } catch (error) {
-        toast({
-          title: "Error occurred.",
-          description: error.response?.data?.message || "An error occurred while submitting the form.",
-          variant: "destructive",
-        });
-      } finally {
-        setLoading(false);
-        setSpinnerSize("small");
-      }
-    };
+    } catch (error) {
+      toast({
+        title: "Error occurred.",
+        description: error.response?.data?.message || "An error occurred while submitting the form.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+      setSpinnerSize("small");
+    }
+  };
 
   if (!isMounted) {
     return null;
@@ -209,7 +207,7 @@ const Signup = () => {
               <div className="flex-1 flex flex-col">
                 <label className="text-white mb-2 font-light" htmlFor="userName">Name</label>
                 <Input
-                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   id="userName"
                   name="userName"
                   value={formData.userName}
@@ -221,7 +219,7 @@ const Signup = () => {
               <div className="flex-1 flex flex-col">
                 <label className="text-white mb-2 font-light" htmlFor="userEmail">Email</label>
                 <Input
-                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="email"
                   id="userEmail"
                   name="userEmail"
@@ -234,7 +232,7 @@ const Signup = () => {
               <div className="flex-1 flex flex-col">
                 <label className="text-white mb-2 font-light" htmlFor="userPassword">Password</label>
                 <Input
-                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="password"
                   id="userPassword"
                   name="userPassword"
@@ -247,7 +245,7 @@ const Signup = () => {
               <div className="flex-1 flex flex-col">
                 <label className="text-white mb-2 font-light" htmlFor="confirmPassword">Confirm Password</label>
                 <Input
-                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="password"
                   id="confirmPassword"
                   name="confirmPassword"
@@ -260,7 +258,7 @@ const Signup = () => {
               <div className="flex-1 flex flex-col">
                 <label className="text-white mb-2 font-light" htmlFor="phoneNumber">Phone Number</label>
                 <Input
-                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="text"
                   id="phoneNumber"
                   name="phoneNumber"
@@ -293,7 +291,7 @@ const Signup = () => {
               <div className="flex-1 flex flex-col">
                 <label className="text-white mb-2 font-light" htmlFor="collegeName">College Name</label>
                 <Input
-                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="text"
                   id="collegeName"
                   name="collegeName"
@@ -306,7 +304,7 @@ const Signup = () => {
               <div className="flex-1 flex flex-col">
                 <label className="text-white mb-2 font-light" htmlFor="collegeCity">College City</label>
                 <Input
-                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="text"
                   id="collegeCity"
                   name="collegeCity"
@@ -319,7 +317,7 @@ const Signup = () => {
               <div className="flex-1 flex flex-col">
                 <label className="text-white mb-2 font-light" htmlFor="rollNumber">Roll Number</label>
                 <Input
-                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="text"
                   id="rollNumber"
                   name="rollNumber"
@@ -332,7 +330,7 @@ const Signup = () => {
               <div className="flex-1 flex flex-col">
                 <label className="text-white mb-2 font-light" htmlFor="userDepartment">Department</label>
                 <Input
-                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="text"
                   id="userDepartment"
                   name="userDepartment"
@@ -345,7 +343,7 @@ const Signup = () => {
               <div className="flex-1 flex flex-col">
                 <label className="text-white mb-2 font-light" htmlFor="academicYear">Academic Year</label>
                 <Input
-                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="text"
                   id="academicYear"
                   name="academicYear"
@@ -358,7 +356,7 @@ const Signup = () => {
               <div className="flex-1 flex flex-col">
                 <label className="text-white mb-2 font-light" htmlFor="degree">Degree</label>
                 <Input
-                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
+                  className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
                   type="text"
                   id="degree"
                   name="degree"

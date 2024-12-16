@@ -7,19 +7,23 @@ import About from "@/app/components/About";
 import OlympicConclave from "@/app/components/11_gods/olympic_conclave.jsx";
 import AnimationPage from "@/app/components/animation_page/animation_page";
 import Footer from "@/app/components/footer";
+import Navbar from "@/app/components/navbar";
 
 export default function Home() {
-  const pathname = usePathname(); 
-  const currentPage = pathname === "/" ? "home" : pathname.replace("/", ""); 
+  const pathname = usePathname();
+  const currentPage = pathname === "/" ? "home" : pathname.replace("/", "");
 
   return (
     <div>
+      <Navbar/>   
       <HeroLanding />
-      <Sponsors />
-      <About />
-      <AnimationPage />
-      <OlympicConclave />
-      <Footer current_page={currentPage} /> {}
+      <div className="pt-16">
+        <Sponsors />
+        <About />
+        <AnimationPage />
+        <OlympicConclave />
+        <Footer current_page={currentPage} />
+      </div>
     </div>
   );
 }

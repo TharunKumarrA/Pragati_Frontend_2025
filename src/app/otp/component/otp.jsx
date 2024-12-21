@@ -1,6 +1,6 @@
 "use client";
 
-import { toast } from "@/app/otp/hooks/use-toast";
+import { toast } from "@/app/hooks/use-toast";
 import { useEffect, useState } from "react";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./input-otp.jsx";
 

@@ -35,7 +35,7 @@ export default function MediumInnovationBanner() {
   return (
     <section
       ref={bannerRef}
-      className="relative w-full h-screen sm:h-[500px] flex items-center justify-center overflow-hidden px-4 sm:px-8 mx-auto hidden md:flex lg:hidden"
+      className="relative w-full h-screen sm:h-[500px] items-center justify-center overflow-hidden px-4 sm:px-8 mx-auto hidden md:flex lg:hidden"
     >
       {/* Text Content */}
       <div className="absolute text-center">

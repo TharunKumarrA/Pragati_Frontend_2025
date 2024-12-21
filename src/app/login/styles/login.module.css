@@ -1,0 +1,113 @@
+
+.loginBox {
+  background-color: #352B1F;
+  border-radius: 20px;
+  padding: 40px 50px 70px;
+  width: 500px;
+  height: auto;
+  margin: auto;
+  margin-top: 130px;
+  text-align: left;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  
+}
+@media (max-width: 640px) {
+  .loginBox {
+    width: 24rem; /* sm:w-96 equivalent */
+    padding-left: 1.5rem; /* sm:px-6 equivalent */
+    padding-right: 1.5rem;
+  }
+}
+
+/* For large screens (min-width: 1024px) */
+@media (min-width: 1024px) {
+  .loginBox {
+    width: 32%; /* lg:w-[35%] equivalent */
+  }
+}
+.loginBox::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-image: url('/Assets/border_style_1.jpg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  z-index: 2;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  overflow: hidden;
+}
+
+.loginBox::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-image: url('/Assets/border_style_2.jpg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  z-index: 2;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  overflow: hidden;
+}
+.label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: white;
+}
+
+.label.emailLabel {
+  margin-bottom: 20px;
+}
+
+.label.passwordLabel {
+  margin-bottom: 20px;
+  margin-top: 15px;
+}
+
+.label:nth-of-type(2) {
+  margin-top: 20px;
+}
+
+.loader {
+  border: 6px solid rgba(255, 255, 255, 0.3);
+  border-top: 6px solid #fff;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: transparent;
+}
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}

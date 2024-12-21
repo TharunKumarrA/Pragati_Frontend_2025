@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import Image from "next/image";
 import FullPageMenu from "./menu";
 
@@ -7,20 +7,16 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
-    setMenuOpen((prev) => !prev);
+    setMenuOpen((prev) => !prev);  
   };
 
   return (
     <div>
       <div className="fixed top-0 left-0 w-full z-10 bg-white/5 backdrop-blur-sm border-white py-1 px-10 flex items-center">
         <button className="flex-shrink-0" onClick={toggleMenu}>
-          {menuOpen ? (
-            <X className="w-8 h-8 text-white" />
-          ) : (
-            <Menu className="w-8 h-8 text-white" />
-          )}
+            <Menu className="w-8 h-8 text-white" /> 
         </button>
-        <div className="flex-grow flex justify-center items-center gap-3">
+        <div className="flex-grow flex justify-center items-center gap-3 md:mr-[-6rem]">
           <Image
             src="/Assets/logo.png"
             width={100}

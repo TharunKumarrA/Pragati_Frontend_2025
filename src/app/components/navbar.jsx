@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu } from "lucide-react";
+import { Menu, User } from "lucide-react";
 import Image from "next/image";
 import FullPageMenu from "./menu";
 import Link from "next/link";
@@ -30,20 +30,7 @@ const Navbar = () => {
         <Link href="/login">
         <div className="hidden md:block text-[#8B6F47] bg-white px-6 py-2 rounded-full border-[3px] border-[#8B6F47] shadow-md transition-all duration-300 ease-in-out transform hover:bg-[#8B6F47] hover:text-white hover:shadow-lg hover:scale-105 hover:border-[#C2A27E] active:scale-95">
           <span className="flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-5 h-5 transition-transform duration-300 group-hover:rotate-90"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M16 21v-2a4 4 0 10-8 0v2m8-10a4 4 0 11-8 0 4 4 0 018 0z"
-              />
-            </svg>
+          <User className="w-5 h-5" /> 
             Login/Sign Up
           </span>
         </div>

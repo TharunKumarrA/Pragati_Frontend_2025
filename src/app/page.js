@@ -1,9 +1,25 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import HeroLanding from "@/app/components/HeroLanding";
+import Sponsors from "@/app/components/Sponsors";
+import About from "@/app/components/About";
+import OlympicConclave from "@/app/components/11_gods/olympic_conclave.jsx";
+import AnimationPage from "@/app/components/animation_page/animation_page";
+import Footer from "@/app/components/footer";
 
 export default function Home() {
+  const pathname = usePathname(); 
+  const currentPage = pathname === "/" ? "home" : pathname.replace("/", ""); 
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-6xl font-bold">Welcome to Pragati 2025</h1>
-      <p className="mt-4 text-2xl">ASB fest</p>
+    <div>
+      <HeroLanding />
+      <Sponsors />
+      <About />
+      <AnimationPage />
+      <OlympicConclave />
+      <Footer current_page={currentPage} /> {}
     </div>
   );
 }

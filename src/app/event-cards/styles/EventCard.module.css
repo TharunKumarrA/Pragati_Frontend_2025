@@ -1,109 +1,36 @@
 
-.eventCard {
-    width: 400px;
-    height: 600px;
-    border: none;
-    border-radius: 25px;
-    background-color: #3a2d15;
-    overflow: visible; 
-    margin: 20px auto;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-  }
-  
-  .eventCard:hover {
-    transform: translateY(-5px);
-  }
-  
-  .cardImage {
-    position: relative;
-    width: 85%; 
-    height: 65%; 
-    overflow: visible; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px auto 0; 
-    border-radius: 0; 
-  }
-  
-  .cardImage img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .symbols {
-    position: absolute;
-    bottom: 0; 
-    right: 0; 
-    display: flex;
-    gap: -15px; 
-    z-index: 1;
-  }
-  
-  .symbols img {
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    background-color: #fff;
-    padding: 5px;
-    border: 2px solid #b59f3b;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  .symbols img:first-child {
-    z-index: 2;
-    transform: translate(25px, 9.3px); 
-  }
-  
-  .symbols img:last-child {
-    transform: translate(10px, 10px); 
-  }
-  
-  .cardContent {
-    padding: 30px 20px 0; 
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-  
-  .title {
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    margin: 0;
-    text-align: left;
-    line-height: 1.2;
-    font-family: "Times New Roman", serif;
-  }
-  
-  .eventDetails {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-  }
-  
-  .eventInfo {
-    display: flex;
-    gap: 15px;
-    font-size: 16px;
-    color: white;
-  }
-  
-  .price {
-    font-size: 30px;
-    font-weight: bold;
-    color: white;
-    text-align: right;
-  }
-  
-  .gstText {
-    font-size: 14px;
-    color: white;
-    text-align: right;
-    margin-top: -5px;
-  }
+.symbols {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  gap: -15px;
+  z-index: 1;
+}
+
+.symbols img {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background-color: #fff;
+  padding: 5px;
+  border: 2px solid #b59f3b;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.symbols img:first-child {
+  z-index: 2;
+  transform: translate(25px, 9.3px);
+}
+
+.symbols img:last-child {
+  transform: translate(10px, 10px);
+}
+
+
+
+
+
+
+
+

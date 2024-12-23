@@ -3,13 +3,13 @@ import localFont from "next/font/local";
 import "@/app/styles/globals.css";
 
 const chicAvenue = localFont({
-  src: "/fonts/ChicAvenue.woff",
+  src: "/_fonts/ChicAvenue.woff",
   variable: "--font-chicavenue",
   weight: "400 700",
 });
 
 const poppins = localFont({
-  src: "/fonts/Poppins.woff",
+  src: "/_fonts/Poppins.woff",
   variable: "--font-poppins",
   weight: "400 700",
 });

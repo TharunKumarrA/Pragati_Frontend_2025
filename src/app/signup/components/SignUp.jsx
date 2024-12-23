@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import validator from 'validator';
 import { Button } from './button';
 import { Checkbox } from './checkbox';
-import { toast } from "@/app/hooks/use-toast";
+import { toast } from "@/app/_hooks/use-toast";
 import { Input } from './input';
 import styles from "./SignUp.module.css";
 

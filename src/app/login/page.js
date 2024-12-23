@@ -9,7 +9,7 @@ import {
   ToastTitle,
   ToastDescription,
   ToastClose,
-} from "@/app/toast/toast";
+} from "@/app/_toast/toast";
 import { Input } from "./components/input";
 import Link from "next/link";
 import axios from "axios"; // Import axios

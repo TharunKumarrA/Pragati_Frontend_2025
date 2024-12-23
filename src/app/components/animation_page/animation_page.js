@@ -1,10 +1,11 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import HeroSection from "./hero_section";
-import ChallengePrompt from "./challenge_prompt";
-
 // Dynamically import components with SSR disabled
+const HeroSection = dynamic(() => import("./hero_section"), {
+  ssr: false,
+});
+
 const LargeInnovationBanner = dynamic(() => import("./large_innovation_banner"), {
   ssr: false,
 });
@@ -24,7 +25,6 @@ export default function AnimationPage() {
       <LargeInnovationBanner />
       <MediumInnovationBanner />
       <SmallInnovationBanner />
-      <ChallengePrompt />
     </main>
   );
 }

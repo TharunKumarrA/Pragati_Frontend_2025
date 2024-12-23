@@ -5,22 +5,23 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const FilmGallery = () => {
   const filmRow1 = [
-    "https://i.imgur.com/kWBGAkz.jpg",
-    "https://i.imgur.com/CTW97kM.jpg",
-    "https://i.imgur.com/wRjbQu6.jpg",
-    "https://i.imgur.com/IuJyj2l.jpg",
-    "https://i.imgur.com/dlS1TaE.jpg",
-    "https://i.imgur.com/aIbdm2i.jpg",
-    "https://i.imgur.com/7r8gQN5.jpg",
+    "https://imgur.com/VV6iT2O.jpg",
+    "https://imgur.com/bgAm230.jpg",
+    "https://imgur.com/uozwB6Q.jpg",
+    "https://imgur.com/8uiAo3u.jpg",
+    "https://imgur.com/9s7HUzK.jpg",
+    "https://imgur.com/iZwu8n7.jpg",
+    "https://imgur.com/3vVNSU0.jpg",
   ];
+
   const filmRow2 = [
-    "https://i.imgur.com/EWdfaYj.jpg",
-    "https://i.imgur.com/qI4UYV7.jpg",
-    "https://i.imgur.com/0IvtFJG.jpg",
-    "https://i.imgur.com/uEtxZMb.jpg",
-    "https://i.imgur.com/uieA2G8.jpg",
-    "https://i.imgur.com/AbUjXL8.jpg",
-    "https://i.imgur.com/59VI4bH.jpg",
+    "https://imgur.com/8D3wj3M.jpg",
+    "https://imgur.com/6PIApMy.jpg",
+    "https://imgur.com/VV7aNmo.jpg",
+    "https://imgur.com/bJrbv7a.jpg",
+    "https://imgur.com/OejAu8Y.jpg",
+    "https://imgur.com/7V0smoJ.jpg",
+    "https://imgur.com/ino79ZK.jpg",
   ];
 
   const row1 = useRef(null);

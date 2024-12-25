@@ -44,11 +44,10 @@ const Footer = ({ current_page }) => {
           </div>
           <div className="mt-7">
             <Link
-              href="mailto:" // need to add the email
+              href="mailto:pragati@amrita.edu"
               className="text-white text-xl flex hover:space-x-4 transition duration-500 ease-in-out lg:text-2xl"
             >
-              <p>pragati mail</p>
-              {/* Need to add the email */}
+              <p>pragati @amrita.edu</p>
               <ArrowRight className="align-middle mt-1.5 ml-2" />
             </Link>
           </div>

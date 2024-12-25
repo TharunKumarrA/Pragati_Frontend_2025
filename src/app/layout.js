@@ -1,23 +1,11 @@
-import "@/app/styles/globals.css";
-import localFont from "next/font/local";
 import Head from "next/head";
-
-const chicAvenue = localFont({
-  src: "/fonts/ChicAvenue.woff",
-  variable: "--font-chicavenue",
-  weight: "400 700",
-});
-
-const poppins = localFont({
-  src: "/fonts/Poppins.woff",
-  variable: "--font-poppins",
-  weight: "400 700",
-});
+import ClientSideLayout from "./ClientSideLayout";
 
 export const metadata = {
   title: "Pragati 2025",
   description: "ASB fest",
 };
+
 
 const backgroundImages = [
   "/Images/backgrounds/aegean_seascape.webp",
@@ -45,7 +33,7 @@ function getRandomBackgroundImage() {
 }
 
 export default function RootLayout({ children }) {
-  const randomBackgroundImage = getRandomBackgroundImage();
+  const randomBackground = getRandomBackgroundImage();
 
   return (
     <html lang="en">
@@ -54,35 +42,19 @@ export default function RootLayout({ children }) {
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        <link rel="preload" as="image" href={randomBackgroundImage} />
-      </Head>
-      <body
-        className={`${chicAvenue.variable} ${poppins.variable} antialiased`}
-        style={{
-          backgroundImage: `url(${randomBackgroundImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            if ("loading" in HTMLImageElement.prototype) {
-              const img = new Image();
-              img.src = "${randomBackgroundImage}";
-            } else {
-              const script = document.createElement("script");
-              script.src = "https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js";
-              document.body.appendChild(script);
-            }
-          `,
-          }}
+        <link
+          rel="preload"
+          as="script"
+          href="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js"
         />
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js"
+          async
+        ></script>
+      </Head>
+      <ClientSideLayout backgroundImage={randomBackground}>
         {children}
-      </body>
+      </ClientSideLayout>
     </html>
   );
 }

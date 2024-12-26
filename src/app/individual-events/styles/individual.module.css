@@ -1,0 +1,337 @@
+.container {
+  font-family: Arial, sans-serif;
+  color: #fff;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)),
+    url('/Images/backgrounds/mount_olympus_view.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: -10px;
+  background-color: rgba(51, 51, 51, 0.70);
+  padding: 10px 20px;
+  border-bottom: 1px solid #fff;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+}
+
+.menuIcon,
+.profileIcon {
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.leftSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 90px;
+}
+
+.cardImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  margin-top: 5px;
+}
+
+.rightSection {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.eventTitle {
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.descriptionTitle {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.description {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #ddd;
+}
+
+.eventDetails {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.eventDetails p:first-child {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.eventDetails p:nth-child(2) {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.eventDetails p:nth-child(3) {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.priceSection {
+  font-size: 36px;
+  font-weight: bold;
+  color: #fff;
+  margin-top: 10px;
+  text-align: right;
+  position: relative;
+  top: 20px;
+}
+
+.price span {
+  font-size: 18px;
+  font-weight: normal;
+  display: block;
+  margin-top: -5px;
+}
+
+.coinAndPrice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 45px;
+}
+
+.coinContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.coin {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  object-fit: cover;
+  border: 2px solid #f1c40f;
+}
+
+.priceContainer {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff; 
+  text-align: right;
+}
+
+.price {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.priceText {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff; 
+  margin-left: 10px;
+}
+
+.secondaryActions {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 95%;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.detailsButton,
+.rulesButton {
+  background-color: #E5C055;
+  color: #000;
+  padding: 15px 0;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
+
+.detailsButton:hover,
+.rulesButton:hover {
+  background-color: #D4B147; 
+}
+
+.loginButtonContainer {
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.registerButton {
+  background-color: #352B1F;
+  color: #E5C055;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 300px;
+  max-width: 90%;
+  margin: 10px; 
+  border: 2px solid #E5C055; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.registerButton:hover {
+  background-color: #352B1F;
+}
+
+.trophiesAndPrizes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.trophiesAndPrizes img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .leftSection,
+  .rightSection {
+    width: 100%;
+  }
+
+  .coinAndPrice {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .secondaryActions {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .detailsButton,
+  .rulesButton {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .loginButtonContainer {
+    margin-top: 20px;
+  }
+
+  .cardImage {
+    max-width: 90%;
+  }
+
+  .trophiesAndPrizes {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .trophiesAndPrizes img {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 22px;
+  }
+
+  .menuIcon,
+  .profileIcon {
+    font-size: 20px;
+  }
+
+  .eventTitle {
+    font-size: 24px;
+  }
+
+  .descriptionTitle {
+    font-size: 18px;
+  }
+
+  .description {
+    font-size: 14px;
+  }
+
+  .coin {
+    width: 50px;
+    height: 50px;
+  }
+
+  .price {
+    font-size: 28px;
+  }
+
+  .priceContainer {
+    font-size: 16px;
+  }
+
+  .registerButton {
+    width: 80%;
+  }
+
+  .detailsButton,
+  .rulesButton {
+    font-size: 16px;
+    padding: 12px 0;
+  }
+
+  .trophiesAndPrizes img {
+    width: 100%;
+  }
+}

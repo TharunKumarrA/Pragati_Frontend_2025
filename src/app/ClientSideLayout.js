@@ -3,7 +3,8 @@
 import "@/app/styles/globals.css";
 import localFont from "next/font/local";
 import { usePathname } from "next/navigation";
-import {useState } from "react";
+import { useState } from "react";
+import Image from "next/image";
 
 const chicAvenue = localFont({
   src: "/fonts/ChicAvenue.woff",
@@ -44,16 +45,17 @@ export default function ClientSideLayout({ children, backgroundImage }) {
       }}
     >
       {backgroundImage && !isImageLoaded && (
-        <img
+        <Image
           src={backgroundImage}
-          onLoad={onImageLoad}
           alt="Background"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center"
+          onLoad={onImageLoad}
           style={{ display: "none" }}
         />
       )}
-      <div style={{ position: "relative", zIndex: 2 }}>
-        {children}
-      </div>
+      <div style={{ position: "relative", zIndex: 2 }}>{children}</div>
     </body>
   );
 }

@@ -98,7 +98,6 @@ const Page = () => {
     <ToastProvider>
       <div
         className="bg-cover bg-center h-screen flex items-center justify-center relative bg-black bg-opacity-50 bg-blend-darken"
-        style={{ backgroundImage: "url('/Images/backgrounds/mount_olympus_view.webp')" }}
       >
         {/* Updated box with smaller size for mobile */}
         <div className={`${styles.loginBox} `}>

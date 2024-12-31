@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./styles/login.module.css";
-import React, { useState, } from "react";
+import React, { useState } from "react";
 import {
   ToastProvider,
   Toast,
@@ -126,14 +126,14 @@ const Page = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <div className="text-right mt-[15px] mb-[25px]">
-              <Link href="/forgot-password" className="text-[#E5C055] no-underline">
+              <Link href="/forgot-password" className="text-[#d4af37] no-underline">
                 Forgot Password?
               </Link>
             </div>
             <p className="mt-[10px] text-[14px]">
-              Don’t have an account? <Link href="/signup" className="text-[#E5C055] no-underline">Register</Link>
+              Don’t have an account? <Link href="/signup" className="text-[#d4af37] no-underline">Register</Link>
             </p>
-            <button type="submit" className="bg-[#E5C055] text-black text-[16px] border-none rounded-[5px] py-[15px] px-[20px] cursor-pointer w-full mt-[20px] relative" disabled={isLoading}>
+            <button type="submit" className={styles.loginBtn} disabled={isLoading}>
               {isLoading ? <div className={styles.loader}></div> : "Sign In"}
             </button>
           </form>

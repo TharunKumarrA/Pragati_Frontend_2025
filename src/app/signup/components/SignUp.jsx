@@ -12,6 +12,7 @@ import styles from "./SignUp.module.css";
 const Signup = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const [formData, setFormData] = useState({
     userName: "",
     userEmail: "",
@@ -419,31 +420,48 @@ const Signup = () => {
         </div>
       </div>
 
-      <div className="flex items-center mt-10 mb-1.5 text-white text-sm gap-2.5">
-        <Checkbox
-          id="termsAccepted"
-          name="termsAccepted"
-          checked={formData.termsAccepted}
-          onCheckedChange={(checked) =>
-            setFormData((prevData) => ({ ...prevData, termsAccepted: checked }))
-          }
-        />
-        <label htmlFor="termsAccepted" className="text-[#d4af37] font-normal">
-          I accept the <a href="/terms" className="text-[#ffcc00] no-underline hover:underline">Terms and Conditions</a>.
-        </label>
-      </div>
+  <div className="flex items-center mt-10 mb-1.5 text-white text-sm gap-2.5">
+  <Checkbox
+    id="termsAccepted"
+    name="termsAccepted"
+    checked={formData.termsAccepted}
+    onCheckedChange={(checked) =>
+      setFormData((prevData) => ({ ...prevData, termsAccepted: checked }))
+    }
+  />
+  <label htmlFor="termsAccepted" className="text-[#d4af37] font-normal">
+    I accept the{" "}
+    <a
+      href="/terms"
+      className="text-[#ffcc00] no-underline hover:underline"
+    >
+      Terms and Conditions
+    </a>
+    .
+  </label>
+</div>
 
-      <Button type="submit" className={styles.submitBtn} disabled={loading}>
-        {!loading && "Sign Up"}
-      </Button>
+<Button
+  type="submit"
+  className={styles.submitBtn}
+  disabled={loading || !formData.termsAccepted}
+>
+  {!loading && "Sign Up"}
+</Button>
 
-      <div className="relative z-20 mt-8  text-center text-white">
-        <p className="mb-10">
-          Already have an account? <a href="/login" className="text-[#d4af37] no-underline hover:underline">Login</a>
-        </p>
-      </div>
-    </form>
-  </div>
+<div className="relative z-20 mt-8 text-center text-white">
+  <p className="mb-10">
+    Already have an account?{" "}
+    <a
+      href="/login"
+      className="text-[#d4af37] no-underline hover:underline"
+    >
+      Login
+    </a>
+  </p>
+</div>
+</form>
+</div>
 </div>
 
 <div className={styles.signupMobilePage}>

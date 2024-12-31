@@ -3,7 +3,7 @@ import {forwardRef} from "react";
 import {Indicator,Root} from "@radix-ui/react-checkbox";
 import { Check } from "lucide-react";
 
-import { cn } from "@/app/utils/utils";
+import { cn } from "@/app/_utils/utils";
 
 const Checkbox = forwardRef(({ className, ...props }, ref) => (
   <Root

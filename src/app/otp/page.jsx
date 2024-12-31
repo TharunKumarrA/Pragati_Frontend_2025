@@ -1,6 +1,6 @@
 import Otp from "./component/otp";
-import { Toaster } from './component/toaster';
-import { ToastProvider } from './component/toast';
+import { Toaster } from '@/app/_toast/toaster';
+import { ToastProvider } from '@/app/_toast/toast';
 
 export default function Page() {
 return (

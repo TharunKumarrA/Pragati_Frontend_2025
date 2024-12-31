@@ -1,5 +1,6 @@
 import path from "path";
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config) => {
     config.resolve.alias = {
@@ -20,6 +21,9 @@ const nextConfig = {
         ],
       },
     ];
+  },
+  images: {
+    domains: ["imgur.com"],
   },
 };
 

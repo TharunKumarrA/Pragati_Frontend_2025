@@ -1,5 +1,19 @@
 import Head from "next/head";
 import ClientSideLayout from "./ClientSideLayout";
+import localFont from "next/font/local";
+import "@/app/styles/globals.css";
+
+const chicAvenue = localFont({
+  src: "/_fonts/ChicAvenue.woff",
+  variable: "--font-chicavenue",
+  weight: "400 700",
+});
+
+const poppins = localFont({
+  src: "/_fonts/Poppins.woff",
+  variable: "--font-poppins",
+  weight: "400 700",
+});
 
 export const metadata = {
   title: "Pragati 2025",

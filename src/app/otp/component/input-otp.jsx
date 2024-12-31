@@ -4,7 +4,7 @@ import { OTPInput, OTPInputContext } from "input-otp"
 import { Minus } from "lucide-react"
 import {useContext,forwardRef} from "react"
 
-import { cn } from "@/app/otp/lib_otp/utils"
+import { cn } from "@/app/_utils/utils"
 
 const InputOTP = forwardRef(({ className, containerClassName, ...props }, ref) => (
   <OTPInput

@@ -1,6 +1,6 @@
 {/*Input Component imported from shadcn */}
 import React from "react";
-import { cn } from "@/app/utils/utils"; 
+import { cn } from "@/app/_utils/utils"; 
 
 const Input = React.forwardRef((props, ref) => {
   const { className, type, ...otherProps } = props;

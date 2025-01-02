@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
-  background: url('/Images/backgrounds/mount_olympus_view.webp') no-repeat center center fixed;
   background-size: cover;
   position: relative;
   z-index: 0;
@@ -20,7 +19,6 @@
   padding-right: 25px;
   padding-top: 55px;
   padding-bottom: 55px;
-  background: url('/Images/backgrounds/mount_olympus_view.webp') no-repeat center center fixed;
   background-size: cover;
   position: relative;
   z-index: 0;

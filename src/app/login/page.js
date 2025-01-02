@@ -9,7 +9,7 @@ import {
   ToastTitle,
   ToastDescription,
   ToastClose,
-} from "./components/tcomponents/ui/toast";
+} from "@/app/_toast/toast";
 import { Input } from "./components/input";
 import Link from "next/link";
 import axios from "axios"; // Import axios
@@ -98,7 +98,6 @@ const Page = () => {
     <ToastProvider>
       <div
         className="bg-cover bg-center h-screen flex items-center justify-center relative bg-black bg-opacity-50 bg-blend-darken"
-        style={{ backgroundImage: "url('/Images/backgrounds/mount_olympus_view.webp')" }}
       >
         {/* Updated box with smaller size for mobile */}
         <div className={`${styles.loginBox} `}>
@@ -132,7 +131,7 @@ const Page = () => {
               </Link>
             </div>
             <p className="mt-[10px] text-[14px]">
-              Don’t have an account? <Link href="/register" className="text-[#E5C055] no-underline">Register</Link>
+              Don’t have an account? <Link href="/signup" className="text-[#E5C055] no-underline">Register</Link>
             </p>
             <button type="submit" className="bg-[#E5C055] text-black text-[16px] border-none rounded-[5px] py-[15px] px-[20px] cursor-pointer w-full mt-[20px] relative" disabled={isLoading}>
               {isLoading ? <div className={styles.loader}></div> : "Sign In"}

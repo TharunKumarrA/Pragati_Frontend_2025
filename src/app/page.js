@@ -22,6 +22,7 @@ export default function Home() {
         <Sponsors />
         <About />
         <AnimationPage />
+        <div className="my-48"></div>
         <OlympicConclave />
         <FilmGallery />
         <Footer current_page={currentPage} />

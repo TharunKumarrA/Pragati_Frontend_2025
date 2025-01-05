@@ -6,22 +6,17 @@ import ReactMarkdown from "react-markdown";
 
 const SkeletonLoader = () => (
   <div className="animate-pulse flex gap-4">
-    {/* Main Image Skeleton */}
     <div className="w-2/5 h-[300px] bg-gray-200 rounded-lg" />
 
-    {/* Content Skeleton */}
     <div className="w-3/5 space-y-4">
-      {/* Title Skeleton */}
       <div className="h-8 bg-gray-200 rounded w-3/4 mx-auto" />
 
-      {/* Description Skeleton */}
       <div className="space-y-2">
         <div className="h-4 bg-gray-200 rounded w-full" />
         <div className="h-4 bg-gray-200 rounded w-5/6" />
         <div className="h-4 bg-gray-200 rounded w-4/6" />
       </div>
 
-      {/* Emblems and Button Skeleton */}
       <div className="flex justify-between items-center mt-6">
         <div className="flex gap-2">
           <div className="w-16 h-16 bg-gray-200 rounded-full" />

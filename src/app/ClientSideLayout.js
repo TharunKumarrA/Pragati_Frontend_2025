@@ -33,13 +33,14 @@ export default function ClientSideLayout({ children, backgroundImage }) {
       className={`${chicAvenue.variable} ${poppins.variable} antialiased`}
       style={{
         ...(isHomePage
-          ? {}
+          ? {
+              background: `linear-gradient(to bottom, #fffef5, #fdf2d0)`,
+              minHeight: "100vh",
+            }
           : {
-              backgroundImage: `url(${backgroundImage})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundAttachment: "fixed",
-              backgroundRepeat: "no-repeat",
+              background: `
+                url(${backgroundImage}) center/cover no-repeat fixed,
+                linear-gradient(to bottom, #fffef5, #fdf2d0)`,
               minHeight: "100vh",
             }),
       }}

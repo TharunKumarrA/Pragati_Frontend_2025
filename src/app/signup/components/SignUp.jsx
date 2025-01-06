@@ -14,6 +14,7 @@ import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
 import validator from "validator";
+import { signup } from "@/app/_utils/api_endpoint_handler";
 
 const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -118,42 +119,32 @@ const Signup = () => {
 
     setIsLoading(true);
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/signup`,
-        formData,
-        { headers: { "Content-Type": "application/json" } }
+      const response = await signup(
+        formData.userName,
+        formData.userEmail,
+        formData.userPassword,
+        formData.phoneNumber,
+        formData.isAmrita,
+        formData.collegeName,
+        formData.collegeCity,
+        formData.rollNumber,
+        formData.userDepartment,
+        formData.academicYear,
+        formData.degree,
+        formData.needAccommodation,
       );
-      if (response.status === 200 || response.status === 201) {
+
+      if (response) {
         addToast("Success", "Registration successful!");
+      } else {
+        throw new Error("Registration failed");
       }
     } catch (error) {
-      if (error.response) {
-        const status = error.response.status;
-        const errorMessage =
-          error.response.data.MESSAGE || "An error occurred.";
-
-        if (status === 400) {
-          addToast("Error", errorMessage, "destructive");
-        } else if (status === 500) {
-          addToast(
-            "Error",
-            "Something went wrong. Please try again later.",
-            "destructive"
-          );
-        } else {
-          addToast(
-            "Error",
-            "Registration failed. Please try again.",
-            "destructive"
-          );
-        }
-      } else {
-        addToast(
-          "Error",
-          "An unexpected error occurred. Please try again.",
-          "destructive"
-        );
-      }
+      addToast(
+        "Error",
+        error.message || "An unexpected error occurred. Please try again.",
+        "destructive"
+      );
     } finally {
       setIsLoading(false);
     }

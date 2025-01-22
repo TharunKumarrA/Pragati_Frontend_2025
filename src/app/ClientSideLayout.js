@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
+import Navbar from "./components/navbar";
 
 const chicAvenue = localFont({
   src: "/_fonts/ChicAvenue.woff",
@@ -55,7 +56,10 @@ export default function ClientSideLayout({ children, backgroundImage }) {
           style={{ display: "none" }}
         />
       )}
-      <div style={{ position: "relative", zIndex: 2 }}>{children}</div>
+      <div style={{ position: "relative", zIndex: 2 }}>
+        <Navbar/>
+        {children}
+        </div>
     </body>
   );
 }

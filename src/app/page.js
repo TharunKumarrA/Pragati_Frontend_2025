@@ -16,7 +16,6 @@ export default function Home() {
 
   return (
     <div>
-      <Navbar/>   
       <HeroLanding />
       <div className="pt-16">
         <Sponsors />

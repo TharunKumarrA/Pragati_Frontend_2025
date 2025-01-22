@@ -1,14 +1,22 @@
-import { Calendar, MapPin, User, Phone, IndianRupee } from "lucide-react";
+import { Calendar, MapPin, User, Phone, IndianRupeeIcon, Trophy } from "lucide-react";
 import Image from "next/image";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/app/components/accordion";
+import Link from "next/link";
 
 const Event = () => {
   return (
     <div className="bg-black bg-opacity-50 min-h-screen flex flex-col items-center">
       <img
-            src="/Images/eventlogo.png"
-            alt="Event Logo"
-            className="w-20 h-auto rounded-lg mt-[4rem] object-cover shadow-md"
-          /><p className="text-white text-center text-lg  font-semibold">
+        src="/Images/eventlogo.png"
+        alt="Event Logo"
+        className="w-20 h-auto rounded-lg mt-[4rem] object-cover shadow-md"
+      />
+      <p className="text-white text-center text-lg  font-semibold">
         ABC Presents
       </p>
       <h1 className="text-white text-center text-4xl font-bold">
@@ -25,12 +33,12 @@ const Event = () => {
             alt="Event Poster"
             className="w-full h-auto rounded-lg object-cover mb-6 shadow-md"
           />
-          <button className="bg-[#322A1E] border-[#E5C14E] border-2 w-full text-[#E5C14E] py-3  px-8 rounded-xl text-lg font-bold shadow-md">
+          <Link href="/login" className="bg-[#322A1E] border-[#E5C14E] border-2 w-full text-[#E5C14E] py-3  text-center rounded-xl text-lg font-bold shadow-md">
             Login to Register
-          </button>
+          </Link>
         </div>
         {/* Right Section: Event Description and Details */}
-        <div className="lg:w-2/3 text-white p-8">
+        <div className="lg:w-2/3 text-white py-8 px-4">
           {/* Description */}
           <p className="text-md mb-6 leading-relaxed text-justify">
             Prepare for an exhilarating challenge as teams of 5-6 players engage
@@ -71,6 +79,11 @@ const Event = () => {
               <span>Prateek - 9567944874</span>
             </div>
 
+            <div className="flex items-center gap-4 mb-2">
+              <IndianRupeeIcon className="w-5 h-5 text-[#E5C14E]" />
+              <span className="text-xl font-semibold">200</span><span className="text-md">/member (incl of GST)</span>
+            </div>
+
             {/* Emblems */}
             <div className="flex gap-6 mt-6">
               <img
@@ -87,6 +100,49 @@ const Event = () => {
           </div>
         </div>
       </div>
+      <div className="w-[90%] p-5 flex flex-col gap-5 lg:flex-row text-white items-center justify-center lg:items-start rounded-xl ">
+      {/* 1st Place */}
+      <div className="flex items-center space-x-4 mb-6 lg:mb-0">
+        <div className="bg-orange-500 rounded-full p-5">
+          <Trophy className="w-10 h-10 text-white" />
+        </div>
+        <div>
+          <p className="text-xl font-semibold">1st Place</p>
+          <p className="text-lg">₹10,000</p>
+        </div>
+      </div>
+      {/* 2nd Place */}
+      <div className="flex items-center space-x-4">
+        <div className="bg-gray-500 rounded-full p-5">
+          <Trophy className="w-10 h-10 text-white" />
+        </div>
+        <div>
+          <p className="text-xl font-semibold">2nd Place</p>
+          <p className="text-lg">₹7,000</p>
+        </div>
+      </div>
+    </div>
+
+      <div className="w-[90%] mb-10 ">
+        <Accordion type="single" collapsible>
+          <AccordionItem value="item-1">
+            <AccordionTrigger>Details</AccordionTrigger>
+            <AccordionContent>
+              Yes. It adheres to the WAI-ARIA design pattern.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+
+        <Accordion type="single" className="mt-4" collapsible>
+          <AccordionItem value="item-1">
+            <AccordionTrigger>Rules</AccordionTrigger>
+            <AccordionContent>
+              Yes. It adheres to the WAI-ARIA design pattern.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </div>
+      
     </div>
   );
 };

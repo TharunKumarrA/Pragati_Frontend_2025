@@ -1,12 +1,11 @@
 "use client";
 import EventCard from "../components/eventcards";
-import Navbar from "../components/navbar";
 
 const page = () => {
   return (
-      <div className="md:m-5 md:p-5 mt-10 ">
-        <h1 className="text-white text-[2rem] pt-5 md:text-[3rem] text-center">Events</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      <div className="py-5 bg-black bg-opacity-50 min-h-screen">
+        <h1 className="text-white mt-10 text-[2rem] pt-5 md:text-[3rem] text-center">Events</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 px-10">
           <EventCard
             title="Athena's Debate Arena"
             date="August 25, 2024"

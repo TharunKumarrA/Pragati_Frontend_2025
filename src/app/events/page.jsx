@@ -169,7 +169,7 @@ eventid: "4"
   }
 ];
 
-const page = () => {
+const EventPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const filteredEvents = events.filter((event) =>
     event.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -211,4 +211,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default EventPage;

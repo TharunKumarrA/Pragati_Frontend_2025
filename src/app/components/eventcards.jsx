@@ -14,8 +14,7 @@ const EventCard = ({
   eventid
 }) => {
   return (
-    <div className="bg-[#322A1E]/70 backdrop-blur-md border-2 border-[#E5C14E] rounded-3xl px-8 md:px-5 py-4 w-full max-w-[320px] md:max-w-[350px] lg:max-w-[380px] relative group transition-all transform hover:scale-105 hover:shadow-2xl">
-
+    <div className="bg-[#322A1E] bg-opacity-60 border-2 mx-auto border-[#E5C14E] rounded-3xl px-8 md:px-5 py-4 w-full max-w-[320px] md:max-w-[350px] lg:max-w-[380px] relative group transition-all transform hover:scale-105 hover:shadow-2xl backdrop-blur-md">
       <Link href={`/events/${eventid}`} passHref>
           <div className="relative w-full">
             <Image

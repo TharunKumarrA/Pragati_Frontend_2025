@@ -13,7 +13,7 @@ const EventCard = ({
   poster,
 }) => {
   return (
-    <div className="bg-[#322A1E]/95 border-2 mx-auto border-[#E5C14E] rounded-3xl px-8 md:px-5 py-4 w-full max-w-[320px] md:max-w-[350px] lg:max-w-[380px] relative group transition-all transform hover:scale-105 hover:shadow-2xl hover:rotate-2">
+    <div className="bg-[#322A1E] bg-opacity-60 border-2 mx-auto border-[#E5C14E] rounded-3xl px-8 md:px-5 py-4 w-full max-w-[320px] md:max-w-[350px] lg:max-w-[380px] relative group transition-all transform hover:scale-105 hover:shadow-2xl hover:rotate-2 backdrop-blur-md">
       {/* Wrap the card in a Link component */}
       <Link href={`/event/`} passHref>
           <div className="relative w-full">

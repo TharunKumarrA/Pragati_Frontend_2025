@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";  // Import Link component
+import Link from "next/link"; 
 import { Calendar, Clock, MapPin } from "lucide-react";
 
 const EventCard = ({
@@ -11,11 +11,12 @@ const EventCard = ({
   emblem1,
   emblem2,
   poster,
+  eventid
 }) => {
   return (
-    <div className="bg-[#322A1E]/95 border-2 mx-auto border-[#E5C14E] rounded-3xl px-8 md:px-5 py-4 w-full max-w-[320px] md:max-w-[350px] lg:max-w-[380px] relative group transition-all transform hover:scale-105 hover:shadow-2xl hover:rotate-2">
-      {/* Wrap the card in a Link component */}
-      <Link href={`/event/`} passHref>
+    <div className="bg-[#322A1E]/70 backdrop-blur-md border-2 border-[#E5C14E] rounded-3xl px-8 md:px-5 py-4 w-full max-w-[320px] md:max-w-[350px] lg:max-w-[380px] relative group transition-all transform hover:scale-105 hover:shadow-2xl">
+
+      <Link href={`/events/${eventid}`} passHref>
           <div className="relative w-full">
             <Image
               src={poster}

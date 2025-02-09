@@ -73,7 +73,7 @@ const HeroLanding = () => {
       {/* Centered Mascot */}
       <div
         className="scale-75 absolute top-1/2 left-1/2 transform -translate-x-[40%] -translate-y-[20%]
-     z-10 rounded-full backdrop-blur-lg shadow-[0_5px_20px_rgba(255,255,255,0.15)] 
+     rounded-full backdrop-blur-lg shadow-[0_5px_20px_rgba(255,255,255,0.15)] 
      p-4 bg-white/5 border border-white/10 flex items-center justify-center 
      transition-all duration-500 hover:scale-103 hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)]"
       >

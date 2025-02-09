@@ -13,7 +13,7 @@ const sponsors = [
 
 const SponsorElement = ({ sponsor }) => {
   return (
-    <div className="mx-20">
+    <div className="mx-8 md:mx-20">
       <Image
         src={sponsor.src}
         alt={`${sponsor.title} Sponsor Logo`}

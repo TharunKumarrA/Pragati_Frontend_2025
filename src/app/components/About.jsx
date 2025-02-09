@@ -35,14 +35,11 @@ const About = () => {
 
       // For each subsequent content section, animate text and image transitions.
       details.forEach((detail, index) => {
-        // Get the heading and paragraph within the section.
         const headline = detail.querySelector("h1");
         const paragraph = detail.querySelector("p");
 
-        // Create a timeline that crossfades the text and images.
         let tl = gsap.timeline();
 
-        // Text reveal using clipPath (with no y offset).
         tl.from(headline, {
           opacity: 0,
           clipPath: "inset(0 100% 0 0)",
@@ -59,7 +56,6 @@ const About = () => {
             },
             "-=0.5"
           )
-          // Crossfade images: fade out the outgoing and fade in the incoming image.
           .to(
             allPhotos[index],
             {
@@ -68,7 +64,7 @@ const About = () => {
               duration: 0.5,
               ease: "power2.out",
             },
-            0
+            0 // desktop timeline: start immediately
           )
           .to(
             photos[index],
@@ -81,7 +77,6 @@ const About = () => {
             0
           );
 
-        // Change trigger timing so the text reveals later.
         ScrollTrigger.create({
           trigger: detail,
           start: "top 50%",
@@ -94,11 +89,11 @@ const About = () => {
 
     // Mobile animations (max-width: 599px)
     mm.add("(max-width: 599px)", () => {
-      // Pin the right section with an adjusted end point.
+      // Pin the right section in mobile view so the image remains visible.
       ScrollTrigger.create({
         trigger: ".gallery",
         start: "top top",
-        end: "bottom 50%",
+        end: "bottom bottom",
         pin: ".right",
       });
 
@@ -124,6 +119,7 @@ const About = () => {
             },
             "-=0.5"
           )
+          // **Delay the crossfade animations on mobile**
           .to(
             allPhotos[index],
             {
@@ -132,7 +128,7 @@ const About = () => {
               duration: 0.5,
               ease: "power2.out",
             },
-            0
+            0.3 // start this animation a bit later
           )
           .to(
             photos[index],
@@ -142,13 +138,14 @@ const About = () => {
               duration: 0.5,
               ease: "power2.out",
             },
-            0
+            0.3
           );
 
+        // Adjust trigger values on mobile to allow a longer scroll interval.
         ScrollTrigger.create({
           trigger: detail,
-          start: "top 50%",
-          end: "top 30%",
+          start: "top 60%",
+          end: "top 40%",
           animation: tl,
           scrub: 1,
         });

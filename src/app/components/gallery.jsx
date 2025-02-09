@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
@@ -42,45 +43,49 @@ const FilmGallery = () => {
     filmRow2.slice(0, 5).length;
   const [allLoaded, setAllLoaded] = useState(false);
 
+  // When loadedCount reaches totalImages, mark as loaded.
   useEffect(() => {
     if (loadedCount >= totalImages) {
       setAllLoaded(true);
+      // Refresh ScrollTrigger so that all dimensions and trigger positions are recalculated.
+      ScrollTrigger.refresh();
     }
   }, [loadedCount, totalImages]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    // Use gsap.context to scope our animations
     const ctx = gsap.context(() => {
-      // Desktop View ScrollTrigger
-      const desktopTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: container.current,
-          start: "top 50%",
-          end: "+=100%",
-          scrub: true,
-        },
-      });
-
-      desktopTl.to(row1.current, { x: -450, duration: 2 });
-      desktopTl.to(row2.current, { x: 450, duration: 2 }, "-=2");
-
-      // Mobile View ScrollTrigger
-      const mobileTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: phoneContainer.current,
-          start: "top 50%",
-          end: "+=100%",
-          scrub: true,
-        },
-      });
-
-      mobileTl.to(Phrow1.current, { x: -200, duration: 2 });
-      mobileTl.to(Phrow2.current, { x: 200, duration: 2 }, "-=2");
-    }, container);
-
+      // Desktop timeline
+      if (container.current) {
+        const desktopTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: container.current,
+            start: "top 50%",
+            end: "+=100%",
+            scrub: true,
+          },
+        });
+        desktopTl.to(row1.current, { x: -450, duration: 2 });
+        desktopTl.to(row2.current, { x: 450, duration: 2 }, "-=2");
+      }
+      // Mobile timeline
+      if (phoneContainer.current) {
+        const mobileTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: phoneContainer.current,
+            start: "top 50%",
+            end: "+=100%",
+            scrub: true,
+          },
+        });
+        mobileTl.to(Phrow1.current, { x: -200, duration: 2 });
+        mobileTl.to(Phrow2.current, { x: 200, duration: 2 }, "-=2");
+      }
+    });
     return () => ctx.revert(); // Cleanup on unmount
-  }, []);
+  }, [allLoaded]); // Re-run when images have loaded
 
   return (
     <div className="mt-20">

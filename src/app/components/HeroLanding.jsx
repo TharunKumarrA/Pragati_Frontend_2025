@@ -19,7 +19,7 @@ const HeroLanding = () => {
             passHref
           >
             <div
-              className="flex flex-col items-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-md border border-white/15 
+              className="flex flex-col items-center gap-2 px-6 py-1 bg-white/5 backdrop-blur-md border border-white/15 
               rounded-xl transform transition-all duration-500 ease-in-out 
               hover:scale-105 hover:shadow-lg hover:shadow-[#f3e5c0]/50 
               hover:ring-2 hover:ring-[#f3e5c0]/50"
@@ -41,7 +41,7 @@ const HeroLanding = () => {
 
           {/* BNY Mellon Section */}
           <div
-            className="flex flex-col items-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-md border border-white/15 
+            className="flex flex-col items-center gap-2 px-6 py-1 bg-white/5 backdrop-blur-md border border-white/15 
             rounded-xl transform transition-all duration-500 ease-in-out 
             hover:scale-105 hover:shadow-lg hover:shadow-[#f3e5c0]/50 
             hover:ring-2 hover:ring-[#f3e5c0]/50"

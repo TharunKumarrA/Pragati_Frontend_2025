@@ -7,15 +7,25 @@ import Image from "next/image";
 const About = () => {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+
+    // Select all desktop content sections except the first one.
     const details = gsap.utils.toArray(
       ".desktopContentSection:not(:first-child)"
     );
+    // All desktop photos except the first one.
     const photos = gsap.utils.toArray(".desktopPhoto:not(:first-child)");
-    gsap.set(photos, { yPercent: -101 });
+    // All photos (used to fade them out after the transition).
     const allPhotos = gsap.utils.toArray(".desktopPhoto");
 
+    // Initially, set image parameters:
+    gsap.set(allPhotos, { autoAlpha: 1, scale: 1 });
+    gsap.set(photos, { autoAlpha: 0, scale: 1.05 });
+
     let mm = gsap.matchMedia();
+
+    // Desktop animations (min-width: 600px)
     mm.add("(min-width: 600px)", () => {
+      // Pin the right section during scroll.
       ScrollTrigger.create({
         trigger: ".gallery",
         start: "top top",
@@ -23,45 +33,128 @@ const About = () => {
         pin: ".right",
       });
 
+      // For each subsequent content section, animate text and image transitions.
       details.forEach((detail, index) => {
-        let headline = detail.querySelector("h1");
-        let animation_1 = gsap.timeline();
-        animation_1
-          .to(photos[index], { yPercent: 0, ease: "power2.inOut" })
-          .set(allPhotos[index], { autoAlpha: 0 });
+        // Get the heading and paragraph within the section.
+        const headline = detail.querySelector("h1");
+        const paragraph = detail.querySelector("p");
+
+        // Create a timeline that crossfades the text and images.
+        let tl = gsap.timeline();
+
+        // Text reveal using clipPath (with no y offset).
+        tl.from(headline, {
+          opacity: 0,
+          clipPath: "inset(0 100% 0 0)",
+          duration: 0.7,
+          ease: "power3.out",
+        })
+          .from(
+            paragraph,
+            {
+              opacity: 0,
+              clipPath: "inset(0 100% 0 0)",
+              duration: 0.7,
+              ease: "power3.out",
+            },
+            "-=0.5"
+          )
+          // Crossfade images: fade out the outgoing and fade in the incoming image.
+          .to(
+            allPhotos[index],
+            {
+              autoAlpha: 0,
+              scale: 1,
+              duration: 0.5,
+              ease: "power2.out",
+            },
+            0
+          )
+          .to(
+            photos[index],
+            {
+              autoAlpha: 1,
+              scale: 1,
+              duration: 0.5,
+              ease: "power2.out",
+            },
+            0
+          );
+
+        // Change trigger timing so the text reveals later.
         ScrollTrigger.create({
-          trigger: headline,
-          start: "top 80%",
-          end: "top 50%",
-          animation: animation_1,
+          trigger: detail,
+          start: "top 50%",
+          end: "top 30%",
+          animation: tl,
           scrub: 1.4,
         });
       });
     });
 
+    // Mobile animations (max-width: 599px)
     mm.add("(max-width: 599px)", () => {
+      // Pin the right section with an adjusted end point.
       ScrollTrigger.create({
         trigger: ".gallery",
         start: "top top",
         end: "bottom 50%",
         pin: ".right",
       });
+
       details.forEach((detail, index) => {
-        let headline = detail.querySelector("h1");
-        let animation_2 = gsap.timeline();
-        animation_2
-          .to(photos[index], { yPercent: 0, ease: "power2.inOut" })
-          .set(allPhotos[index], { autoAlpha: 0 });
+        const headline = detail.querySelector("h1");
+        const paragraph = detail.querySelector("p");
+
+        let tl = gsap.timeline();
+
+        tl.from(headline, {
+          opacity: 0,
+          clipPath: "inset(0 100% 0 0)",
+          duration: 0.7,
+          ease: "power3.out",
+        })
+          .from(
+            paragraph,
+            {
+              opacity: 0,
+              clipPath: "inset(0 100% 0 0)",
+              duration: 0.7,
+              ease: "power3.out",
+            },
+            "-=0.5"
+          )
+          .to(
+            allPhotos[index],
+            {
+              autoAlpha: 0,
+              scale: 1,
+              duration: 0.5,
+              ease: "power2.out",
+            },
+            0
+          )
+          .to(
+            photos[index],
+            {
+              autoAlpha: 1,
+              scale: 1,
+              duration: 0.5,
+              ease: "power2.out",
+            },
+            0
+          );
 
         ScrollTrigger.create({
-          trigger: headline,
-          start: "top 80%",
-          end: "bottom 50%",
-          animation: animation_2,
+          trigger: detail,
+          start: "top 50%",
+          end: "top 30%",
+          animation: tl,
           scrub: 1,
         });
       });
     });
+
     return () => {
       mm.revert();
     };
@@ -82,29 +175,23 @@ const About = () => {
         {/* Left Section */}
         <div className="left w-full md:w-1/2">
           <div className="desktopContent mx-auto w-[85%] md:w-4/5">
-            <div className="desktopContentSection flex flex-col justify-center min-h-[50vh] md:min-h-screen">
+            <div className="desktopContentSection flex flex-col justify-center min-h-[50vh] md:min-h-screen overflow-hidden">
               <h1 className="font-chicavenue text-[2rem] md:text-[3rem]">
                 About Pragati
               </h1>
-              <p className="text-md md:text-lg text-justify">
-                {pragati}
-              </p>
+              <p className="text-md md:text-lg text-justify">{pragati}</p>
             </div>
-            <div className="desktopContentSection flex flex-col justify-center min-h-screen">
+            <div className="desktopContentSection flex flex-col justify-center min-h-screen overflow-hidden">
               <h1 className="text-[2rem] md:text-[3rem] font-bold">
                 About ASB
               </h1>
-              <p className="text-md md:text-lg text-justify">
-                {asb}
-              </p>
+              <p className="text-md md:text-lg text-justify">{asb}</p>
             </div>
-            <div className="desktopContentSection flex flex-col justify-center min-h-[50vh] md:min-h-screen">
+            <div className="desktopContentSection flex flex-col justify-center min-h-[50vh] md:min-h-screen overflow-hidden">
               <h1 className="font-chicavenue text-[2rem] md:text-[3rem]">
                 Pragati &apos;24 recap
               </h1>
-              <p className="text-md md:text-lg text-justify">
-                {pragati24}
-              </p>
+              <p className="text-md md:text-lg text-justify">{pragati24}</p>
             </div>
           </div>
         </div>

@@ -144,7 +144,7 @@ const About = () => {
         // Adjust trigger values on mobile to allow a longer scroll interval.
         ScrollTrigger.create({
           trigger: detail,
-          start: "top 60%",
+          start: "top 80%", // Adjusted from 60% to 80% for better readability
           end: "top 40%",
           animation: tl,
           scrub: 1,

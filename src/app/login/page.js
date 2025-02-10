@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./styles/login.module.css";
-import React, { useState, } from "react";
+import React, { useState } from "react";
 import {
   ToastProvider,
   Toast,
@@ -12,7 +12,7 @@ import {
 } from "@/app/_toast/toast";
 import { Input } from "./components/input";
 import Link from "next/link";
-import axios from "axios"; // Import axios
+import { login } from "@/app/_utils/api_endpoint_handler";
 
 const Page = () => {
   const [email, setEmail] = useState("");
@@ -22,10 +22,10 @@ const Page = () => {
 
   const validator = require('validator');
 
+
   const validateEmail = (email) => {
     return validator.isEmail(email);
   };  
-
 
   const addToast = (title, description, variant = "default") => {
     const id = Math.random().toString(36).substr(2, 9);
@@ -56,50 +56,29 @@ const Page = () => {
     setIsLoading(true);
   
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`,
-        JSON.stringify({
-            userEmail: email,
-            userPassword: password,
-        }),
-        { headers: { "Content-Type": "application/json" } }
-      );
-      if (response.status === 200) {
+      const response = await login(email, password);
+      
+      if (response) {
         addToast("Success", "Login successful!");
-        console.log("Login Response:", response.data);
+        console.log("Login Response:", response);
+      } else {
+        throw new Error("Login failed");
       }
     } catch (error) {
-      if (error.response) {
-        const status = error.response.status;
-        const errorMessage = error.response.data.MESSAGE || "An error occurred.";
-  
-        if (status === 400) {
-          addToast("Error", errorMessage, "destructive");
-        } else if (status === 500) {
-          addToast("Error", "Something went wrong. Please try again later.", "destructive");
-        } else if (status === 502) {
-          addToast("Error", "The system is under maintenance. Please try again later.", "destructive");
-        } else {
-          addToast("Error", "Login failed. Please try again.", "destructive");
-        }
-  
-        console.log("Error Response:", error.response.data);
-      } else {
-        console.error("Error logging in:", error);
-        addToast("Error", "An unexpected error occurred. Please try again.", "destructive");
-      }
+      console.log("Error logging in:", error);
+      addToast(
+        "Error",
+        error.message || "An unexpected error occurred. Please try again.",
+        "destructive"
+      );
     } finally {
       setIsLoading(false);
     }
   };
-  
 
   return (
     <ToastProvider>
-      <div
-        className="bg-cover bg-center h-screen flex items-center justify-center relative bg-black bg-opacity-50 bg-blend-darken"
-      >
-        {/* Updated box with smaller size for mobile */}
+      <div className="bg-cover bg-center h-screen flex items-center justify-center relative bg-black bg-opacity-50 bg-blend-darken">
         <div className={`${styles.loginBox} `}>
           <h2 className="text-[24px] text-center mt-[30px] mb-[20px] [font-family:var(--font-chicavenue)]">Sign In</h2>
           <form onSubmit={handleSubmit} className="[font-family:var(--font-poppins)]">
@@ -131,9 +110,13 @@ const Page = () => {
               </Link>
             </div>
             <p className="mt-[10px] text-[14px]">
-              Don’t have an account? <Link href="/signup" className="text-[#E5C055] no-underline">Register</Link>
+              Don`&apos;`t have an account? <Link href="/signup" className="text-[#E5C055] no-underline">Register</Link>
             </p>
-            <button type="submit" className="bg-[#E5C055] text-black text-[16px] border-none rounded-[5px] py-[15px] px-[20px] cursor-pointer w-full mt-[20px] relative" disabled={isLoading}>
+            <button 
+              type="submit" 
+              className="bg-[#E5C055] text-black text-[16px] border-none rounded-[5px] py-[15px] px-[20px] cursor-pointer w-full mt-[20px] relative" 
+              disabled={isLoading}
+            >
               {isLoading ? <div className={styles.loader}></div> : "Sign In"}
             </button>
           </form>

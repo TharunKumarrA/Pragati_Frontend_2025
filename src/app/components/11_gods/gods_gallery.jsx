@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import GodCard from "./god_card";
 import GodModal from "./god_modal";
-  
+
 function GodsGallery() {
   const gods = [
     {
@@ -46,9 +46,9 @@ function GodsGallery() {
       god_details: {
         god_name: "Apollo",
         god_type: "God of Arts",
-        dept: "Creative Arts",
+        dept: "Analytics",
         description:
-          "I am Apollo, god of arts and music, ruling Creative Arts with creativity and inspiration. Alongside Mnemosyne, goddess of memory and language, we form an alliance that unites art and history, guiding us to triumph at the Olympian Conclave.\n\nWhy Join Us?\nBy choosing our events, you align with a legacy of creativity. Each victory strengthens our pursuit of glory, and your efforts will echo through Olympus. Our trials demand artistic vision, musical talent, and poetic flair.\n\nStand With Apollo and Mnemosyne\nCompete in events bearing our emblems and become part of a legacy defined by art and history. Together, we shall secure",
+          "I am Apollo, god of arts and music, ruling Analytics with a fusion of creativity and data-driven precision. Alongside Mnemosyne, goddess of memory and language, we form an alliance that unites artistic expression with analytical insight, guiding us to triumph at the Olympian Conclave.\n\nWhy Join Us?\nBy choosing our events, you align with a legacy of innovation. Each victory strengthens our pursuit of excellence, and your efforts will echo through Olympus. Our trials demand creative vision, analytical prowess, and strategic flair.\n\nStand With Apollo and Mnemosyne\nCompete in events bearing our emblems and become part of a legacy defined by innovation and insight. Together, we shall secure timeless victory!",
       },
     },
     {
@@ -60,9 +60,9 @@ function GodsGallery() {
       god_details: {
         god_name: "Mnemosyne",
         god_type: "Goddess of Memory",
-        dept: "Creative Arts",
+        dept: "Analytics",
         description:
-          "I am Mnemosyne, goddess of memory and language, ruling Creative Arts with history and storytelling. Alongside Apollo, god of arts and music, we form an alliance that unites art and history, guiding us to triumph at the Olympian Conclave.\n\nWhy Join Us?\nBy choosing our events, you align with a legacy of creativity. Each victory strengthens our pursuit of glory, and your efforts will echo through Olympus. Our trials demand artistic vision, musical talent, and poetic flair.\n\nStand With Apollo and Mnemosyne\nCompete in events bearing our emblems and become part of a legacy defined by art and history. Together, we shall secure",
+          "I am Mnemosyne, goddess of memory and language, ruling Analytics with a blend of historical insight and creative storytelling. Alongside Apollo, god of arts and music, we form an alliance that unites analytical precision with artistic expression, guiding us to triumph at the Olympian Conclave.\n\nWhy Join Us?\nBy choosing our events, you align with a legacy of innovation. Each victory strengthens our pursuit of excellence, and your efforts will echo through Olympus. Our trials demand analytical acumen, creative vision, and a passion for strategic thinking.\n\nStand With Apollo and Mnemosyne\nCompete in events bearing our emblems and become part of a legacy defined by innovation and insight. Together, we shall secure timeless victory!",
       },
     },
     {
@@ -71,9 +71,9 @@ function GodsGallery() {
       god_details: {
         god_name: "Dionysus",
         god_type: "God of Wine",
-        dept: "Hospitality",
+        dept: "Cultural Synergy",
         description:
-          "I am Dionysus, god of wine and festivity, ruling Hospitality with joy and celebration. Join me in the pursuit of merriment and revelry, and together we shall secure victory at the Olympian Conclave.\n\nWhy Join Us?\nBy choosing our events, you align with a legacy of festivity. Each victory strengthens our pursuit of glory, and your efforts will echo through Olympus. Our trials demand creativity, enthusiasm, and a love for celebration.\n\nStand With Dionysus\nCompete in events bearing our emblems and become part of a legacy defined by joy and festivity. Together, we shall secure timeless victory!",
+          "I am Dionysus, god of wine and festivity, ruling Cultural Synergy with creativity and communal spirit. Join me in the pursuit of cultural connection and celebration, and together we shall secure victory at the Olympian Conclave.\n\nWhy Join Us?\nBy choosing our events, you align with a legacy of cultural vibrancy. Each victory strengthens our pursuit of unity, and your efforts will echo through Olympus. Our trials demand creative expression, enthusiastic participation, and a passion for cultural collaboration.\n\nStand With Dionysus\nCompete in events bearing our emblems and become part of a legacy defined by unity and festivity. Together, we shall secure timeless victory!",
       },
     },
     {
@@ -99,9 +99,9 @@ function GodsGallery() {
       god_details: {
         god_name: "Demeter",
         god_type: "Goddess of Agriculture",
-        dept: "Sustainability",
+        dept: "Finance",
         description:
-          "I am Demeter, goddess of agriculture and fertility, ruling Sustainability with growth and abundance. Join me in the pursuit of sustainability and nourishment, and together we shall secure victory at the Olympian Conclave.\n\nWhy Join Us?\nBy choosing our events, you align with a legacy of growth. Each victory strengthens our pursuit of glory, and your efforts will echo through Olympus. Our trials demand agricultural knowledge, environmental stewardship, and a commitment to sustainability.\n\nStand With Demeter\nCompete in events bearing our emblems and become part of a legacy defined by growth and abundance. Together, we shall secure timeless victory!",
+          "I am Demeter, goddess of agriculture and fertility, ruling Finance with strategic insight and abundance. Join me in the pursuit of financial growth and stability, and together we shall secure victory at the Olympian Conclave.\n\nWhy Join Us?\nBy choosing our events, you align with a legacy of prosperity. Each victory strengthens our pursuit of success, and your efforts will echo through Olympus. Our trials demand financial knowledge, strategic planning, and a commitment to excellence.\n\nStand With Demeter\nCompete in events bearing our emblems and become part of a legacy defined by wealth and success. Together, we shall secure timeless victory!",
       },
     },
     {
@@ -113,9 +113,9 @@ function GodsGallery() {
       god_details: {
         god_name: "Hermes",
         god_type: "God of Communication",
-        dept: "Public Relations",
+        dept: "Marketing",
         description:
-          "I am Hermes, god of communication and commerce, ruling Public Relations with eloquence and diplomacy. Join me in the pursuit of connection and influence, and together we shall secure victory at the Olympian Conclave.\n\nWhy Join Us?\nBy choosing our events, you align with a legacy of communication. Each victory strengthens our pursuit of glory, and your efforts will echo through Olympus. Our trials demand persuasive skills, strategic thinking, and a flair for negotiation.\n\nStand With Hermes\nCompete in events bearing our emblems and become part of a legacy defined by communication and influence. Together, we shall secure timeless victory!",
+          "I am Hermes, god of communication and commerce, ruling Marketing with innovation and connection. Join me in the pursuit of influence and engagement, and together we shall secure victory at the Olympian Conclave.\n\nWhy Join Us?\nBy choosing our events, you align with a legacy of strategic communication. Each victory strengthens our pursuit of success, and your efforts will echo through Olympus. Our trials demand creative thinking, persuasive skills, and a knack for building networks.\n\nStand With Hermes\nCompete in events bearing our emblems and become part of a legacy defined by marketing and influence. Together, we shall secure timeless victory!",
       },
     },
     {
@@ -127,9 +127,9 @@ function GodsGallery() {
       god_details: {
         god_name: "Peitho",
         god_type: "Goddess of Persuasion",
-        dept: "Public Relations",
+        dept: "Marketing",
         description:
-          "I am Peitho, goddess of persuasion and seduction, ruling Public Relations with charm and allure. Join me in the pursuit of influence and diplomacy, and together we shall secure victory at the Olympian Conclave.\n\nWhy Join Us?\nBy choosing our events, you align with a legacy of persuasion. Each victory strengthens our pursuit of glory, and your efforts will echo through Olympus. Our trials demand persuasive skills, strategic thinking, and a flair for negotiation.\n\nStand With Peitho\nCompete in events bearing our emblems and become part of a legacy defined by charm and influence. Together, we shall secure timeless victory!",
+          "I am Peitho, goddess of persuasion and seduction, ruling Marketing with charm and strategic finesse. Join me in the pursuit of influence and impactful communication, and together we shall secure victory at the Olympian Conclave.\n\nWhy Join Us?\nBy choosing our events, you align with a legacy of creative persuasion. Each victory strengthens our pursuit of success, and your efforts will echo through Olympus. Our trials demand persuasive skills, strategic insight, and a flair for innovation.\n\nStand With Peitho\nCompete in events bearing our emblems and become part of a legacy defined by marketing and influence. Together, we shall secure timeless victory!",
       },
     },
     {
@@ -141,9 +141,9 @@ function GodsGallery() {
       god_details: {
         god_name: "Nike",
         god_type: "Goddess of Victory",
-        dept: "Sports",
+        dept: "Operations",
         description:
-          "I am Nike, goddess of victory and triumph, ruling Sports with strength and agility. Join me in the pursuit of excellence and glory, and together we shall secure victory at the Olympian Conclave.\n\nWhy Join Us?\nBy choosing our events, you align with a legacy of victory. Each triumph strengthens our pursuit of glory, and your efforts will echo through Olympus. Our trials demand athletic prowess, competitive spirit, and a drive for success.\n\nStand With Nike\nCompete in events bearing our emblems and become part of a legacy defined by victory and triumph. Together, we shall secure timeless victory!",
+          "I am Nike, goddess of victory and triumph, ruling Operations with efficiency and determination. Join me in the pursuit of excellence and seamless execution, and together we shall secure victory at the Olympian Conclave.\n\nWhy Join Us?\nBy choosing our events, you align with a legacy of operational excellence. Each triumph strengthens our pursuit of success, and your efforts will echo through Olympus. Our trials demand strategic planning, meticulous execution, and unwavering commitment.\n\nStand With Nike\nCompete in events bearing our emblems and become part of a legacy defined by operational success. Together, we shall secure timeless victory!",
       },
     },
     {
@@ -155,9 +155,9 @@ function GodsGallery() {
       god_details: {
         god_name: "Hephaestus",
         god_type: "God of Craftsmanship",
-        dept: "Engineering",
+        dept: "Operations",
         description:
-          "I am Hephaestus, god of craftsmanship and technology, ruling Engineering with innovation and precision. Join me in the pursuit of creation and invention, and together we shall secure victory at the Olympian Conclave.\n\nWhy Join Us?\nBy choosing our events, you align with a legacy of innovation. Each creation strengthens our pursuit of glory, and your efforts will echo through Olympus. Our trials demand technical skills, creative thinking, and a passion for invention.\n\nStand With Hephaestus\nCompete in events bearing our emblems and become part of a legacy defined by craftsmanship and technology. Together, we shall secure timeless victory!",
+          "I am Hephaestus, god of craftsmanship and technology, ruling Operations with inventive solutions and precision. Join me in the pursuit of efficient creation and strategic innovation, and together we shall secure victory at the Olympian Conclave.\n\nWhy Join Us?\nBy choosing our events, you align with a legacy of operational innovation. Each creation strengthens our pursuit of success, and your efforts will echo through Olympus. Our trials demand technical prowess, creative problem-solving, and a passion for excellence.\n\nStand With Hephaestus\nCompete in events bearing our emblems and become part of a legacy defined by operational ingenuity. Together, we shall secure timeless victory!",
       },
     },
   ];
@@ -171,7 +171,6 @@ function GodsGallery() {
   const closeModal = () => {
     setSelectedGod(null);
   };
-
 
   return (
     <div>

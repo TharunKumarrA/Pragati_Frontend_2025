@@ -29,10 +29,10 @@ const FullPageMenu = ({ isOpen, onClose }) => {
   const pages = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
-    { name: "Events", href: "/events" },
-    { name: "Schedule", href: "/schedule" },
+    { name: "Events", href: "/upcoming" },
+    { name: "Schedule", href: "/upcoming" },
     { name: "Brochure", href: "/brochure" },
-    { name: "Login/Sign Up", href: "/login" },
+    { name: "Login/Sign Up", href: "/upcoming" },
   ];
 
   return (

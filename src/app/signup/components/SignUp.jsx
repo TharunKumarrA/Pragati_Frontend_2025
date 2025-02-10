@@ -1,17 +1,24 @@
 "use client";
 
-import axios from 'axios';
-import { useEffect, useState } from "react";
-import validator from 'validator';
-import { Button } from './button';
-import { Checkbox } from './checkbox';
-import { toast } from "@/app/_hooks/use-toast";
-import { Input } from './input';
-import styles from "./SignUp.module.css";
+import React, { useState } from "react";
+import {
+  ToastProvider,
+  Toast,
+  ToastViewport,
+  ToastTitle,
+  ToastDescription,
+  ToastClose,
+} from "@/app/_toast/toast";
+import { Input } from "./input";
+import Link from "next/link";
+import Image from "next/image";
+import axios from "axios";
+import validator from "validator";
+import { signup } from "@/app/_utils/api_endpoint_handler";
 
 const Signup = () => {
-  const [isMounted, setIsMounted] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [toasts, setToasts] = useState([]);
   const [formData, setFormData] = useState({
     userName: "",
     userEmail: "",
@@ -28,661 +35,377 @@ const Signup = () => {
     termsAccepted: false,
     needAccommodation: { day1: false, day2: false, day3: false },
   });
-    const [spinnerSize, setSpinnerSize] = useState("small");
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const addToast = (title, description, variant = "default") => {
+    const id = Math.random().toString(36).substr(2, 9);
+    setToasts((prevToasts) => [
+      ...prevToasts,
+      { id, title, description, variant },
+    ]);
+  };
+
+  const removeToast = (id) => {
+    setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));
+  };
 
   const handleInputChange = (e) => {
-    const { name, value, type, checked, day } = e.target;
-  
+    const { name, value, type, checked } = e.target;
     setFormData((prevData) => {
-      if (name === "needAccommodation" && day) {
+      if (name === "needAccommodation") {
         return {
           ...prevData,
           needAccommodation: {
             ...prevData.needAccommodation,
-            [day]: checked,
+            [value]: checked,
           },
         };
       }
-      const updatedData = {
+      return {
         ...prevData,
         [name]: type === "checkbox" ? checked : value,
       };
-  
-      if (name === "isAmrita" && checked) {
-        updatedData.collegeName = "Amrita Vishwa Vidyapeetham";
-  
-        if (updatedData.userEmail.startsWith("cb.")) {
-          updatedData.collegeCity = "Coimbatore";
-        }
-      } else if (name === "isAmrita" && !checked) {
-        updatedData.collegeName = "";
-        updatedData.collegeCity = "";
-      }
-  
-      if (name === "userEmail" && updatedData.isAmrita && value.startsWith("cb.")) {
-        updatedData.collegeCity = "Coimbatore";
-      }
-  
-      return updatedData;
     });
   };
-  
+
+  const validateForm = () => {
+    if (!formData.userName) {
+      addToast("Error", "Name is required.", "destructive");
+      return false;
+    }
+    if (!validator.isEmail(formData.userEmail)) {
+      addToast("Error", "Please enter a valid email address.", "destructive");
+      return false;
+    }
+    if (!validator.isMobilePhone(formData.phoneNumber, "en-IN")) {
+      addToast("Error", "Please enter a valid phone number.", "destructive");
+      return false;
+    }
+    if (formData.userPassword !== formData.confirmPassword) {
+      addToast("Error", "Passwords do not match.", "destructive");
+      return false;
+    }
+    if (
+      !validator.isStrongPassword(formData.userPassword, {
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+    ) {
+      addToast(
+        "Error",
+        "Password must be 8+ characters with uppercase, lowercase, numbers, and symbols.",
+        "destructive"
+      );
+      return false;
+    }
+    if (!formData.termsAccepted) {
+      addToast(
+        "Error",
+        "You must accept the terms and conditions.",
+        "destructive"
+      );
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setSpinnerSize("large");
+    setToasts([]);
 
-    if (formData.isAmrita) {
-      if (!validator.matches(formData.userEmail, /^[a-zA-Z0-9._%+-]+@(cb\.students\.amrita\.edu|cb\.amrita\.edu|av\.students\.amrita\.edu|av\.amrita\.edu)$/)) {
-        toast({
-          title: "Invalid email format for Amrita student.",
-          description: "Use an Amrita domain email (e.g., @cb.students.amrita.edu).",
-          variant: "destructive",
-        });
-        setLoading(false);
-        setSpinnerSize("small");
-        return;
-      }
-    } else {
-      if (!validator.isEmail(formData.userEmail)) {
-        toast({
-          title: "Invalid email format.",
-          description: "Enter a valid email address.",
-          variant: "destructive",
-        });
-        setLoading(false);
-        setSpinnerSize("small");
-        return;
-      }
-    }
+    if (!validateForm()) return;
 
-    if (!validator.isMobilePhone(formData.phoneNumber, 'en-IN')) {
-      toast({
-        title: "Phone number must be valid.",
-        variant: "destructive",
-      });
-      setLoading(false);
-      setSpinnerSize("small");
-      return;
-    }
-
-    if (formData.userPassword !== formData.confirmPassword) {
-      toast({
-        title: "Passwords do not match.",
-        variant: "destructive",
-      });
-      setLoading(false);
-      setSpinnerSize("small");
-      return;
-    }
-
-    if (!validator.isStrongPassword(formData.userPassword, {
-      minLength: 8,
-      minLowercase: 1,
-      minUppercase: 1,
-      minNumbers: 1,
-      minSymbols: 1,
-    })) {
-      toast({
-        title: "Weak password.",
-        description:
-          "Password must be at least 8 characters long, include uppercase, lowercase, a number, and a special character.",
-        variant: "destructive",
-      });
-      setLoading(false);
-      setSpinnerSize("small");
-      return;
-    }
-
-    if (!formData.termsAccepted) {
-      toast({
-        title: "Terms not accepted.",
-        description: "You must accept the terms and conditions.",
-        variant: "destructive",
-      });
-      setLoading(false);
-      setSpinnerSize("small");
-      return;
-    }
-
+    setIsLoading(true);
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/signup`,
-        {
-          userEmail: formData.userEmail,
-          userPassword: formData.userPassword,
-          userName: formData.userName,
-          rollNumber: formData.rollNumber,
-          phoneNumber: formData.phoneNumber,
-          collegeName: formData.collegeName,
-          collegeCity: formData.collegeCity,
-          userDepartment: formData.userDepartment,
-          academicYear: formData.academicYear,
-          degree: formData.degree,
-          isAmrita: formData.isAmrita,
-          needAccommodationDay1: formData.needAccommodation.day1,
-          needAccommodationDay1: formData.needAccommodation.day2,
-          needAccommodationDay1: formData.needAccommodation.day3,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
+      const response = await signup(
+        formData.userName,
+        formData.userEmail,
+        formData.userPassword,
+        formData.phoneNumber,
+        formData.isAmrita,
+        formData.collegeName,
+        formData.collegeCity,
+        formData.rollNumber,
+        formData.userDepartment,
+        formData.academicYear,
+        formData.degree,
+        formData.needAccommodation,
       );
 
-      if (response.status === 200 || response.status === 201) {
-        toast({
-          title: "Success!",
-          description: "Form submitted successfully.",
-          variant: "success",
-        });
+      if (response) {
+        addToast("Success", "Registration successful!");
       } else {
-        toast({
-          title: "Submission failed.",
-          description: "Something went wrong. Please try again later.",
-          variant: "destructive",
-        });
+        throw new Error("Registration failed");
       }
     } catch (error) {
-      toast({
-        title: "Error occurred.",
-        description: error.response?.data?.message || "An error occurred while submitting the form.",
-        variant: "destructive",
-      });
+      addToast(
+        "Error",
+        error.message || "An unexpected error occurred. Please try again.",
+        "destructive"
+      );
     } finally {
-      setLoading(false);
-      setSpinnerSize("small");
+      setIsLoading(false);
     }
   };
 
-  if (!isMounted) {
-    return null;
-  }
-
   return (
-    <>
-    <div className={styles.signupPage}>
-  <div className={`${styles.signupCard} sm:w-11/12 md:w-8/12 lg:w-1/2`}>
-    <h2 className="text-center text-white mt-12 mb-5 z-20 text-2xl [font-family:var(--font-chicavenue)]">Sign Up</h2>
-    {loading && (
-      <div className={styles.loadingOverlay}>
-        <div className={`${styles.loadingSpinner} ${styles[spinnerSize]}`}></div>
-      </div>
-    )}
-    <form className="flex flex-col [font-family:var(--font-poppins)]" onSubmit={handleSubmit}>
-      <div className="flex justify-between gap-5 mt-8 mb-5">
-        <div className="flex-1 flex flex-col gap-5">
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="userName">Name</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              id="userName"
-              name="userName"
-              value={formData.userName}
-              onChange={handleInputChange}
-              placeholder="Enter your name"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="userEmail">Email</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="email"
-              id="userEmail"
-              name="userEmail"
-              value={formData.userEmail}
-              onChange={handleInputChange}
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="userPassword">Password</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="password"
-              id="userPassword"
-              name="userPassword"
-              value={formData.userPassword}
-              onChange={handleInputChange}
-              placeholder="Enter your password"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="confirmPassword">Confirm Password</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleInputChange}
-              placeholder="Confirm your password"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="phoneNumber">Phone Number</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="text"
-              id="phoneNumber"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleInputChange}
-              placeholder="Enter your phone number"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-  <label className="text-white mb-2 font-light">Need Accommodation:</label>
-  <div className="flex items-center gap-2.5 mt-2">
-    <Checkbox
-      id="day1"
-      name="needAccommodation"
-      checked={formData.needAccommodation.day1}
-      onCheckedChange={(checked) =>
-        handleInputChange({ target: { name: "needAccommodation", type: "checkbox", day: "day1", checked } })
-      }
-    />
-    <label htmlFor="day1" className="text-white text-sm">Day 1</label>
-  </div>
-  <div className="flex items-center gap-2.5 mt-2">
-    <Checkbox
-      id="day2"
-      name="needAccommodation"
-      checked={formData.needAccommodation.day2}
-      onCheckedChange={(checked) =>
-        handleInputChange({ target: { name: "needAccommodation", type: "checkbox", day: "day2", checked } })
-      }
-    />
-    <label htmlFor="day2" className="text-white text-sm">Day 2</label>
-  </div>
-  <div className="flex items-center gap-2.5 mt-2">
-    <Checkbox
-      id="day3"
-      name="needAccommodation"
-      checked={formData.needAccommodation.day3}
-      onCheckedChange={(checked) =>
-        handleInputChange({ target: { name: "needAccommodation", type: "checkbox", day: "day3", checked } })
-      }
-    />
-    <label htmlFor="day3" className="text-white text-sm">Day 3</label>
-  </div>
-</div>
-
-        </div>
-
-        <div className="w-px bg-white mx-5"></div>
-
-        <div className="flex-1 flex flex-col gap-5">
-          <div className="flex-1 flex flex-col">
-            <div className="flex items-center gap-2.5 mt-5 text-white">
-              <Checkbox
-                id="isAmrita"
-                name="isAmrita"
-                checked={formData.isAmrita}
-                onCheckedChange={(checked) =>
-                  handleInputChange({ target: { name: "isAmrita", type: "checkbox", checked } })
-                }
+    <ToastProvider>
+      <div
+        className="bg-cover bg-center min-h-screen flex items-center justify-center relative bg-[url('/Assets/background.jpg')] bg-black bg-opacity-50 bg-blend-darken py-8"
+        style={{ paddingTop: "120px", paddingBottom: "80px" }}
+      >
+        <div className="w-full max-w-3xl mx-4 relative">
+          <div className="bg-[#352B1F] text-white rounded-lg p-8 relative">
+            <div className="absolute -top-6 sm:-top-16 left-0 w-full">
+              <Image
+                src="/Assets/border_style_1.jpg"
+                alt=""
+                className="w-full object-cover"
+                width={1200}
+                height={200}
               />
-              <label htmlFor="isAmrita" className="text-[#d4af37] text-sm font-normal">
-                Are you an Amrita Student?
-              </label>
             </div>
+
+            <h2 className="text-[24px] text-center mb-6 [font-family:var(--font-chicavenue)]">
+              Sign Up
+            </h2>
+
+            <form
+              onSubmit={handleSubmit}
+              className="grid grid-cols-1 gap-y-4 [font-family:var(--font-poppins)] relative md:grid-cols-2 gap-6"
+            >
+              {/* Single Column for Mobile */}
+              <div>
+                <label className="block text-sm mb-2">Name</label>
+                <Input
+                  type="text"
+                  name="userName"
+                  value={formData.userName}
+                  onChange={handleInputChange}
+                  className="w-full py-2 px-3 rounded-md text-black bg-white"
+                  placeholder="Enter your name"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm mb-2">Email</label>
+                <Input
+                  type="email"
+                  name="userEmail"
+                  value={formData.userEmail}
+                  onChange={handleInputChange}
+                  className="w-full py-2 px-3 rounded-md text-black bg-white"
+                  placeholder="Enter your email"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm mb-2">Phone Number</label>
+                <Input
+                  type="tel"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleInputChange}
+                  className="w-full py-2 px-3 rounded-md text-black bg-white"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm mb-2">Roll Number</label>
+                <Input
+                  type="text"
+                  name="rollNumber"
+                  value={formData.rollNumber}
+                  onChange={handleInputChange}
+                  className="w-full py-2 px-3 rounded-md text-black bg-white"
+                  placeholder="Enter your roll number"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm mb-2">Password</label>
+                <Input
+                  type="password"
+                  name="userPassword"
+                  value={formData.userPassword}
+                  onChange={handleInputChange}
+                  className="w-full py-2 px-3 rounded-md text-black bg-white"
+                  placeholder="Enter your password"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm mb-2">Confirm Password</label>
+                <Input
+                  type="password"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleInputChange}
+                  className="w-full py-2 px-3 rounded-md text-black bg-white"
+                  placeholder="Confirm your password"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm mb-2">College Name</label>
+                <Input
+                  type="text"
+                  name="collegeName"
+                  value={formData.collegeName}
+                  onChange={handleInputChange}
+                  className="w-full py-2 px-3 rounded-md text-black bg-white"
+                  placeholder="Enter your college name"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm mb-2">College City</label>
+                <Input
+                  type="text"
+                  name="collegeCity"
+                  value={formData.collegeCity}
+                  onChange={handleInputChange}
+                  className="w-full py-2 px-3 rounded-md text-black bg-white"
+                  placeholder="Enter your college city"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm mb-2">Department</label>
+                <Input
+                  type="text"
+                  name="userDepartment"
+                  value={formData.userDepartment}
+                  onChange={handleInputChange}
+                  className="w-full py-2 px-3 rounded-md text-black bg-white"
+                  placeholder="Enter your department"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm mb-2">Degree</label>
+                <Input
+                  type="text"
+                  name="degree"
+                  value={formData.degree}
+                  onChange={handleInputChange}
+                  className="w-full py-2 px-3 rounded-md text-black bg-white"
+                  placeholder="Enter your degree"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm mb-2">Academic Year</label>
+                <Input
+                  type="text"
+                  name="academicYear"
+                  value={formData.academicYear}
+                  onChange={handleInputChange}
+                  className="w-full py-2 px-3 rounded-md text-black bg-white"
+                  placeholder="Enter your academic year"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm mb-2">
+                  Need Accommodation:
+                </label>
+                <div className="flex gap-6">
+                  {Object.keys(formData.needAccommodation).map((day) => (
+                    <label key={day} className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        name="needAccommodation"
+                        value={day}
+                        checked={formData.needAccommodation[day]}
+                        onChange={handleInputChange}
+                        className="w-4 h-4"
+                      />
+                      <span className="text-sm">Day {day.slice(-1)}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="isAmrita"
+                    checked={formData.isAmrita}
+                    onChange={handleInputChange}
+                    className="w-4 h-4"
+                  />
+                  <span className="text-sm">Are you an Amrita student?</span>
+                </label>
+
+                <label className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="termsAccepted"
+                    checked={formData.termsAccepted}
+                    onChange={handleInputChange}
+                    className="w-4 h-4"
+                  />
+                  <span className="text-sm">
+                    I agree to the terms and conditions
+                  </span>
+                </label>
+              </div>
+
+              {/* Sign Up Button - Full Width */}
+              <div className="mt-6 md:col-span-2">
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full bg-[#D4AF37] text-white py-3 px-6 rounded-md hover:bg-[#B4941F] transition-colors duration-200 disabled:opacity-50"
+                >
+                  {isLoading ? "Signing up..." : "Sign Up"}
+                </button>
+              </div>
+
+              <div className="md:col-span-2 text-center mt-2">
+                <p className="text-sm text-gray-300">
+                  Already registered?{" "}
+                  <Link
+                    href="/login"
+                    className="text-[#D4AF37] hover:text-[#B4941F] transition-colors duration-200"
+                  >
+                    Login here
+                  </Link>
+                </p>
+              </div>
+            </form>
           </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="collegeName">College Name</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="text"
-              id="collegeName"
-              name="collegeName"
-              value={formData.collegeName}
-              onChange={handleInputChange}
-              placeholder="Enter your college name"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="collegeCity">College City</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white  placeholder:opacity-50 border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="text"
-              id="collegeCity"
-              name="collegeCity"
-              value={formData.collegeCity}
-              onChange={handleInputChange}
-              placeholder="Enter your college city"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="rollNumber">Roll Number</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="text"
-              id="rollNumber"
-              name="rollNumber"
-              value={formData.rollNumber}
-              onChange={handleInputChange}
-              placeholder="Enter your roll number"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="userDepartment">Department</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="text"
-              id="userDepartment"
-              name="userDepartment"
-              value={formData.userDepartment}
-              onChange={handleInputChange}
-              placeholder="Enter your department"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="academicYear">Academic Year</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="text"
-              id="academicYear"
-              name="academicYear"
-              value={formData.academicYear}
-              onChange={handleInputChange}
-              placeholder="Enter your academic year"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="degree">Degree</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="text"
-              id="degree"
-              name="degree"
-              value={formData.degree}
-              onChange={handleInputChange}
-              placeholder="Enter your degree"
-              required
+
+          <div className="absolute -bottom-6 sm:-bottom-12 left-0 w-full">
+            <Image
+              src="/Assets/border_style_2.jpg"
+              alt=""
+              className="w-full object-cover"
+              width={1200}
+              height={200}
             />
           </div>
         </div>
+
+        <ToastViewport />
+        {toasts.map(({ id, title, description, variant }) => (
+          <Toast
+            key={id}
+            variant={variant}
+            onOpenChange={() => removeToast(id)}
+          >
+            <ToastTitle>{title}</ToastTitle>
+            <ToastDescription>{description}</ToastDescription>
+            <ToastClose />
+          </Toast>
+        ))}
       </div>
-
-      <div className="flex items-center mt-10 mb-1.5 text-white text-sm gap-2.5">
-        <Checkbox
-          id="termsAccepted"
-          name="termsAccepted"
-          checked={formData.termsAccepted}
-          onCheckedChange={(checked) =>
-            setFormData((prevData) => ({ ...prevData, termsAccepted: checked }))
-          }
-        />
-        <label htmlFor="termsAccepted" className="text-[#d4af37] font-normal">
-          I accept the <a href="/terms" className="text-[#ffcc00] no-underline hover:underline">Terms and Conditions</a>.
-        </label>
-      </div>
-
-      <Button type="submit" className={styles.submitBtn} disabled={loading}>
-        {!loading && "Sign Up"}
-      </Button>
-
-      <div className="relative z-20 mt-8  text-center text-white">
-        <p className="mb-10">
-          Already have an account? <a href="/login" className="text-[#d4af37] no-underline hover:underline">Login</a>
-        </p>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div className={styles.signupMobilePage}>
-  <div className={styles.signupCard}>
-    <h2 className="text-center text-white mt-12 mb-5 z-20 text-2xl [font-family:var(--font-chicavenue)]">Sign Up</h2>
-    {loading && (
-      <div className={styles.loadingOverlay}>
-        <div className={`${styles.loadingSpinner} ${styles[spinnerSize]}`}></div>
-      </div>
-    )}
-    <form className="flex flex-col [font-family:var(--font-poppins)]" onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-5 mt-3 mb-5">
-
-        <div className="flex flex-col gap-5">
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="userName">Name</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              id="userName"
-              name="userName"
-              value={formData.userName}
-              onChange={handleInputChange}
-              placeholder="Enter your name"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="userEmail">Email</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 placeholder:opacity-50 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="email"
-              id="userEmail"
-              name="userEmail"
-              value={formData.userEmail}
-              onChange={handleInputChange}
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="userPassword">Password</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="password"
-              id="userPassword"
-              name="userPassword"
-              value={formData.userPassword}
-              onChange={handleInputChange}
-              placeholder="Enter your password"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="confirmPassword">Confirm Password</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleInputChange}
-              placeholder="Confirm your password"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="phoneNumber">Phone Number</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="text"
-              id="phoneNumber"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleInputChange}
-              placeholder="Enter your phone number"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-  <label className="text-white mb-2 font-light">Need Accommodation:</label>
-  <div className="flex items-center gap-2.5 mt-2">
-    <Checkbox
-      id="day1"
-      name="needAccommodation"
-      checked={formData.needAccommodation.day1}
-      onCheckedChange={(checked) =>
-        handleInputChange({ target: { name: "needAccommodation", type: "checkbox", day: "day1", checked } })
-      }
-    />
-    <label htmlFor="day1" className="text-white text-sm">Day 1</label>
-  </div>
-  <div className="flex items-center gap-2.5 mt-2">
-    <Checkbox
-      id="day2"
-      name="needAccommodation"
-      checked={formData.needAccommodation.day2}
-      onCheckedChange={(checked) =>
-        handleInputChange({ target: { name: "needAccommodation", type: "checkbox", day: "day2", checked } })
-      }
-    />
-    <label htmlFor="day2" className="text-white text-sm">Day 2</label>
-  </div>
-  <div className="flex items-center gap-2.5 mt-2">
-    <Checkbox
-      id="day3"
-      name="needAccommodation"
-      checked={formData.needAccommodation.day3}
-      onCheckedChange={(checked) =>
-        handleInputChange({ target: { name: "needAccommodation", type: "checkbox", day: "day3", checked } })
-      }
-    />
-    <label htmlFor="day3" className="text-white text-sm">Day 3</label>
-  </div>
-</div>
-          <div className="flex items-center gap-2.5 mt-1 mb-2 py-2 text-white">
-            <Checkbox
-              id="isAmrita"
-              name="isAmrita"
-              checked={formData.isAmrita}
-              onCheckedChange={(checked) =>
-                handleInputChange({ target: { name: "isAmrita", type: "checkbox", checked } })
-              }
-            />
-            <label htmlFor="isAmrita" className="text-[#d4af37] text-sm font-normal">
-              Are you an Amrita Student?
-            </label>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-5">
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="collegeName">College Name</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 placeholder:opacity-50 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="text"
-              id="collegeName"
-              name="collegeName"
-              value={formData.collegeName}
-              onChange={handleInputChange}
-              placeholder="Enter your college name"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="collegeCity">College City</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white  placeholder:opacity-50 border-b-2 transition-all duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="text"
-              id="collegeCity"
-              name="collegeCity"
-              value={formData.collegeCity}
-              onChange={handleInputChange}
-              placeholder="Enter your college city"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="rollNumber">Roll Number</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="text"
-              id="rollNumber"
-              name="rollNumber"
-              value={formData.rollNumber}
-              onChange={handleInputChange}
-              placeholder="Enter your roll number"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="userDepartment">Department</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="text"
-              id="userDepartment"
-              name="userDepartment"
-              value={formData.userDepartment}
-              onChange={handleInputChange}
-              placeholder="Enter your department"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="academicYear">Academic Year</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="text"
-              id="academicYear"
-              name="academicYear"
-              value={formData.academicYear}
-              onChange={handleInputChange}
-              placeholder="Enter your academic year"
-              required
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <label className="text-white mb-2 font-light" htmlFor="degree">Degree</label>
-            <Input
-              className="w-full py-1.5 text-black text-base bg-white border-b-2 transition-all placeholder:opacity-50 duration-300 ease-in-out focus:border-b-2 focus:border-yellow-400 focus:scale-105 placeholder:text-black placeholder:focus:text-black hover:border-b-2 hover:border-yellow-400"
-              type="text"
-              id="degree"
-              name="degree"
-              value={formData.degree}
-              onChange={handleInputChange}
-              placeholder="Enter your degree"
-              required
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="flex items-center mt-0 mb-1.5 ml-15 text-white text-sm gap-2.5">
-        <Checkbox
-          id="termsAccepted"
-          name="termsAccepted"
-          checked={formData.termsAccepted}
-          onCheckedChange={(checked) =>
-            setFormData((prevData) => ({ ...prevData, termsAccepted: checked }))
-          }
-        />
-        <label htmlFor="termsAccepted" className="text-[#d4af37] font-normal">
-          I accept the <a href="/terms" className="text-[#ffcc00] no-underline hover:underline">Terms and Conditions</a>.
-        </label>
-      </div>
-
-      <Button type="submit" className={styles.submitBtn} disabled={loading}>
-        {!loading && "Sign Up"}
-      </Button>
-
-      <div className="relative z-20 mb-16 text-center text-white">
-        <p className="mb-10">
-          Already have an account? <a href="/login" className="text-[#d4af37] no-underline hover:underline">Login</a>
-        </p>
-      </div>
-    </form>
-  </div>
-</div>
-
-    </>
+    </ToastProvider>
   );
 };
 

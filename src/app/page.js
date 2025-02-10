@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar /> {/* Keep this from dev branch */}
       <HeroLanding />
       <SponsorsMarquee />
       <About />

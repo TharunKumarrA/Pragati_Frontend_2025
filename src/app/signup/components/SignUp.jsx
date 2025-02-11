@@ -12,13 +12,15 @@ import {
 import { Input } from "./input";
 import Link from "next/link";
 import Image from "next/image";
-import axios from "axios";
 import validator from "validator";
 import { signup } from "@/app/_utils/api_endpoint_handler";
+import { useRouter } from "next/navigation";
+import secureLocalStorage from "react-secure-storage";
 
 const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [toasts, setToasts] = useState([]);
+  const router = useRouter();
   const [formData, setFormData] = useState({
     userName: "",
     userEmail: "",
@@ -123,6 +125,7 @@ const Signup = () => {
         formData.userName,
         formData.userEmail,
         formData.userPassword,
+        formData.confirmPassword, // <-- Added this parameter
         formData.phoneNumber,
         formData.isAmrita,
         formData.collegeName,
@@ -131,11 +134,17 @@ const Signup = () => {
         formData.userDepartment,
         formData.academicYear,
         formData.degree,
-        formData.needAccommodation,
+        formData.needAccommodation
       );
 
       if (response) {
         addToast("Success", "Registration successful!");
+        // Optionally, store the registered email for OTP verification:
+        secureLocalStorage.setItem("registeredEmail", formData.userEmail);
+        // Redirect to OTP page after successful registration
+        setTimeout(() => {
+          router.push("/otp");
+        }, 1500);
       } else {
         throw new Error("Registration failed");
       }

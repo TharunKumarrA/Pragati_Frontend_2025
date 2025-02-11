@@ -1,9 +1,6 @@
 const { headers } = require("next/headers");
 const base_url = `${process.env.NEXT_PUBLIC_API_BASE_URL}`;
-
-{
-  /* Password for now is not hashed !!!! */
-}
+import hash from "./hash";
 
 const make_request = async (url, method, data = null) => {
   try {
@@ -54,21 +51,18 @@ export const signup = async (
   needAccommodation
 ) => {
   const url = `${base_url}/auth/signup`;
-  {
-    /* Still unclear about accommodation data */
-  }
   const data = {
     userName: userName,
     userEmail: userEmail,
-    userPassword: userPassword,
-    confirmPassword: confirmPassword,
+    userPassword: hash.hashPassword(userPassword),
+    confirmPassword: hash.hashPassword(confirmPassword),
     phoneNumber: phoneNumber,
     isAmrita: isAmrita,
     collegeName: collegeName,
     collegeCity: collegeCity,
     rollNumber: rollNumber,
     userDepartment: userDepartment,
-    academicYear: academicYear,
+    academicYear: parseInt(academicYear, 10), // Convert academicYear to a number
     degree: degree,
     needAccommodation: needAccommodation,
   };

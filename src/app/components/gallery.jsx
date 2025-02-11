@@ -25,6 +25,17 @@ const FilmGallery = () => {
     "https://imgur.com/ino79ZK.jpg",
   ];
 
+  // Determine if the view is mobile based on window width.
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   // Refs for GSAP animations
   const row1 = useRef(null);
   const row2 = useRef(null);
@@ -35,30 +46,30 @@ const FilmGallery = () => {
 
   // Preloader state: count how many images have loaded.
   const [loadedCount, setLoadedCount] = useState(0);
-  // Total images count: desktop (both rows) + mobile (first 5 from each row)
-  const totalImages =
-    filmRow1.length +
-    filmRow2.length +
-    filmRow1.slice(0, 5).length +
-    filmRow2.slice(0, 5).length;
+  // Total images count depends on the view:
+  // Desktop: use all images. Mobile: use only the first 5 from each row.
+  const totalImages = isMobile
+    ? filmRow1.slice(0, 5).length + filmRow2.slice(0, 5).length
+    : filmRow1.length + filmRow2.length;
+
   const [allLoaded, setAllLoaded] = useState(false);
 
-  // When loadedCount reaches totalImages, mark as loaded.
+  // Mark as loaded when loadedCount reaches totalImages.
   useEffect(() => {
-    if (loadedCount >= totalImages) {
+    if (totalImages > 0 && loadedCount >= totalImages) {
       setAllLoaded(true);
-      // Refresh ScrollTrigger so that all dimensions and trigger positions are recalculated.
+      // Refresh ScrollTrigger to recalc dimensions and trigger positions.
       ScrollTrigger.refresh();
     }
   }, [loadedCount, totalImages]);
 
+  // GSAP animations
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Use gsap.context to scope our animations
     const ctx = gsap.context(() => {
       // Desktop timeline
-      if (container.current) {
+      if (!isMobile && container.current) {
         const desktopTl = gsap.timeline({
           scrollTrigger: {
             trigger: container.current,
@@ -71,7 +82,7 @@ const FilmGallery = () => {
         desktopTl.to(row2.current, { x: 450, duration: 2 }, "-=2");
       }
       // Mobile timeline
-      if (phoneContainer.current) {
+      if (isMobile && phoneContainer.current) {
         const mobileTl = gsap.timeline({
           scrollTrigger: {
             trigger: phoneContainer.current,
@@ -84,8 +95,8 @@ const FilmGallery = () => {
         mobileTl.to(Phrow2.current, { x: 200, duration: 2 }, "-=2");
       }
     });
-    return () => ctx.revert(); // Cleanup on unmount
-  }, [allLoaded]); // Re-run when images have loaded
+    return () => ctx.revert();
+  }, [allLoaded, isMobile]);
 
   return (
     <div className="mt-20">
@@ -96,58 +107,60 @@ const FilmGallery = () => {
       </div>
 
       <div className="gallery-wrapper relative">
-        {/* Skeleton Preloader Gallery */}
+        {/* Skeleton Preloader */}
         {!allLoaded && (
           <>
-            {/* Desktop Skeleton */}
-            <div className="pc-view hidden z-10 lg:block">
-              <div className="overflow-hidden">
-                <div className="pcrow1 grid grid-cols-7 gap-2 h-[40vh] w-[130vw] my-3">
-                  {filmRow1.map((_, idx) => (
-                    <div
-                      key={`skeleton-pc1-${idx}`}
-                      className="h-full w-full bg-gray-300 animate-pulse rounded-md"
-                    ></div>
-                  ))}
-                </div>
-                <div
-                  className="pcrow2 grid grid-cols-7 gap-2 h-[40vh] w-[130vw] my-3"
-                  style={{ marginLeft: "-30vw", overflowX: "hidden" }}
-                >
-                  {filmRow2.map((_, idx) => (
-                    <div
-                      key={`skeleton-pc2-${idx}`}
-                      className="h-full w-full bg-gray-300 animate-pulse rounded-md"
-                    ></div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Mobile Skeleton */}
-            <div className="mobile-view block z-10 lg:hidden">
-              <div className="overflow-hidden">
-                <div className="mrow1 grid grid-cols-5 gap-2 h-[30vh] w-[270vw] my-3">
-                  {filmRow1.slice(0, 5).map((_, idx) => (
-                    <div
-                      key={`skeleton-mobile1-${idx}`}
-                      className="h-full w-full bg-gray-300 animate-pulse rounded-md"
-                    ></div>
-                  ))}
-                </div>
-                <div
-                  className="mrow2 grid grid-cols-5 gap-2 h-[30vh] w-[270vw] my-3"
-                  style={{ marginLeft: "-170vw", overflowX: "hidden" }}
-                >
-                  {filmRow2.slice(0, 5).map((_, idx) => (
-                    <div
-                      key={`skeleton-mobile2-${idx}`}
-                      className="h-full w-full bg-gray-300 animate-pulse rounded-md"
-                    ></div>
-                  ))}
+            {!isMobile ? (
+              // Desktop Skeleton
+              <div className="pc-view z-10">
+                <div className="overflow-hidden">
+                  <div className="pcrow1 grid grid-cols-7 gap-2 h-[40vh] w-[130vw] my-3">
+                    {filmRow1.map((_, idx) => (
+                      <div
+                        key={`skeleton-pc1-${idx}`}
+                        className="h-full w-full bg-gray-300 animate-pulse rounded-md"
+                      ></div>
+                    ))}
+                  </div>
+                  <div
+                    className="pcrow2 grid grid-cols-7 gap-2 h-[40vh] w-[130vw] my-3"
+                    style={{ marginLeft: "-30vw", overflowX: "hidden" }}
+                  >
+                    {filmRow2.map((_, idx) => (
+                      <div
+                        key={`skeleton-pc2-${idx}`}
+                        className="h-full w-full bg-gray-300 animate-pulse rounded-md"
+                      ></div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              // Mobile Skeleton
+              <div className="mobile-view z-10">
+                <div className="overflow-hidden">
+                  <div className="mrow1 grid grid-cols-5 gap-2 h-[30vh] w-[270vw] my-3">
+                    {filmRow1.slice(0, 5).map((_, idx) => (
+                      <div
+                        key={`skeleton-mobile1-${idx}`}
+                        className="h-full w-full bg-gray-300 animate-pulse rounded-md"
+                      ></div>
+                    ))}
+                  </div>
+                  <div
+                    className="mrow2 grid grid-cols-5 gap-2 h-[30vh] w-[270vw] my-3"
+                    style={{ marginLeft: "-170vw", overflowX: "hidden" }}
+                  >
+                    {filmRow2.slice(0, 5).map((_, idx) => (
+                      <div
+                        key={`skeleton-mobile2-${idx}`}
+                        className="h-full w-full bg-gray-300 animate-pulse rounded-md"
+                      ></div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </>
         )}
 
@@ -157,107 +170,109 @@ const FilmGallery = () => {
             allLoaded ? "opacity-100" : "opacity-0"
           } transition-opacity duration-300`}
         >
-          {/* Desktop View */}
-          <div className="pc-view hidden z-10 lg:block">
-            <div className="overflow-hidden" ref={container}>
-              <div
-                className="pcrow1 grid grid-cols-7 gap-2 h-[40vh] w-[130vw] my-3"
-                ref={row1}
-              >
-                {filmRow1.map((src) => (
-                  <div
-                    className="flex relative justify-center items-center mx-2 h-full w-full"
-                    key={src + "-pc1"}
-                  >
-                    <Image
-                      src={src}
-                      alt={`Film ${filmRow1.indexOf(src) + 1}`}
-                      layout="fill"
-                      objectFit="cover"
-                      className="rounded-md"
-                      onLoadingComplete={() =>
-                        setLoadedCount((prev) => prev + 1)
-                      }
-                    />
-                  </div>
-                ))}
-              </div>
-              <div
-                className="pcrow2 grid grid-cols-7 gap-2 h-[40vh] w-[130vw] my-3"
-                ref={row2}
-                style={{ marginLeft: "-30vw", overflowX: "hidden" }}
-              >
-                {filmRow2.map((src) => (
-                  <div
-                    className="flex relative justify-center items-center mx-2 h-full w-full"
-                    key={src + "-pc2"}
-                  >
-                    <Image
-                      src={src}
-                      alt={`Film ${filmRow2.indexOf(src) + 1}`}
-                      layout="fill"
-                      objectFit="cover"
-                      className="rounded-md"
-                      onLoadingComplete={() =>
-                        setLoadedCount((prev) => prev + 1)
-                      }
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile View */}
-          <div className="mobile-view block z-10 lg:hidden">
-            <div className="overflow-hidden" ref={phoneContainer}>
-              <div
-                className="mrow1 grid grid-cols-5 gap-2 h-[30vh] w-[270vw] my-3"
-                ref={Phrow1}
-              >
-                {filmRow1.slice(0, 5).map((src) => (
-                  <div
-                    className="flex relative justify-center items-center mx-2 h-full w-full"
-                    key={src + "-mobile1"}
-                  >
-                    <Image
-                      src={src}
-                      alt={`Film ${filmRow1.indexOf(src) + 1}`}
-                      layout="fill"
-                      objectFit="cover"
-                      className="rounded-md"
-                      onLoadingComplete={() =>
-                        setLoadedCount((prev) => prev + 1)
-                      }
-                    />
-                  </div>
-                ))}
-              </div>
-              <div
-                className="mrow2 grid grid-cols-5 gap-2 h-[30vh] w-[270vw] my-3"
-                ref={Phrow2}
-                style={{ marginLeft: "-170vw", overflowX: "hidden" }}
-              >
-                {filmRow2.slice(0, 5).map((src) => (
-                  <div
-                    className="flex relative justify-center items-center mx-2 h-full w-full"
-                    key={src + "-mobile2"}
-                  >
-                    <Image
-                      src={src}
-                      alt={`Film ${filmRow2.indexOf(src) + 1}`}
-                      layout="fill"
-                      objectFit="cover"
-                      className="rounded-md"
-                      onLoadingComplete={() =>
-                        setLoadedCount((prev) => prev + 1)
-                      }
-                    />
-                  </div>
-                ))}
+          {!isMobile ? (
+            // Desktop Gallery
+            <div className="pc-view z-10">
+              <div className="overflow-hidden" ref={container}>
+                <div
+                  className="pcrow1 grid grid-cols-7 gap-2 h-[40vh] w-[130vw] my-3"
+                  ref={row1}
+                >
+                  {filmRow1.map((src, index) => (
+                    <div
+                      className="flex relative justify-center items-center mx-2 h-full w-full"
+                      key={src + "-pc1"}
+                    >
+                      <Image
+                        src={src}
+                        alt={`Film ${index + 1}`}
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-md"
+                        onLoadingComplete={() =>
+                          setLoadedCount((prev) => prev + 1)
+                        }
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div
+                  className="pcrow2 grid grid-cols-7 gap-2 h-[40vh] w-[130vw] my-3"
+                  ref={row2}
+                  style={{ marginLeft: "-30vw", overflowX: "hidden" }}
+                >
+                  {filmRow2.map((src, index) => (
+                    <div
+                      className="flex relative justify-center items-center mx-2 h-full w-full"
+                      key={src + "-pc2"}
+                    >
+                      <Image
+                        src={src}
+                        alt={`Film ${index + 1}`}
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-md"
+                        onLoadingComplete={() =>
+                          setLoadedCount((prev) => prev + 1)
+                        }
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            // Mobile Gallery
+            <div className="mobile-view z-10">
+              <div className="overflow-hidden" ref={phoneContainer}>
+                <div
+                  className="mrow1 grid grid-cols-5 gap-2 h-[30vh] w-[270vw] my-3"
+                  ref={Phrow1}
+                >
+                  {filmRow1.slice(0, 5).map((src, index) => (
+                    <div
+                      className="flex relative justify-center items-center mx-2 h-full w-full"
+                      key={src + "-mobile1"}
+                    >
+                      <Image
+                        src={src}
+                        alt={`Film ${index + 1}`}
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-md"
+                        onLoadingComplete={() =>
+                          setLoadedCount((prev) => prev + 1)
+                        }
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div
+                  className="mrow2 grid grid-cols-5 gap-2 h-[30vh] w-[270vw] my-3"
+                  ref={Phrow2}
+                  style={{ marginLeft: "-170vw", overflowX: "hidden" }}
+                >
+                  {filmRow2.slice(0, 5).map((src, index) => (
+                    <div
+                      className="flex relative justify-center items-center mx-2 h-full w-full"
+                      key={src + "-mobile2"}
+                    >
+                      <Image
+                        src={src}
+                        alt={`Film ${index + 1}`}
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-md"
+                        onLoadingComplete={() =>
+                          setLoadedCount((prev) => prev + 1)
+                        }
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

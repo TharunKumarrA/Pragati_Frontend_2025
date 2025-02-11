@@ -20,11 +20,12 @@ const About = () => {
     // Initially, set image parameters:
     gsap.set(allPhotos, { autoAlpha: 1, scale: 1 });
     gsap.set(photos, { autoAlpha: 0, scale: 1.05 });
+    gsap.set(".blackOverlay", { autoAlpha: 0 });
 
     let mm = gsap.matchMedia();
 
-    // Desktop animations (min-width: 600px)
-    mm.add("(min-width: 600px)", () => {
+    // Function to create animations for both desktop and mobile
+    const createAnimations = (isMobile) => {
       // Pin the right section during scroll.
       ScrollTrigger.create({
         trigger: ".gallery",
@@ -57,6 +58,15 @@ const About = () => {
             "-=0.5"
           )
           .to(
+            `.blackOverlay-${index}`,
+            {
+              autoAlpha: 1,
+              duration: 0.5,
+              ease: "power2.out",
+            },
+            isMobile ? 0.3 : 0 // Adjust starting time for mobile
+          )
+          .to(
             allPhotos[index],
             {
               autoAlpha: 0,
@@ -64,7 +74,7 @@ const About = () => {
               duration: 0.5,
               ease: "power2.out",
             },
-            0 // desktop timeline: start immediately
+            isMobile ? 0.3 : 0 // Adjust starting time for mobile
           )
           .to(
             photos[index],
@@ -74,82 +84,39 @@ const About = () => {
               duration: 0.5,
               ease: "power2.out",
             },
-            0
+            isMobile ? 0.3 : 0 // Adjust starting time for mobile
+          )
+          .to(
+            `.blackOverlay-${index}`,
+            {
+              autoAlpha: 0,
+              duration: 0.5,
+              ease: "power2.out",
+            },
+            isMobile ? 0.8 : 0.5 // Adjust ending time for mobile
           );
 
         ScrollTrigger.create({
           trigger: detail,
-          start: "top 50%",
-          end: "top 30%",
+          start: isMobile ? "top 60%" : "top 50%",
+          end: isMobile ? "top 40%" : "top 30%",
           animation: tl,
-          scrub: 1.4,
+          scrub: isMobile ? 1 : 1.4,
         });
       });
+    };
+
+    // Desktop animations (min-width: 600px)
+    mm.add("(min-width: 600px)", () => {
+      createAnimations(false);
     });
 
     // Mobile animations (max-width: 599px)
     mm.add("(max-width: 599px)", () => {
-      // Pin the right section in mobile view so the image remains visible.
-      ScrollTrigger.create({
-        trigger: ".gallery",
-        start: "top top",
-        end: "bottom bottom",
-        pin: ".right",
-      });
-
-      details.forEach((detail, index) => {
-        const headline = detail.querySelector("h1");
-        const paragraph = detail.querySelector("p");
-
-        let tl = gsap.timeline();
-
-        tl.from(headline, {
-          opacity: 0,
-          clipPath: "inset(0 100% 0 0)",
-          duration: 0.7,
-          ease: "power3.out",
-        })
-          .from(
-            paragraph,
-            {
-              opacity: 0,
-              clipPath: "inset(0 100% 0 0)",
-              duration: 0.7,
-              ease: "power3.out",
-            },
-            "-=0.5"
-          )
-          // **Delay the crossfade animations on mobile**
-          .to(
-            allPhotos[index],
-            {
-              autoAlpha: 0,
-              scale: 1,
-              duration: 0.5,
-              ease: "power2.out",
-            },
-            0.3 // start this animation a bit later
-          )
-          .to(
-            photos[index],
-            {
-              autoAlpha: 1,
-              scale: 1,
-              duration: 0.5,
-              ease: "power2.out",
-            },
-            0.3
-          );
-
-        // Adjust trigger values on mobile to allow a longer scroll interval.
-        ScrollTrigger.create({
-          trigger: detail,
-          start: "top 80%", // Adjusted from 60% to 80% for better readability
-          end: "top 40%",
-          animation: tl,
-          scrub: 1,
-        });
-      });
+      // Adjust the scaling and clipping for mobile devices
+      gsap.set(allPhotos, { scale: 1 });
+      gsap.set(photos, { scale: 1.05 });
+      createAnimations(true);
     });
 
     return () => {
@@ -214,6 +181,7 @@ const About = () => {
                 alt="Pragati"
                 className="w-full h-full object-cover"
               />
+              <div className="blackOverlay blackOverlay-0 absolute inset-0 bg-black opacity-0 z-10"></div>
             </div>
             <div className="desktopPhoto absolute w-full h-full">
               <Image
@@ -223,6 +191,7 @@ const About = () => {
                 alt="ASB"
                 className="w-full h-full object-cover"
               />
+              <div className="blackOverlay blackOverlay-1 absolute inset-0 bg-black opacity-0 z-10"></div>
             </div>
             <div className="desktopPhoto absolute w-full h-full">
               <Image
@@ -232,6 +201,7 @@ const About = () => {
                 alt="Pragati 24"
                 className="w-full h-full object-cover"
               />
+              <div className="blackOverlay blackOverlay-2 absolute inset-0 bg-black opacity-0 z-10"></div>
             </div>
           </div>
 

@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./input-otp.jsx";
 import { useRouter } from "next/navigation";
 import secureLocalStorage from "react-secure-storage";
+import { verifyOtp } from "@/app/_utils/api_endpoint_handler.js";
 
 const Otp = () => {
-  const [otp, setOtp] = useState(["", "", "", ""]);
+  const [otp, setOtp] = useState("");
   const [timer, setTimer] = useState(120);
   const [registeredEmail, setRegisteredEmail] = useState("");
   const router = useRouter();
 
-  // Get registered email from secure storage on mount
   useEffect(() => {
     const email = secureLocalStorage.getItem("registeredEmail");
     if (email) {
@@ -20,7 +20,6 @@ const Otp = () => {
     }
   }, []);
 
-  // Timer countdown
   useEffect(() => {
     if (timer > 0) {
       const interval = setInterval(() => setTimer((prev) => prev - 1), 1000);
@@ -28,7 +27,7 @@ const Otp = () => {
     }
   }, [timer]);
 
-  const handleResend = () => {
+  const handleResend = async () => {
     if (timer === 0) {
       toast({
         title: "OTP Resent",
@@ -36,23 +35,37 @@ const Otp = () => {
         variant: "success",
       });
       setTimer(120);
-      // Optionally, trigger an API call to actually resend the OTP.
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const enteredOtp = otp.join("");
-    if (enteredOtp.match(/^\d{4}$/)) {
-      toast({
-        title: "OTP Verified",
-        description: "You have successfully verified your OTP.",
-        variant: "success",
-      });
-      // After successful OTP verification, redirect to login page after a short delay.
-      setTimeout(() => {
-        router.push("/login");
-      }, 1500);
+    console.log("Submitting OTP:", otp);
+
+    // Trim any extra spaces
+    const sanitizedOTP = otp.trim();
+    // Validate that it is exactly 4 digits
+    if (sanitizedOTP.match(/^\d{4}$/)) {
+      const token = secureLocalStorage.getItem("registerToken");
+      const result = await verifyOtp(sanitizedOTP, token);
+
+      if (result && result.success) {
+        toast({
+          title: "OTP Verified",
+          description: "You have successfully verified your OTP.",
+          variant: "success",
+        });
+        setTimeout(() => {
+          router.push("/login");
+        }, 1500);
+      } else {
+        setOtp("");
+        toast({
+          title: "Invalid OTP",
+          description: "The OTP you entered is incorrect.",
+          variant: "destructive",
+        });
+      }
     } else {
       toast({
         title: "Invalid OTP",
@@ -60,12 +73,6 @@ const Otp = () => {
         variant: "destructive",
       });
     }
-  };
-
-  const handleOtpChange = (index, value) => {
-    const updatedOtp = [...otp];
-    updatedOtp[index] = value.replace(/[^0-9]/g, "");
-    setOtp(updatedOtp);
   };
 
   return (
@@ -84,24 +91,18 @@ const Otp = () => {
             An OTP has been sent to <strong>{registeredEmail}</strong>.
           </p>
         )}
-        <p className="text-[1rem] text-[#555] mb-6">
-          Enter the 4-digit OTP sent to your email.
-        </p>
-
         <form onSubmit={handleSubmit} className="flex flex-col items-center">
-          <InputOTP maxLength={4}>
+          <InputOTP
+            maxLength={4}
+            value={otp}
+            onChange={(value) => setOtp(value.replace(/[^0-9]/g, ""))} // Allow only digits
+          >
             <InputOTPGroup>
-              {otp.map((char, index) => (
-                <InputOTPSlot
-                  key={index}
-                  index={index}
-                  value={char}
-                  onChange={(value) => handleOtpChange(index, value)}
-                />
+              {[...Array(4)].map((_, index) => (
+                <InputOTPSlot key={index} index={index} />
               ))}
             </InputOTPGroup>
           </InputOTP>
-
           <p className="text-[0.95rem] text-[#777] my-4">
             {timer > 0 ? (
               `Resend OTP in ${Math.floor(timer / 60)}:${String(
@@ -109,17 +110,16 @@ const Otp = () => {
               ).padStart(2, "0")}`
             ) : (
               <a
-                className="text-[#007bff] underline cursor-pointer transition-colors duration-300 hover:text-[#0056b3]"
+                className="text-[#007bff] underline cursor-pointer hover:text-[#0056b3]"
                 onClick={handleResend}
               >
                 Resend OTP
               </a>
             )}
           </p>
-
           <button
             type="submit"
-            className="bg-[#1f2937] text-white border-0 py-3 px-5 rounded-full cursor-pointer text-[1.1rem] w-full mt-4 transition-colors duration-300 hover:bg-[#16212a]"
+            className="bg-[#1f2937] text-white py-3 px-5 rounded-full text-[1.1rem] w-full mt-4 hover:bg-[#16212a]"
           >
             Verify OTP
           </button>

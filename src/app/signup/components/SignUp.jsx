@@ -137,11 +137,14 @@ const Signup = () => {
         formData.needAccommodation
       );
 
-      if (response) {
-        addToast("Success", "Registration successful!");
-        // Optionally, store the registered email for OTP verification:
+      if (response && response.DATA) {
+        // Store otpToken and the registered email in secure local storage
+        secureLocalStorage.setItem("registerToken", response.DATA);
         secureLocalStorage.setItem("registeredEmail", formData.userEmail);
-        // Redirect to OTP page after successful registration
+
+        addToast("Success", "Registration successful!");
+
+        // Redirect to OTP page after a short delay
         setTimeout(() => {
           router.push("/otp");
         }, 1500);

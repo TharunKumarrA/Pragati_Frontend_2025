@@ -22,7 +22,7 @@ export default function UpcomingPage() {
             href="pragatiinfo@cb.amrita.edu"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white hover:text-blue-600 transition-colors duration-300"
+            className="text-white hover:text-red-600 transition-colors duration-300"
           >
             <Mail size={30} />
           </a>

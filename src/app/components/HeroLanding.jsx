@@ -16,7 +16,7 @@ const HeroLanding = () => {
             <p className="text-white text-xs p-1 ">Organized by</p>
             <Link href="https://www.amrita.edu/school/business/coimbatore/" target="_blank" passHref>
               <Image
-                src="/Images/asb_logo_with_bg.png"
+                src="/Images/ASB.png"
                 width={148}
                 height={100}
                 alt="ASB Logo"
@@ -30,7 +30,7 @@ const HeroLanding = () => {
             <p className="text-white text-xs p-1">Event Run By</p>
             <Link href="https://www.bny.com/corporate/global/en.html" target="_blank" passHref>
               <Image
-                src="/Images/bny_logo.png"
+                src="/Images/BNY.png"
                 width={128}
                 height={50}
                 alt="BNY Logo"

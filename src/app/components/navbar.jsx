@@ -104,7 +104,7 @@ const Navbar = () => {
             )}
           </div>
         ) : (
-          <Link href="/login">
+          <Link href="/upcoming"> {/* Change this to /login */}
             <div className="hidden md:block text-[#8B6F47] bg-white px-6 py-2 rounded-full border-[3px] border-[#8B6F47] shadow-md transition-all duration-300 ease-in-out transform hover:bg-[#8B6F47] hover:text-white hover:shadow-lg hover:scale-105 hover:border-[#C2A27E] active:scale-95">
               <span className="flex items-center gap-2">
                 <User className="w-5 h-5" />

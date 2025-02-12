@@ -19,7 +19,9 @@ export default function Home() {
       <Navbar /> {/* Keep this from dev branch */}
       <HeroLanding />
       <SponsorsMarquee />
-      <About />
+      <div id="about">
+        <About />
+      </div>
       <div className="mt-24 md:my-0"></div>
       <AnimationPage />
       <div className="my-16 md:my-48"></div>

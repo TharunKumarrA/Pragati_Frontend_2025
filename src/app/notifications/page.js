@@ -50,9 +50,9 @@ const WhatsHappening = () => {
       </div>
 
       {/* MAIN CONTENT */}
-      <main className="relative z-20 flex-grow">
-        <div className="container mx-auto px-4 pt-20 pb-16">
-          <h1 className="text-3xl font-serif text-center mb-12">
+      <main className="relative z-20 md:w-[80%] mx-auto flex-grow">
+        <div className="container mx-auto px-4 pt-20 pb-14">
+          <h1 className="text-3xl text-center mb-12">
             What&apos;s Happening?
           </h1>
 

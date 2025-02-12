@@ -134,7 +134,7 @@ const About = () => {
     "Pragati 2024, National Level B Fest concludes The Amrita School of Business, Coimbatore, celebrated another successful edition of Pragati in February 2024, under the theme ‘Multiple Universes, One Extravaganza’. The fest attracted a wide array of participants from numerous business schools, engaging them in a series of management and non-management challenges aimed at sharpening their business skills. A highlight of the event was an inspiring address by Swami Amritaswarupananda Puri, the President of Amrita University, who shared valuable insights and encouragement with the students, further enriching the experience of Pragati 2024. This fest continues to be a pivotal event for fostering innovation, networking, and collaboration among the future luminaries of the business world.";
 
   return (
-    <div className="spacer">
+    <div className="spacer" id="aboutPragati">
       <div className="gallery flex flex-col-reverse md:flex-row">
         {/* Left Section */}
         <div className="left w-full md:w-1/2">

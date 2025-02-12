@@ -15,7 +15,7 @@ export default function Home() {
   const currentPage = pathname === "/" ? "home" : pathname.replace("/", "");
 
   return (
-    <div>
+    <div className="min-h-screen">
       <Navbar /> {/* Keep this from dev branch */}
       <HeroLanding />
       <SponsorsMarquee />

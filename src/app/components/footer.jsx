@@ -23,7 +23,7 @@ const Footer = ({ current_page }) => {
 
   return (
     <div className="relative h-1/2 footer-font bg-black">
-      <div className="flex flex-wrap p-8 space-x-4 lg:justify-center">
+      <div className="flex flex-wrap p-2 md:p-8  space-x-4 lg:justify-center">
         {/* Footer Image */}
         <div className="p-6">
           <Image

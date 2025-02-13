@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-import EventCard from "../components/eventcards";
+import EventCard from "./components/EventCards";
+import FilterSection from "./components/FilterSection";
 const events = [
   {
     title: "Athena's Debate Arena",
@@ -178,7 +179,7 @@ const EventPage = () => {
   return (
     <div className="py-5 bg-black bg-opacity-50 min-h-screen">
       <h1 className="text-white mt-10 text-[2rem] pt-5 md:text-[3rem] text-center">Events</h1>
-      <div className="text-center my-5 mb-8 w-[95%] mx-auto">
+      <div className="text-center my-5 mb-1 w-[95%] mx-auto">
         <input
           type="text"
           placeholder="Search events..."
@@ -187,6 +188,7 @@ const EventPage = () => {
           className="px-3 py-3 md:w-[70%] w-[80%] text-black rounded-xl focus:border-0 focus:outline-0"
         />
       </div>
+      <FilterSection/>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 px-10">
       {filteredEvents.length > 0 ? (
           filteredEvents.map((event, index) => ((

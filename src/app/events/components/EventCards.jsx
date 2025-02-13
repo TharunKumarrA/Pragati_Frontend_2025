@@ -22,7 +22,7 @@ const EventCard = ({
               width={500}
               height={500}
               alt="Event Poster"
-              className="w-full h-auto aspect-[5/6] rounded-xl object-cover"
+              className="w-full h-auto aspect-[5/5] rounded-xl object-cover"
             />
             <div className="absolute z-0 top-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end items-center rounded-xl text-lg font-bold cursor-pointer">
               <div className="mb-10 pb-5 text-center">

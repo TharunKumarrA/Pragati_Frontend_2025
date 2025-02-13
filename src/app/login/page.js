@@ -77,7 +77,7 @@ const Page = () => {
           response.DATA.USER.userEmail
         );
         secureLocalStorage.setItem("rollNumber", response.DATA.USER.rollNumber);
-        secureLocalStorage.setItem("isLoggedIn", 1);
+        secureLocalStorage.setItem("isLoggedIn", "1");
         secureLocalStorage.setItem(
           "profilePic",
           response.DATA.USER.profilePic || null

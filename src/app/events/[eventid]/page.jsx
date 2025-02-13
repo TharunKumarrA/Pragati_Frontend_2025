@@ -17,19 +17,26 @@ import {
   AccordionTrigger,
 } from "@/app/components/events/accordion";
 import Link from "next/link";
-
-const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { getEvent } from "@/app/_utils/api_endpoint_handler";
+import secureLocalStorage from "react-secure-storage";
 
 const Event = () => {
   const { eventid } = useParams();
   const [eventData, setEventData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check if user is logged in using secureLocalStorage
+  useEffect(() => {
+    const stored = secureLocalStorage.getItem("isLoggedIn");
+    console.log("Stored isLoggedIn:", stored);
+    setIsLoggedIn(stored === "1");
+  }, []);
 
   useEffect(() => {
     if (!eventid) return;
 
-    fetch(`${baseURL}/event/${eventid}`)
-      .then((response) => response.json())
+    getEvent(eventid)
       .then((data) => {
         if (data.DATA && data.DATA.length > 0) {
           const event = data.DATA[0];
@@ -42,7 +49,7 @@ const Event = () => {
               ? `${event.minTeamSize}-${event.maxTeamSize} Members`
               : "Individual Event",
             contact:
-              event.organizers.length > 0
+              event.organizers && event.organizers.length > 0
                 ? event.organizers
                     .map(
                       (org) =>
@@ -50,7 +57,6 @@ const Event = () => {
                     )
                     .join(" | ")
                 : "Contact Info Unavailable",
-
             price: event.isPerHeadFee
               ? `₹${event.eventFee} / team`
               : `₹${event.eventFee} / member`,
@@ -67,7 +73,6 @@ const Event = () => {
             ],
             description:
               event.eventDescription || "No event description provided.",
-
             rules: [
               "Participants must arrive 15 minutes before the event starts.",
               "Use of external help or unauthorized tools is strictly prohibited.",
@@ -76,8 +81,6 @@ const Event = () => {
               "Late submissions will result in disqualification.",
               "Respect other participants and maintain decorum.",
             ],
-
-            // Dummy Event Details
             details: [
               "This is a team-based event with a focus on problem-solving and creativity.",
               "Participants will be given a set of tasks to complete within a time limit.",
@@ -86,6 +89,8 @@ const Event = () => {
               "Refreshments will be provided during the break.",
               "Networking session with industry experts post-event.",
             ],
+            // Assuming the API returns this flag (default to 0 if not provided)
+            isRegistered: event.isRegistered || 0,
           });
         } else {
           setEventData(null);
@@ -123,12 +128,31 @@ const Event = () => {
             height={500}
             className="w-full h-auto rounded-lg object-cover mb-6 shadow-md"
           />
-          <Link
-            href="/login"
-            className="bg-[#322A1E] border-[#E5C14E] hover:scale-105 transition-all border-2 w-full text-[#E5C14E] py-3 text-center rounded-xl text-lg font-bold shadow-md"
-          >
-            Login to Register
-          </Link>
+          {console.log("isLoggedIn state:", isLoggedIn)}
+          {isLoggedIn ? (
+            eventData.isRegistered === 1 ? (
+              <button
+                disabled
+                className="bg-gray-500 border-gray-500 cursor-not-allowed w-full py-3 text-center rounded-xl text-lg font-bold shadow-md"
+              >
+                Registered
+              </button>
+            ) : (
+              <Link
+                href="/register"
+                className="bg-[#322A1E] border-[#E5C14E] hover:scale-105 transition-all border-2 w-full text-[#E5C14E] py-3 text-center rounded-xl text-lg font-bold shadow-md"
+              >
+                Register
+              </Link>
+            )
+          ) : (
+            <Link
+              href="/login"
+              className="bg-[#322A1E] border-[#E5C14E] hover:scale-105 transition-all border-2 w-full text-[#E5C14E] py-3 text-center rounded-xl text-lg font-bold shadow-md"
+            >
+              Login to Register
+            </Link>
+          )}
         </div>
 
         <div className="lg:w-2/3 text-white py-8 px-4">
@@ -141,7 +165,7 @@ const Event = () => {
               <Calendar className="w-5 h-5 text-[#E5C14E]" />
               <span>
                 {eventData.date === "1" ? "3rd" : "4th"} March 2025 |{" "}
-                {eventData.time}{" "}
+                {eventData.time}
               </span>
             </div>
 

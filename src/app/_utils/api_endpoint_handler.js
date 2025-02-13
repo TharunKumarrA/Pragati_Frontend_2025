@@ -164,3 +164,41 @@ export const getEvents = async () => {
     throw error;
   }
 };
+
+export const getEvent = async (eventId) => {
+  const url = `${base_url}/event/${eventId}`;
+
+  // Optionally include bearer token if available
+  let token = null;
+  if (typeof window !== "undefined") {
+    const isLoggedIn = localStorage.getItem("isloggedin");
+    if (isLoggedIn === "1") {
+      token = localStorage.getItem("token");
+    }
+  }
+
+  const headers = { "Content-Type": "application/json" };
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers,
+    });
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      console.log("Request error:", responseData);
+      const error = new Error(responseData.MESSAGE || response.statusText);
+      error.status = response.status;
+      throw error;
+    }
+
+    return responseData;
+  } catch (error) {
+    console.error("Request error:", error);
+    throw error;
+  }
+};

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import {
   Calendar,
   MapPin,
@@ -22,9 +22,14 @@ import secureLocalStorage from "react-secure-storage";
 
 const Event = () => {
   const { eventid } = useParams();
+  const router = useRouter();
   const [eventData, setEventData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // state to control showing the team details modal for group events
+  const [showTeamModal, setShowTeamModal] = useState(false);
+  // state to hold the team members list
+  const [teamMembers, setTeamMembers] = useState([]);
 
   // Check if user is logged in using secureLocalStorage
   useEffect(() => {
@@ -89,8 +94,10 @@ const Event = () => {
               "Refreshments will be provided during the break.",
               "Networking session with industry experts post-event.",
             ],
-            // Assuming the API returns this flag (default to 0 if not provided)
+            // Flag to indicate if the user is already registered
             isRegistered: event.isRegistered || 0,
+            // Save whether this is a group event for later checks
+            isGroup: event.isGroup,
           });
         } else {
           setEventData(null);
@@ -99,6 +106,62 @@ const Event = () => {
       .catch((error) => console.error("Error fetching event data:", error))
       .finally(() => setLoading(false));
   }, [eventid]);
+
+  // Auto-fill team member details for group events if logged in.
+  // Assumes that you store the current user's name and email in secureLocalStorage.
+  useEffect(() => {
+    if (isLoggedIn && eventData && eventData.isGroup) {
+      const userEmail = secureLocalStorage.getItem("userEmail") || "";
+      const userName = secureLocalStorage.getItem("userName") || "";
+      setTeamMembers([{ name: userName, email: userEmail }]);
+    }
+  }, [isLoggedIn, eventData]);
+
+  // This function decides what happens when the register button is clicked.
+  const handleRegister = () => {
+    if (eventData.isGroup) {
+      // For group events, show the modal to collect team details.
+      setShowTeamModal(true);
+    } else {
+      // For individual events, proceed directly to the payments page.
+      router.push("/payment");
+    }
+  };
+
+  // Add a new blank team member input.
+  const addTeamMember = () => {
+    setTeamMembers([...teamMembers, { name: "", email: "" }]);
+  };
+
+  // Update a team member's field.
+  const handleTeamMemberChange = (index, field, value) => {
+    const updatedMembers = [...teamMembers];
+    updatedMembers[index][field] = value;
+    setTeamMembers(updatedMembers);
+  };
+
+  // On submission, verify that all team members have been filled and are registered.
+  const handleSubmitTeam = async () => {
+    // Loop over team members and validate details.
+    for (let i = 0; i < teamMembers.length; i++) {
+      const member = teamMembers[i];
+      if (!member.name || !member.email) {
+        alert("Please fill in all team member details.");
+        return;
+      }
+      // Dummy verification:
+      // Replace this with an actual API call to verify registration if needed.
+      if (!member.email.includes("@")) {
+        alert(
+          `Team member ${member.name} with email ${member.email} is not registered.`
+        );
+        return;
+      }
+    }
+    // If verification passes, close the modal and send the user to the payment page.
+    setShowTeamModal(false);
+    router.push("/payment");
+  };
 
   if (loading) return <p className="text-white">Loading...</p>;
   if (!eventData) return <p className="text-white">Event not found</p>;
@@ -138,12 +201,12 @@ const Event = () => {
                 Registered
               </button>
             ) : (
-              <Link
-                href="/register"
+              <button
+                onClick={handleRegister}
                 className="bg-[#322A1E] border-[#E5C14E] hover:scale-105 transition-all border-2 w-full text-[#E5C14E] py-3 text-center rounded-xl text-lg font-bold shadow-md"
               >
                 Register
-              </Link>
+              </button>
             )
           ) : (
             <Link
@@ -246,6 +309,62 @@ const Event = () => {
           </AccordionItem>
         </Accordion>
       </div>
+
+      {/* Modal for Group Event Team Registration */}
+      {showTeamModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg w-11/12 max-w-md">
+            <h2 className="text-2xl font-bold mb-4">Team Details</h2>
+            <div className="space-y-4 max-h-60 overflow-y-auto">
+              {teamMembers.map((member, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col gap-1 border p-2 rounded"
+                >
+                  <label className="text-sm">Name:</label>
+                  <input
+                    type="text"
+                    value={member.name}
+                    onChange={(e) =>
+                      handleTeamMemberChange(index, "name", e.target.value)
+                    }
+                    className="border p-2 rounded"
+                  />
+                  <label className="text-sm">Email:</label>
+                  <input
+                    type="email"
+                    value={member.email}
+                    onChange={(e) =>
+                      handleTeamMemberChange(index, "email", e.target.value)
+                    }
+                    className="border p-2 rounded"
+                  />
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={addTeamMember}
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+            >
+              Add Team Member
+            </button>
+            <div className="flex justify-end mt-4 gap-2">
+              <button
+                onClick={() => setShowTeamModal(false)}
+                className="px-4 py-2 bg-gray-500 text-white rounded"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubmitTeam}
+                className="px-4 py-2 bg-green-500 text-white rounded"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

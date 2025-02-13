@@ -23,7 +23,7 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: ["imgur.com"],
+    domains: ["imgur.com", "example.com"],
   },
 };
 

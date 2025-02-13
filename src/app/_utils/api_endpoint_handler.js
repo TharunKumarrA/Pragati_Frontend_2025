@@ -16,16 +16,18 @@ const make_request = async (url, method, data = null) => {
     const response = await fetch(url, options);
     const responseData = await response.json();
 
-    // If the response is not OK, throw an error with the backend message
     if (!response.ok) {
-      throw new Error(responseData.MESSAGE || response.statusText);
+      // Include status in the thrown error
+      console.log("Request error:", responseData);
+      const error = new Error(responseData.MESSAGE || response.statusText);
+      error.status = response.status;
+      throw error;
     }
 
     return responseData;
   } catch (error) {
     console.error("Request error:", error);
-    // Rethrow the error so that it can be caught by the calling function
-    throw error;
+    throw error; // Rethrow to be caught in handleSubmit
   }
 };
 
@@ -100,6 +102,27 @@ export const verifyOtp = async (otp, otpToken) => {
   }
 };
 
+export const reverifyUser = async (email) => {
+  const url = `${base_url}/auth/reverifyUser`;
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userEmail: email }),
+    });
+
+    const responseData = await response.json();
+
+    return { status: response.status, ...responseData }; // Include status code
+  } catch (error) {
+    console.error("Error sending reverify request:", error);
+    throw error;
+  }
+};
+
 export const getNotifications = async () => {
   const url = `${base_url}/notification/`;
   return await make_request(url, "GET");
@@ -107,5 +130,37 @@ export const getNotifications = async () => {
 
 export const getEvents = async () => {
   const url = `${base_url}/event/all`;
-  return await make_request(url, "GET");
+
+  // Check if we're in a browser environment and if the user is logged in
+  let token = null;
+  if (typeof window !== "undefined") {
+    const isLoggedIn = localStorage.getItem("isloggedin");
+    if (isLoggedIn === "1") {
+      token = localStorage.getItem("token");
+    }
+  }
+
+  // Construct the request options, adding the Authorization header if a token exists
+  const options = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  };
+
+  if (token) {
+    options.headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  try {
+    const response = await fetch(url, options);
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      throw new Error(responseData.MESSAGE || response.statusText);
+    }
+
+    return responseData;
+  } catch (error) {
+    console.error("Request error:", error);
+    throw error;
+  }
 };

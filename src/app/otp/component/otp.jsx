@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./input-otp.jsx";
 import { useRouter } from "next/navigation";
 import secureLocalStorage from "react-secure-storage";
-import { verifyOtp } from "@/app/_utils/api_endpoint_handler.js";
+import { verifyOtp, reverifyUser } from "@/app/_utils/api_endpoint_handler.js";
 
 const Otp = () => {
   const [otp, setOtp] = useState("");
@@ -28,13 +28,34 @@ const Otp = () => {
   }, [timer]);
 
   const handleResend = async () => {
-    if (timer === 0) {
-      toast({
-        title: "OTP Resent",
-        description: "A new OTP has been sent to your email.",
-        variant: "success",
-      });
-      setTimer(120);
+    if (timer === 0 && registeredEmail) {
+      try {
+        const response = await reverifyUser(registeredEmail);
+        console.log("Reverify response:", response);
+
+        if (response?.status === 200) {
+          secureLocalStorage.setItem("registerToken", response.DATA.TOKEN);
+          toast({
+            title: "OTP Resent",
+            description: "A new OTP has been sent to your email.",
+            variant: "success",
+          });
+          setTimer(120); // Restart timer
+        } else {
+          toast({
+            title: "Error",
+            description: response.MESSAGE || "Failed to resend OTP.",
+            variant: "destructive",
+          });
+        }
+      } catch (error) {
+        console.error("Error resending OTP:", error);
+        toast({
+          title: "Error",
+          description: "An error occurred while resending OTP.",
+          variant: "destructive",
+        });
+      }
     }
   };
 

@@ -15,6 +15,7 @@ import Link from "next/link";
 import { login } from "@/app/_utils/api_endpoint_handler";
 import secureLocalStorage from "react-secure-storage";
 import { useRouter } from "next/navigation";
+import { reverifyUser } from "@/app/_utils/api_endpoint_handler";
 
 const Page = () => {
   const [email, setEmail] = useState("");
@@ -65,7 +66,6 @@ const Page = () => {
     try {
       const response = await login(email, password);
 
-      // If login was successful, response.MESSAGE should be "Login successful"
       if (response && response.MESSAGE === "Login successful") {
         secureLocalStorage.setItem("registerToken", response.DATA.TOKEN);
         secureLocalStorage.setItem(
@@ -99,11 +99,40 @@ const Page = () => {
       }
     } catch (error) {
       console.log("Error logging in:", error);
-      addToast(
-        "Error",
-        error.message || "An unexpected error occurred. Please try again.",
-        "destructive"
-      );
+
+      if (error.status === 403) {
+        try {
+          const reverifyResponse = await reverifyUser(email);
+          console.log("Reverify response:", reverifyResponse);
+          console.log("Reverify response status:", reverifyResponse.status);
+          if (reverifyResponse.status === 200) {
+            secureLocalStorage.setItem("registerToken", reverifyResponse.DATA.TOKEN);
+            secureLocalStorage.setItem("registerEmail", email);
+
+            addToast("Success", "OTP sent successfully!");
+            router.push("/otp");
+          } else {
+            addToast(
+              "Error",
+              reverifyResponse.MESSAGE || "Failed to send OTP.",
+              "destructive"
+            );
+          }
+        } catch (reverifyError) {
+          console.error("Error sending reverify request:", reverifyError);
+          addToast(
+            "Error",
+            "An error occurred while resending OTP.",
+            "destructive"
+          );
+        }
+      } else {
+        addToast(
+          "Error",
+          error.message || "An unexpected error occurred. Please try again.",
+          "destructive"
+        );
+      }
     } finally {
       setIsLoading(false);
     }

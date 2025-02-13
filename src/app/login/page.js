@@ -65,7 +65,7 @@ const Page = () => {
     try {
       const response = await login(email, password);
 
-      // Check for a successful login.
+      // If login was successful, response.MESSAGE should be "Login successful"
       if (response && response.MESSAGE === "Login successful") {
         secureLocalStorage.setItem("registerToken", response.DATA.TOKEN);
         secureLocalStorage.setItem(
@@ -83,7 +83,6 @@ const Page = () => {
           response.DATA.USER.profilePic || null
         );
 
-        // Dispatch a single custom auth update event.
         window.dispatchEvent(
           new CustomEvent("authUpdate", {
             detail: {
@@ -97,8 +96,6 @@ const Page = () => {
         setTimeout(() => {
           router.push("/events");
         }, 1500);
-      } else {
-        throw new Error(response?.MESSAGE || "Login failed");
       }
     } catch (error) {
       console.log("Error logging in:", error);

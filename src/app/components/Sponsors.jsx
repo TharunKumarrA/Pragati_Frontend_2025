@@ -6,6 +6,9 @@ const sponsors = [
   { src: "/Images/BNY.png", title: "BNY" },
   { src: "/Images/Sudhama.jpg", title: "Sudhama Groups" },
   { src: "/Images/Orange_B-1.png", title: "Hapli Earth" },
+  { src: "/Images/BNY.png", title: "BNY" },
+  { src: "/Images/Sudhama.jpg", title: "Sudhama Groups" },
+  { src: "/Images/Orange_B-1.png", title: "Hapli Earth" },
 ];
 
 const SponsorElement = ({ sponsor }) => {

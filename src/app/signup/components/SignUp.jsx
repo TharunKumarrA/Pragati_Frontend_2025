@@ -125,7 +125,7 @@ const Signup = () => {
         formData.userName,
         formData.userEmail,
         formData.userPassword,
-        formData.confirmPassword, // <-- Added this parameter
+        formData.confirmPassword,
         formData.phoneNumber,
         formData.isAmrita,
         formData.collegeName,
@@ -138,18 +138,13 @@ const Signup = () => {
       );
 
       if (response && response.DATA) {
-        // Store otpToken and the registered email in secure local storage
         secureLocalStorage.setItem("registerToken", response.DATA);
         secureLocalStorage.setItem("registeredEmail", formData.userEmail);
 
         addToast("Success", "Registration successful!");
-
-        // Redirect to OTP page after a short delay
         setTimeout(() => {
           router.push("/otp");
         }, 1500);
-      } else {
-        throw new Error("Registration failed");
       }
     } catch (error) {
       addToast(

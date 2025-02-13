@@ -6,9 +6,7 @@ const make_request = async (url, method, data = null) => {
   try {
     const options = {
       method,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
     };
 
     if (data) {
@@ -16,15 +14,18 @@ const make_request = async (url, method, data = null) => {
     }
 
     const response = await fetch(url, options);
+    const responseData = await response.json();
 
+    // If the response is not OK, throw an error with the backend message
     if (!response.ok) {
-      throw new Error(response.statusText);
+      throw new Error(responseData.MESSAGE || response.statusText);
     }
 
-    return await response.json();
+    return responseData;
   } catch (error) {
-    console.log(error);
-    return null;
+    console.error("Request error:", error);
+    // Rethrow the error so that it can be caught by the calling function
+    throw error;
   }
 };
 

@@ -1,55 +1,148 @@
 "use client";
+import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { Calendar, MapPin, User, Phone, IndianRupeeIcon, Trophy } from "lucide-react";
+import {
+  Calendar,
+  MapPin,
+  User,
+  Phone,
+  IndianRupeeIcon,
+  Trophy,
+} from "lucide-react";
 import Image from "next/image";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/app/components/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/app/components/events/accordion";
 import Link from "next/link";
+
+const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const Event = () => {
   const { eventid } = useParams();
-  if (!eventid) return <p className="text-white">Loading...</p>;
-  const eventData = {
-    title: "Athena's Debate Arena",
-    date: "19th Feb | 10:00 AM - 2:00 PM",
-    venue: "ABC Venue, XYZ Hall",
-    teamSize: "5-6 Members",
-    contact: "Prateek - 9567944874",
-    price: "₹200 /member (incl of GST)",
-    rewards: [
-      { place: "1st Place", amount: "₹10,000", color: "bg-orange-500" },
-      { place: "2nd Place", amount: "₹7,000", color: "bg-gray-500" },
-    ],
-    poster: "/Images/temp/1.png",
-    logo: "/Images/temp/eventlogo.png",
-    emblems: ["/Images/Emblems/1a_athena.webp", "/Images/Emblems/1b_eirene.webp"],
-    description: `Prepare for an exhilarating challenge as teams of 5-6 players engage in a high-stakes race to decipher a series of perplexing puzzles and conquer a myriad of formidable challenges, all in pursuit of uncovering the elusive treasure.
-    This thrilling treasure hunt spans various locations, from the depths of indoor spaces to the vastness of the outdoors.
-    
-    Victory hinges on the triumphant blend of creative thinking, problem-solving prowess, and seamless teamwork. Only the first team to crack the code and lay their hands on the concealed riches will emerge as the ultimate champions in this heart-pounding quest!`,
-  };
+  const [eventData, setEventData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!eventid) return;
+
+    fetch(`${baseURL}/event/${eventid}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.DATA && data.DATA.length > 0) {
+          const event = data.DATA[0];
+          setEventData({
+            title: event.eventName || "",
+            date: `${event.eventDate}`,
+            time: `${event.time}`,
+            venue: event.venue || "TBA",
+            teamSize: event.isGroup
+              ? `${event.minTeamSize}-${event.maxTeamSize} Members`
+              : "Individual Event",
+            contact:
+              event.organizers.length > 0
+                ? event.organizers
+                    .map(
+                      (org) =>
+                        `${org.organizerName} - ${org.organizerPhoneNumber}`
+                    )
+                    .join(" | ")
+                : "Contact Info Unavailable",
+
+            price: event.isPerHeadFee
+              ? `₹${event.eventFee} / team`
+              : `₹${event.eventFee} / member`,
+            rewards: [
+              { place: "1st Place", amount: "₹10,000", color: "bg-orange-500" },
+              { place: "2nd Place", amount: "₹7,000", color: "bg-gray-500" },
+            ],
+            clubname: event.clubName,
+            poster: "/Images/temp/1.png",
+            logo: "/Images/temp/eventlogo.png",
+            emblems: [
+              "/Images/Emblems/1a_athena.webp",
+              "/Images/Emblems/1b_eirene.webp",
+            ],
+            description:
+              event.eventDescription || "No event description provided.",
+
+            rules: [
+              "Participants must arrive 15 minutes before the event starts.",
+              "Use of external help or unauthorized tools is strictly prohibited.",
+              "Each team is allowed a maximum of two substitutions.",
+              "Judges' decisions are final and binding.",
+              "Late submissions will result in disqualification.",
+              "Respect other participants and maintain decorum.",
+            ],
+
+            // Dummy Event Details
+            details: [
+              "This is a team-based event with a focus on problem-solving and creativity.",
+              "Participants will be given a set of tasks to complete within a time limit.",
+              "Judging criteria include innovation, feasibility, and presentation skills.",
+              "Winners will receive cash prizes, certificates, and potential internship opportunities.",
+              "Refreshments will be provided during the break.",
+              "Networking session with industry experts post-event.",
+            ],
+          });
+        } else {
+          setEventData(null);
+        }
+      })
+      .catch((error) => console.error("Error fetching event data:", error))
+      .finally(() => setLoading(false));
+  }, [eventid]);
+
+  if (loading) return <p className="text-white">Loading...</p>;
+  if (!eventData) return <p className="text-white">Event not found</p>;
 
   return (
     <div className="bg-black bg-opacity-50 min-h-screen flex flex-col items-center">
-      <Image src={eventData.logo} alt="Event Logo" width={100} height={100} className="w-20 h-auto rounded-lg mt-[4rem] object-cover shadow-md" />
-      <p className="text-white text-center text-lg font-semibold">ABC Presents</p>
-      <h1 className="text-white text-center text-4xl font-bold mx-4">{eventData.title}</h1>
+      <Image
+        src={eventData.logo}
+        alt="Event Logo"
+        width={100}
+        height={100}
+        className="w-20 h-auto rounded-lg mt-[4rem] object-cover shadow-md"
+      />
+      <p className="text-white text-center text-lg font-semibold">
+        {eventData.clubname} Presents
+      </p>
+      <h1 className="text-white text-center text-4xl font-bold mx-4">
+        {eventData.title}
+      </h1>
 
-      <div className="flex flex-col lg:flex-row items-center justify-center lg:items-start mt-5 mx-2 lg:mx-20 bg-[#ffffff]/2 rounded-xl shadow-lg overflow-hidden backdrop-blur-md">
+      <div className="flex flex-col min-w-[90%] lg:flex-row items-center justify-center lg:items-start mt-5 mx-2 lg:mx-20 bg-[#ffffff]/2 rounded-xl shadow-lg overflow-hidden backdrop-blur-md">
         <div className="w-[350px] flex flex-col items-center p-5">
-          <Image src={eventData.poster} alt="Event Poster" width={500} height={500} className="w-full h-auto rounded-lg object-cover mb-6 shadow-md" />
-          <Link href="/login" className="bg-[#322A1E] border-[#E5C14E] hover:scale-105 transition-all border-2 w-full text-[#E5C14E] py-3 text-center rounded-xl text-lg font-bold shadow-md">
+          <Image
+            src={eventData.poster}
+            alt="Event Poster"
+            width={500}
+            height={500}
+            className="w-full h-auto rounded-lg object-cover mb-6 shadow-md"
+          />
+          <Link
+            href="/login"
+            className="bg-[#322A1E] border-[#E5C14E] hover:scale-105 transition-all border-2 w-full text-[#E5C14E] py-3 text-center rounded-xl text-lg font-bold shadow-md"
+          >
             Login to Register
           </Link>
         </div>
 
-
         <div className="lg:w-2/3 text-white py-8 px-4">
-          <p className="text-md mb-6 leading-relaxed text-justify">{eventData.description}</p>
+          <p className="text-md mb-6 leading-relaxed text-justify">
+            {eventData.description}
+          </p>
 
           <div className="text-md">
             <div className="flex items-center gap-4 mb-2">
               <Calendar className="w-5 h-5 text-[#E5C14E]" />
-              <span>{eventData.date}</span>
+              <span>
+                {eventData.date === "1" ? "3rd" : "4th"} March 2025 |{" "}
+                {eventData.time}{" "}
+              </span>
             </div>
 
             <div className="flex items-center gap-4 mb-2">
@@ -73,9 +166,16 @@ const Event = () => {
             </div>
           </div>
 
-          <div className="flex gap-6 mt-6">
+          <div className="flex gap-6 mt-3">
             {eventData.emblems.map((emblem, index) => (
-              <Image key={index} src={emblem} alt={`Emblem ${index + 1}`} width={100} height={100} className="w-[80px] h-[80px] rounded-full object-cover shadow-md" />
+              <Image
+                key={index}
+                src={emblem}
+                alt={`Emblem ${index + 1}`}
+                width={100}
+                height={100}
+                className="w-[80px] h-[80px] rounded-full object-cover shadow-md"
+              />
             ))}
           </div>
         </div>
@@ -99,8 +199,12 @@ const Event = () => {
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
             <AccordionTrigger>Details</AccordionTrigger>
-            <AccordionContent>
-              Yes. It adheres to the WAI-ARIA design pattern.
+            <AccordionContent className="pt-3">
+              <ul className="list-disc list-inside space-y-2">
+                {eventData.details.map((detail, index) => (
+                  <li key={index}>{detail}</li>
+                ))}
+              </ul>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
@@ -108,8 +212,12 @@ const Event = () => {
         <Accordion type="single" className="mt-4" collapsible>
           <AccordionItem value="item-2">
             <AccordionTrigger>Rules</AccordionTrigger>
-            <AccordionContent>
-              Yes. It adheres to the WAI-ARIA design pattern.
+            <AccordionContent className="pt-3">
+              <ul className="list-disc list-inside space-y-2">
+                {eventData.rules.map((detail, index) => (
+                  <li key={index}>{detail}</li>
+                ))}
+              </ul>
             </AccordionContent>
           </AccordionItem>
         </Accordion>

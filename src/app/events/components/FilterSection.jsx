@@ -13,8 +13,8 @@ const tags = [
 ];
 
 const dates = [
-  { value: "2nd", label: "02" },
-  { value: "3rd", label: "03" },
+  { value: "3rd", label: "01" },
+  { value: "4th", label: "02" },
 ];
 
 const FilterSection = () => {
@@ -22,8 +22,7 @@ const FilterSection = () => {
   const [selectedDates, setSelectedDates] = useState([]);
 
   return (
-    <div className="mx-auto w-full px-2 py-4 pb-6 flex flex-wrap items-center justify-center gap-1 sm:gap-2">
-      {/* MultiSelect Filters */}
+    <div className="mx-auto w-full px-2 py-4 pb-6 flex flex-wrap items-center justify-center gap-2">
       <MultiSelect
         options={tags}
         onValueChange={setSelectedTags}
@@ -37,17 +36,16 @@ const FilterSection = () => {
         options={dates}
         onValueChange={setSelectedDates}
         defaultValue={selectedDates}
-        placeholder="Select Dates"
+        placeholder="Select Day"
         variant="inverted"
         animation={2}
         maxCount={3}
       />
 
-      {/* Single Select Filters */}
-      <SingleSelectFilter option1="Management" option2="Non Management" className="shrink-0" />
-      <SingleSelectFilter option1="Event" option2="Workshop" className="shrink-0" />
-      <SingleSelectFilter option1="Group" option2="Individual" className="shrink-0" />
-      <SingleSelectFilter option1="Registered" option2="Not Registered" className="shrink-0" />
+      <SingleSelectFilter option1="Management" option2="Non Management" className="" />
+      <SingleSelectFilter option1="Open" option2="Closed" className="" />
+      <SingleSelectFilter option1="Group" option2="Individual" className="" />
+      
     </div>
   );
 };

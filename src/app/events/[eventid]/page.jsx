@@ -2,7 +2,7 @@
 import { useParams } from "next/navigation";
 import { Calendar, MapPin, User, Phone, IndianRupeeIcon, Trophy } from "lucide-react";
 import Image from "next/image";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/app/components/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/app/components/events/accordion";
 import Link from "next/link";
 
 const Event = () => {

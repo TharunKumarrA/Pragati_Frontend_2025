@@ -52,16 +52,16 @@ export default function HeroSection() {
         <span>What’s new this time?</span>
       </h1>
       <p className="text-[5vw] sm:text-[28px] md:text-[36px] mt-2">
-        The Neo Renaissance begins.
+        The Neo Renaissance begins
       </p>
       <h1 className="text-[9vw] sm:text-[60px] md:text-[72px] leading-tight">
         <span>The GODS of Olympus descend</span>
       </h1>
       <p className="text-[5vw] sm:text-[28px] md:text-[36px] mt-2">
-        seeking those who fuse,
+        seeking those who fuse
       </p>
       <h1 className="text-[9vw] sm:text-[60px] md:text-[72px] leading-tight">
-        <span>ANCIENT WISDOM with INNOVATION.</span>
+        <span>ANCIENT WISDOM with INNOVATION</span>
       </h1>
       <p className="text-[5vw] sm:text-[28px] md:text-[36px] mt-2">
         Are you ready to accept the challenge?

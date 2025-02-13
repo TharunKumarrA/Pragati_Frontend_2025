@@ -125,13 +125,13 @@ const About = () => {
   }, []);
 
   const pragati =
-    "Pragati is the National-level B-Fest hosted by Amrita School of Business every year. The B-Fest comprises of management games crafted for each domain of business administration including Marketing, Finance, Operations, HR and Analytics. And year-on-year Pragati has proven its mettle by attracting talents from many leading management institutes in the country, to challenge each other across all domains and aim at achieving the overall championship award.";
+    "Pragati is an annual national-level B-Fest organized by Amrita School of Business, Coimbatore. The B-Fest comprises of management games crafted for each domain of business administration including Marketing, Finance, Operations, Human Resources and Analytics. Year-on-year, Pragati has proven its mettle by attracting talent from many leading management institutes in the country to challenge each other across all domains and aim at achieving the overall championship award.";
 
   const asb =
-    "Nestled at the foothills of the Western Ghats, Amrita School of Business, Coimbatore, is more than an institution—it’s a canvas where dreams are painted and leaders are born. Established in 1996 by Mata Amritanandamayi Devi, ASB blends cutting-edge academics with timeless values, inspiring students to lead not just with intellect but with heart. It is a space where challenges become opportunities, innovation thrives, and careers are built with resilience, character, and vision. Ranked 6th among private B-schools in India, ASB holds NAAC’s prestigious A++ grade for academic rigor and impact.\n\nAt ASB, education is a transformative journey that unlocks true potential. With dynamic MBA and PhD programs designed to shape the leaders of tomorrow, it goes beyond knowledge to instill excellence with purpose. Every moment here is a step toward brilliance, where passion meets innovation and the future of business leadership takes flight. Welcome to the heart and soul behind Pragati—where ordinary ends, and extraordinary begins!";
+    "Nestled at the foothills of the Western Ghats, Amrita School of Business, Coimbatore, is more than an institution—it’s a canvas where dreams are painted and leaders are born. Established in 1996 by Mata Amritanandamayi Devi, ASB blends cutting-edge academics with timeless values, inspiring students to lead not just with intellect but with heart. It is a space where challenges become opportunities, innovation thrives, and careers are built with resilience, character, and vision. Ranked 6th among private B-schools in India, ASB proudly holds NAAC’s prestigious A++ grade, reflecting its commitment to academic excellence and impact. At ASB, education is a transformative journey that unlocks true potential with dynamic MBA and PhD programs designed to shape the leaders of tomorrow, it goes beyond knowledge to instill excellence with purpose. Every moment here is a step towards brilliance, where passion meets innovation and the future of business leadership takes flight. Welcome to the heart and soul behind Pragati—where ordinary ends, and extraordinary begins!";
 
   const pragati24 =
-    "Pragati 2024, National Level B Fest concludes The Amrita School of Business, Coimbatore, celebrated another successful edition of Pragati in February 2024, under the theme ‘Multiple Universes, One Extravaganza’. The fest attracted a wide array of participants from numerous business schools, engaging them in a series of management and non-management challenges aimed at sharpening their business skills. A highlight of the event was an inspiring address by Swami Amritaswarupananda Puri, the President of Amrita University, who shared valuable insights and encouragement with the students, further enriching the experience of Pragati 2024. This fest continues to be a pivotal event for fostering innovation, networking, and collaboration among the future luminaries of the business world.";
+    "Pragati 2024, the National Level B Fest of Amrita School of Business, Coimbatore, celebrated yet another successful edition of Pragati in February 2024, under the theme ‘Multiple Universes, One Extravaganza’. The fest attracted a wide array of participants from numerous business schools, engaging them in a series of management and non-management challenges aimed at sharpening their business skills. A highlight of the event was an inspiring address by Swami Amritaswarupananda Puri, the President of Amrita University, who shared valuable insights and encouragement with the students, further enriching the experience of Pragati 2024. This fest continues to be a pivotal event for fostering innovation, networking, and collaboration among the future luminaries of the business world.";
 
   return (
     <div className="spacer">
@@ -195,7 +195,7 @@ const About = () => {
             </div>
             <div className="desktopPhoto absolute w-full h-full">
               <Image
-                src="/Images/pragati.webp"
+                src="/Images/Pragati-recap.webp"
                 width={700}
                 height={700}
                 alt="Pragati 24"

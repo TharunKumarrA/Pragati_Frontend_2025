@@ -98,3 +98,9 @@ export const verifyOtp = async (otp, otpToken) => {
     return { success: false };
   }
 };
+
+// New API call for Notifications
+export const getNotifications = async () => {
+  const url = `${base_url}/notification/`;
+  return await make_request(url, "GET");
+};

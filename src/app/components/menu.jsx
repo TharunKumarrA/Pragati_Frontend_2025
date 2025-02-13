@@ -31,7 +31,7 @@ const FullPageMenu = ({ isOpen, onClose }) => {
     { name: "About", href: "/#about" },
     { name: "Events", href: "/upcoming" },
     { name: "Schedule", href: "/upcoming" },
-    { name: "Brochure", href: "/brochure" },
+    { name: "Brochure", href: "/upcoming" },
     { name: "Login/Sign Up", href: "/upcoming" },
   ];
 

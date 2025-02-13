@@ -2,18 +2,16 @@
 import { useState, useEffect } from "react";
 import EventCard from "./components/EventCards";
 import FilterSection from "./components/FilterSection";
+import { getEvents } from "../_utils/api_endpoint_handler";
 
-const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const EventPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    fetch(`${baseURL}/event/all`)
-      .then((response) => response.json())
+    getEvents()
       .then((data) => {
-        console.log(`${baseURL}/event/all`)
         if (data.DATA) {
           const formattedEvents = data.DATA.map((event) => ({
             title: event.eventName,
@@ -26,7 +24,7 @@ const EventPage = () => {
             poster: "/Images/temp/4.png",
             eventid: event.eventID,
             tags: event.tags.map((tag) => tag.tagName),
-            eventstatus: event.eventStatus
+            eventstatus: event.eventStatus,
           }));
           setEvents(formattedEvents);
         }

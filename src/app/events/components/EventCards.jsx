@@ -13,7 +13,7 @@ const EventCard = ({
   poster,
   eventid,
   tags,
-  isDisabled
+  isDisabled,
 }) => {
   return (
     <div className="bg-[#322A1E] bg-opacity-60 border-2 mx-auto border-[#E5C14E] rounded-3xl px-8 md:px-5 py-4 w-full max-w-[320px] md:max-w-[350px] lg:max-w-[380px] relative group transition-all transform hover:scale-105 hover:shadow-2xl backdrop-blur-md">
@@ -67,7 +67,7 @@ const EventCard = ({
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-[#E5C14E]" />
               <span className="text-xs md:text-sm">
-              {date === "1" ? "3rd" : "4th"} March 2025
+                {date === "1" ? "3rd" : "4th"} March 2025
               </span>
             </div>
             <div className="flex items-center gap-2">

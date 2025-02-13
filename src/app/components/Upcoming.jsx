@@ -7,10 +7,10 @@ export default function UpcomingPage() {
   return (
     <div className="relative min-h-screen flex items-center justify-center px-4">
       {/* Overlay for better contrast with your background image */}
-      <div className="absolute inset-0 bg-black opacity-50 z-0"></div>
+      <div className="absolute inset-0 bg-black opacity-50 -z-10"></div>
 
       {/* Main Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center">
+      <div className="relative z-0 flex flex-col items-center justify-center text-center">
         <h1 className="text-5xl font-bold text-white">
           Registrations Opening Soon
         </h1>

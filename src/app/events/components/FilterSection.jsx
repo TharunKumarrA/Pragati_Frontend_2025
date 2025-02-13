@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import SingleSelectFilter from "./SingleSelectFilter";
 import MultiSelect from "@/app/components/events/multi-select";
 
-// Update your tag options as needed; here we match the sample event's tag
+// Tag options (each option has a value and label)
 const tags = [
   { value: "artificial intelligence", label: "Artificial Intelligence" },
   { value: "leadership", label: "Leadership" },
@@ -13,11 +13,11 @@ const tags = [
   { value: "strategy", label: "Strategy" },
 ];
 
-// Dates options should match the format of event.eventDate (e.g. "1")
+// Date options (should match event.eventDate format)
 const dates = [
   { value: "1", label: "1" },
   { value: "2", label: "2" },
-  // add more as needed
+  // Add more as needed
 ];
 
 const FilterSection = ({ onFilterChange }) => {
@@ -26,11 +26,16 @@ const FilterSection = ({ onFilterChange }) => {
   const [status, setStatus] = useState(null);
   const [type, setType] = useState(null);
 
-  // Update the parent with filter changes
+  // When any filter changes, update the parent.
+  // We convert each selected value to a string by extracting the value if needed.
   useEffect(() => {
     onFilterChange({
-      tags: selectedTags,
-      dates: selectedDates,
+      tags: selectedTags.map((tag) =>
+        typeof tag === "string" ? tag : tag.value
+      ),
+      dates: selectedDates.map((date) =>
+        typeof date === "string" ? date : date.value
+      ),
       status,
       type,
     });

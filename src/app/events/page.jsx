@@ -6,9 +6,12 @@ import { getEvents } from "../_utils/api_endpoint_handler";
 
 // Mapping of god names to their emblem image paths
 const godEmblemMapping = {
-  Athena: ["/Images/Emblems/1a_athena.webp", "/Images/Emblems/1b_eirene.webp"],
-  Apollo: ["/Images/Emblems/2a_apollo.webp", "/Images/Emblems/2b_menmosyne.webp"],
-  Dionysus: ["/Images/Emblems/3a_dionysus.webp"],
+  Athena: ["/Images/Emblems/1a_athena.webp", "/Images/Emblems/1b_athena.webp"],
+  Apollo: [
+    "/Images/Emblems/2a_apollo.webp",
+    "/Images/Emblems/2b_mnemosyne.webp",
+  ],
+  Dionysus: ["/Images/Emblems/3a_dionysus.webp"], // Only one emblem; duplicate if needed
   Plutus: ["/Images/Emblems/4a_plutus.webp", "/Images/Emblems/4b_demeter.webp"],
   Hermes: ["/Images/Emblems/5a_hermes.webp", "/Images/Emblems/5b_peitho.webp"],
   Zeus: ["/Images/Emblems/6a_nike.webp", "/Images/Emblems/6b_hephaestus.webp"],
@@ -17,10 +20,9 @@ const godEmblemMapping = {
 const EventPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [events, setEvents] = useState([]);
-  // Holds the filters coming from FilterSection
   const [filters, setFilters] = useState({
-    tags: [],
-    dates: [],
+    tags: [], // Now an array of strings
+    dates: [], // Now an array of strings
     status: null,
     type: null,
   });
@@ -39,7 +41,6 @@ const EventPage = () => {
             eventid: event.eventID,
             tags: event.tags.map((tag) => tag.tagName),
             eventstatus: event.eventStatus,
-            // Derive type from isGroup (1 = Group, else Individual)
             type: event.isGroup === 1 ? "Group" : "Individual",
             godName: event.godName, // Use godName from API
           }));
@@ -50,7 +51,7 @@ const EventPage = () => {
       .catch((error) => console.error("Error fetching events:", error));
   }, []);
 
-  // Apply filtering based on search and filter criteria
+  // Filtering logic updated to work with strings directly
   const filteredEvents = events.filter((event) => {
     // Search filter (by title)
     if (
@@ -60,11 +61,9 @@ const EventPage = () => {
       return false;
     }
 
-    // Tags filter (check if event has at least one of the selected tags)
+    // Tags filter (filters.tags is an array of strings)
     if (filters.tags.length > 0) {
-      const selectedTagValues = filters.tags.map((tag) =>
-        tag.value.toLowerCase()
-      );
+      const selectedTagValues = filters.tags.map((tag) => tag.toLowerCase());
       if (
         !event.tags.some((tag) => selectedTagValues.includes(tag.toLowerCase()))
       ) {
@@ -72,15 +71,14 @@ const EventPage = () => {
       }
     }
 
-    // Date filter (match event date exactly)
+    // Date filter (filters.dates is an array of strings)
     if (filters.dates.length > 0) {
-      const selectedDates = filters.dates.map((date) => date.value);
-      if (!selectedDates.includes(event.date)) {
+      if (!filters.dates.includes(event.date)) {
         return false;
       }
     }
 
-    // Status filter (assuming "Open" means eventstatus !== "0")
+    // Status filter
     if (filters.status) {
       if (
         (filters.status === "Open" && event.eventstatus === "0") ||
@@ -112,7 +110,6 @@ const EventPage = () => {
           className="px-3 py-3 md:w-[70%] w-[80%] text-black rounded-xl focus:border-0 focus:outline-0"
         />
       </div>
-      {/* Pass a callback to update the filters */}
       <FilterSection onFilterChange={setFilters} />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 px-10">
         {filteredEvents.length > 0 ? (
@@ -123,22 +120,21 @@ const EventPage = () => {
             let emblem1 = "";
             let emblem2 = "";
             if (emblems.length === 1) {
+              // Duplicate if only one emblem is available
               emblem1 = emblems[0];
               emblem2 = emblems[0];
             } else if (emblems.length >= 2) {
               emblem1 = emblems[0];
               emblem2 = emblems[1];
             }
-
             console.log(
               "God:",
               god,
-              "=> Emblem 1:",
+              "=> Emblem1:",
               emblem1,
-              "Emblem 2:",
+              "Emblem2:",
               emblem2
             );
-
             return (
               <EventCard
                 key={index}

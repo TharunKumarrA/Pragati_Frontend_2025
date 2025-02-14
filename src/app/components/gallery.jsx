@@ -18,7 +18,7 @@ const FilmGallery = () => {
   const filmRow2 = [
     "https://imgur.com/8D3wj3M.jpg",
     "https://imgur.com/6PIApMy.jpg",
-    "https://imgur.com/VV7aNmo.jpg",
+    "/Images/gallery(3).jpg",
     "https://imgur.com/bJrbv7a.jpg",
     "https://imgur.com/OejAu8Y.jpg",
     "https://imgur.com/7V0smoJ.jpg",

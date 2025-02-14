@@ -3,12 +3,9 @@ import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
 const sponsors = [
-  { src: "/Images/BNY.png", title: "H&R" },
-  { src: "/Images/BNY.png", title: "IETE" },
-  { src: "/Images/BNY.png", title: "ICICI" },
-  { src: "/Images/BNY.png", title: "Dhanalakshmi Bank" },
-  { src: "/Images/BNY.png", title: "vnc group" },
-  { src: "/Images/BNY.png", title: "Prominance" },
+  { src: "/Images/BNY.png", title: "BNY" },
+  { src: "/Images/Sudhama.jpg", title: "Sudhama Groups" },
+  { src: "/Images/Orange_B-1.png", title: "Hapli Earth" },
 ];
 
 const SponsorElement = ({ sponsor }) => {
@@ -32,7 +29,7 @@ const SponsorsMarquee = () => {
         pauseOnHover
         gradient={false}
         speed={50}
-        className="flex items-center py-8"
+        className="flex py-8 justify-between"
       >
         {sponsors.map((sponsor, idx) => (
           <SponsorElement key={idx} sponsor={sponsor} />

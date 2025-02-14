@@ -19,6 +19,7 @@ import {
 import Link from "next/link";
 import { getEvent } from "@/app/_utils/api_endpoint_handler";
 import secureLocalStorage from "react-secure-storage";
+import TeamModal from "../components/TeamModal";
 
 const Event = () => {
   const { eventid } = useParams();
@@ -50,6 +51,8 @@ const Event = () => {
             date: `${event.eventDate}`,
             time: `${event.time}`,
             venue: event.venue || "TBA",
+            minTeamSize: event.minTeamSize || 1,
+            maxTeamSize: event.maxTeamSize || 1,
             teamSize: event.isGroup
               ? `${event.minTeamSize}-${event.maxTeamSize} Members`
               : "Individual Event",
@@ -126,41 +129,6 @@ const Event = () => {
       // For individual events, proceed directly to the payments page.
       router.push("/payment");
     }
-  };
-
-  // Add a new blank team member input.
-  const addTeamMember = () => {
-    setTeamMembers([...teamMembers, { name: "", email: "" }]);
-  };
-
-  // Update a team member's field.
-  const handleTeamMemberChange = (index, field, value) => {
-    const updatedMembers = [...teamMembers];
-    updatedMembers[index][field] = value;
-    setTeamMembers(updatedMembers);
-  };
-
-  // On submission, verify that all team members have been filled and are registered.
-  const handleSubmitTeam = async () => {
-    // Loop over team members and validate details.
-    for (let i = 0; i < teamMembers.length; i++) {
-      const member = teamMembers[i];
-      if (!member.name || !member.email) {
-        alert("Please fill in all team member details.");
-        return;
-      }
-      // Dummy verification:
-      // Replace this with an actual API call to verify registration if needed.
-      if (!member.email.includes("@")) {
-        alert(
-          `Team member ${member.name} with email ${member.email} is not registered.`
-        );
-        return;
-      }
-    }
-    // If verification passes, close the modal and send the user to the payment page.
-    setShowTeamModal(false);
-    router.push("/payment");
   };
 
   if (loading) return <p className="text-white">Loading...</p>;
@@ -312,58 +280,11 @@ const Event = () => {
 
       {/* Modal for Group Event Team Registration */}
       {showTeamModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg w-11/12 max-w-md">
-            <h2 className="text-2xl font-bold mb-4">Team Details</h2>
-            <div className="space-y-4 max-h-60 overflow-y-auto">
-              {teamMembers.map((member, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col gap-1 border p-2 rounded"
-                >
-                  <label className="text-sm">Name:</label>
-                  <input
-                    type="text"
-                    value={member.name}
-                    onChange={(e) =>
-                      handleTeamMemberChange(index, "name", e.target.value)
-                    }
-                    className="border p-2 rounded"
-                  />
-                  <label className="text-sm">Email:</label>
-                  <input
-                    type="email"
-                    value={member.email}
-                    onChange={(e) =>
-                      handleTeamMemberChange(index, "email", e.target.value)
-                    }
-                    className="border p-2 rounded"
-                  />
-                </div>
-              ))}
-            </div>
-            <button
-              onClick={addTeamMember}
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-            >
-              Add Team Member
-            </button>
-            <div className="flex justify-end mt-4 gap-2">
-              <button
-                onClick={() => setShowTeamModal(false)}
-                className="px-4 py-2 bg-gray-500 text-white rounded"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleSubmitTeam}
-                className="px-4 py-2 bg-green-500 text-white rounded"
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
+        <TeamModal
+          isOpen={showTeamModal}
+          eventData={eventData}
+          onClose={() => setShowTeamModal(false)}
+        />
       )}
     </div>
   );

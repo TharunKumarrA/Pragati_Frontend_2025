@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import animationData from "@/app/_utils/lotties/transactionVerify";
-import { verifyTransaction } from "@/app/_utils/api"; // Adjust the path as needed
+import { verifyTransaction } from "@/app/_utils/api_endpoint_handler";
 
 // Dynamically import react-lottie with SSR disabled
 const Lottie = dynamic(() => import("react-lottie"), { ssr: false });

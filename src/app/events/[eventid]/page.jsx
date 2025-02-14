@@ -47,6 +47,7 @@ const Event = () => {
         if (data.DATA && data.DATA.length > 0) {
           const event = data.DATA[0];
           setEventData({
+            eventID: event.eventID,
             title: event.eventName || "",
             date: `${event.eventDate}`,
             time: `${event.time}`,

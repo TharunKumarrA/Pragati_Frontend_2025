@@ -130,7 +130,7 @@ export const getNotifications = async () => {
 
 export const getEvents = async () => {
   const url = `${base_url}/event/all`;
-
+  console.log(url);
   // Check if we're in a browser environment and if the user is logged in
   let token = null;
   if (typeof window !== "undefined") {
@@ -196,6 +196,38 @@ export const getEvent = async (eventId) => {
       throw error;
     }
 
+    return responseData;
+  } catch (error) {
+    console.error("Request error:", error);
+    throw error;
+  }
+};
+
+export const registerTeam = async (teamData) => {
+  const url = `${base_url}/registration/event`;
+
+  let token = null;
+  if (typeof window !== "undefined") {
+    const isLoggedIn = localStorage.getItem("isloggedin");
+    if (isLoggedIn === "1") {
+      token = localStorage.getItem("registerToken");
+    }
+  }
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(teamData),
+    });
+
+    const responseData = await response.json();
+    if (!response.ok) {
+      throw new Error(responseData.MESSAGE || response.statusText);
+    }
     return responseData;
   } catch (error) {
     console.error("Request error:", error);

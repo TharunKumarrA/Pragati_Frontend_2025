@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Trash2 } from "lucide-react";
+import { registerTeam } from "@/app/_utils/api_endpoint_handler";
 
 const TeamModal = ({ isOpen, eventData, onClose }) => {
   const router = useRouter();
@@ -64,16 +65,32 @@ const TeamModal = ({ isOpen, eventData, onClose }) => {
       }
     }
 
-    console.log("Team Data:", { teamName, teamMembers });
-    router.push("/payment");
-    onClose();
+    
+
+    try {
+        const teamData = {
+          eventID: eventData.eventID,
+          totalMembers: teamMembers.length,
+          teamName,
+          teamMembers: teamMembers.map((m) => m.email),
+          memberRoles: teamMembers.map((m) => m.role),
+        };
+        console.log("Team Data:", teamData);
+        const response = await registerTeam(teamData);
+        alert("Team registered successfully!");
+        router.push("/payment");
+        onClose();
+      } catch (error) {
+        alert(`Registration failed: ${error.message}`);
+      }
+      
   };
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md flex items-center justify-center z-50 px-4">
-      <div className="bg-[#322A1E] p-6 rounded-lg w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+      <div className="bg-[#322A1E] p-6 rounded-lg border-2 border-[#E5C14E] w-full max-w-3xl max-h-[90vh] overflow-y-auto">
         <h2 className="text-white text-xl mb-4 text-center">
           Create Your Team
         </h2>

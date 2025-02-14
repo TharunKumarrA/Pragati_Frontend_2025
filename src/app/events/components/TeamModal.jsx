@@ -5,7 +5,7 @@ import { Trash2 } from "lucide-react";
 import { registerTeam } from "@/app/_utils/api_endpoint_handler";
 import secureLocalStorage from "react-secure-storage";
 
-const TeamModal = ({ isOpen, eventData, onClose }) => {
+const TeamModal = ({ isOpen, eventData, onClose, onTeamSubmit }) => {
   const router = useRouter();
   const [teamName, setTeamName] = useState("");
   const [teamMembers, setTeamMembers] = useState([]);
@@ -77,13 +77,14 @@ const TeamModal = ({ isOpen, eventData, onClose }) => {
           eventID: eventData.eventID,
           totalMembers: teamMembers.length,
           teamName,
-          teamMembers: teamMembers.map((m) => m.email),
-          memberRoles: teamMembers.map((m) => m.role),
+          teamMembers: teamMembers.slice(1).map((m) => m.email),
+          memberRoles: teamMembers.slice(1).map((m) => m.role),
         };
         console.log("Team Data:", teamData);
         const response = await registerTeam(teamData);
         alert("Team registered successfully!");
-        router.push("/payment");
+        console.log("Response:", response);
+        onTeamSubmit(response.DATA);
         onClose();
       } catch (error) {
         alert(`Registration failed: ${error.message}`);

@@ -1,6 +1,7 @@
 const { headers } = require("next/headers");
 const base_url = `${process.env.NEXT_PUBLIC_API_BASE_URL}`;
 import hash from "./hash";
+import secureLocalStorage from "react-secure-storage";
 
 const make_request = async (url, method, data = null) => {
   try {
@@ -134,9 +135,9 @@ export const getEvents = async () => {
   // Check if we're in a browser environment and if the user is logged in
   let token = null;
   if (typeof window !== "undefined") {
-    const isLoggedIn = localStorage.getItem("isloggedin");
+    const isLoggedIn = secureLocalStorage.getItem("isLoggedIn");
     if (isLoggedIn === "1") {
-      token = localStorage.getItem("token");
+      token = secureLocalStorage.getItem("registerToken");
     }
   }
 
@@ -171,9 +172,9 @@ export const getEvent = async (eventId) => {
   // Optionally include bearer token if available
   let token = null;
   if (typeof window !== "undefined") {
-    const isLoggedIn = localStorage.getItem("isloggedin");
+    const isLoggedIn = secureLocalStorage.getItem("isLoggedIn");
     if (isLoggedIn === "1") {
-      token = localStorage.getItem("token");
+      token = secureLocalStorage.getItem("token");
     }
   }
 
@@ -208,9 +209,13 @@ export const registerTeam = async (teamData) => {
 
   let token = null;
   if (typeof window !== "undefined") {
-    const isLoggedIn = localStorage.getItem("isloggedin");
+    console.log("Window exists");
+    const isLoggedIn = secureLocalStorage.getItem("isLoggedIn");
+    console.log("Is logged in:", isLoggedIn);
     if (isLoggedIn === "1") {
-      token = localStorage.getItem("registerToken");
+      console.log("User is logged in");
+      token = secureLocalStorage.getItem("registerToken");
+      console.log("Token:", token);
     }
   }
 
@@ -234,3 +239,4 @@ export const registerTeam = async (teamData) => {
     throw error;
   }
 };
+

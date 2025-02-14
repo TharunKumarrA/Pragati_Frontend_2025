@@ -20,6 +20,7 @@ import Link from "next/link";
 import { getEvent } from "@/app/_utils/api_endpoint_handler";
 import secureLocalStorage from "react-secure-storage";
 import TeamModal from "../components/TeamModal";
+import { payU_Action, payU_Key } from "@/app/_utils/consts";
 
 const Event = () => {
   const { eventid } = useParams();
@@ -27,10 +28,9 @@ const Event = () => {
   const [eventData, setEventData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // state to control showing the team details modal for group events
+  // State to control showing the team details modal for group events
   const [showTeamModal, setShowTeamModal] = useState(false);
 
-  // Check if user is logged in using secureLocalStorage
   useEffect(() => {
     const stored = secureLocalStorage.getItem("isLoggedIn");
     console.log("Stored isLoggedIn:", stored);
@@ -96,9 +96,7 @@ const Event = () => {
               "Refreshments will be provided during the break.",
               "Networking session with industry experts post-event.",
             ],
-            // Flag to indicate if the user is already registered
             isRegistered: event.isRegistered || 0,
-            // Save whether this is a group event for later checks
             isGroup: event.isGroup,
           });
         } else {
@@ -108,6 +106,53 @@ const Event = () => {
       .catch((error) => console.error("Error fetching event data:", error))
       .finally(() => setLoading(false));
   }, [eventid]);
+
+  // Handler for team registration submission from the modal
+  const handleTeamSubmit = (responseData) => {
+    // Show a confirmation prompt before proceeding
+    const confirmed = window.confirm(
+      "Team registered successfully. Do you want to proceed to payment?"
+    );
+    if (confirmed) {
+      const payUData = {
+        key: payU_Key,
+        txnid: responseData["txnID"],
+        amount: responseData["amount"],
+        productinfo: responseData["productInfo"],
+        firstname: responseData["userName"],
+        email: responseData["userEmail"],
+        phone: responseData["phoneNumber"],
+        surl: responseData["surl"] || "http://localhost:3000/payment", // need to update this
+        furl: responseData["furl"] || "http://localhost:3000/payment", // need to update this
+        hash: responseData["hash"],
+      };
+
+      console.log("PayU Data:", payUData);
+
+      const payUForm = document.createElement("form");
+      payUForm.method = "post";
+      payUForm.action = payU_Action;
+
+      for (const key in payUData) {
+        console.log("Key:", key, "Value:", payUData[key]);
+        if (payUData.hasOwnProperty(key)) {
+          const hiddenField = document.createElement("input");
+          hiddenField.type = "hidden";
+          hiddenField.name = key;
+          hiddenField.value = payUData[key];
+
+          payUForm.appendChild(hiddenField);
+        }
+      }
+
+      document.body.appendChild(payUForm);
+
+      console.log("Submitting PayU form...");
+      console.log("PayU Form:", payUForm);
+
+      payUForm.submit();
+    }
+  };
 
   // This function decides what happens when the register button is clicked.
   const handleRegister = () => {
@@ -273,6 +318,7 @@ const Event = () => {
           isOpen={showTeamModal}
           eventData={eventData}
           onClose={() => setShowTeamModal(false)}
+          onTeamSubmit={handleTeamSubmit}
         />
       )}
     </div>

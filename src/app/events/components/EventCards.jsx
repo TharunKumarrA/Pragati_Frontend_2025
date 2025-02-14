@@ -16,10 +16,11 @@ const EventCard = ({
   eventid,
   tags,
   isDisabled,
+  type
 }) => {
   // Define your placeholder image paths (ensure these images exist in your public folder)
   const placeholderPoster = "/Images/temp/1.png";
-  const placeholderEmblem = "/Images/Emblems/3_dionysus.webp";
+  const placeholderEmblem = "/Images/Emblems/3a_dionysus.webp";
 
   // Initialize state with fallback if the provided prop is empty or undefined
   const [posterSrc, setPosterSrc] = useState(
@@ -114,7 +115,7 @@ const EventCard = ({
 
           <div className="text-right">
             <div className="text-[#E5C14E] text-lg md:text-xl font-bold">
-              ₹{price} <span className="text-xs font-normal">/member</span>
+              ₹{price} <span className="text-xs font-normal">/{type === "Group" ? "team" : "member"}</span>
             </div>
             <div className="text-xs text-gray-300">Incl. of GST</div>
           </div>

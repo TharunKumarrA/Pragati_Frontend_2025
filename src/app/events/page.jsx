@@ -149,6 +149,7 @@ const EventPage = () => {
                 isDisabled={event.eventstatus === "0"}
                 emblem1={emblem1}
                 emblem2={emblem2}
+                type={event.type}
               />
             );
           })

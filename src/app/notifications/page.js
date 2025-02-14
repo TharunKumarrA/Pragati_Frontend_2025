@@ -63,53 +63,54 @@ const WhatsHappening = () => {
           <div className="relative">
             {/* TIMELINE LINE */}
             <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-orange-400" />
-
-            {/* Notifications List */}
             <div className="space-y-12">
               {loading ? (
                 <p>Loading notifications...</p>
               ) : error ? (
                 <p className="text-red-500">{error}</p>
               ) : notifications.length > 0 ? (
-                notifications.map((notification) => (
-                  <div
-                    key={notification.notificationID}
-                    className="relative pl-12"
-                  >
-                    {/* TIMELINE DOT */}
-                    <div className="absolute left-4 -translate-x-1/2 w-4 h-4 rounded-full bg-orange-400" />
+                notifications
+                  .slice()
+                  .reverse()
+                  .map((notification) => (
+                    <div
+                      key={notification.notificationID}
+                      className="relative pl-12"
+                    >
+                      {/* TIMELINE DOT */}
+                      <div className="absolute left-4 -translate-x-1/2 w-4 h-4 rounded-full bg-orange-400" />
 
-                    {/* Notification Card */}
-                    <div className="relative overflow-hidden rounded-lg shadow-md">
-                      {/* Glossy overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent pointer-events-none" />
+                      {/* Notification Card */}
+                      <div className="relative overflow-hidden rounded-lg shadow-md">
+                        {/* Glossy overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent pointer-events-none" />
 
-                      {/* Card content */}
-                      <div className="relative bg-[#FBE9CB]/90 backdrop-blur-sm p-6">
-                        <h2 className="text-xl font-semibold mb-1">
-                          {notification.title}
-                        </h2>
-                        {notification.startDate && (
-                          <p className="text-sm text-gray-600 mb-2">
-                            {new Date(
-                              notification.startDate
-                            ).toLocaleDateString()}
-                            {notification.endDate &&
-                            new Date(notification.endDate).getTime() !==
-                              new Date(notification.startDate).getTime()
-                              ? ` to ${new Date(
-                                  notification.endDate
-                                ).toLocaleDateString()}`
-                              : ""}
+                        {/* Card content */}
+                        <div className="relative bg-[#FBE9CB]/90 backdrop-blur-sm p-6">
+                          <h2 className="text-xl font-semibold mb-1">
+                            {notification.title}
+                          </h2>
+                          {notification.startDate && (
+                            <p className="text-sm text-gray-600 mb-2">
+                              {new Date(
+                                notification.startDate
+                              ).toLocaleDateString()}
+                              {notification.endDate &&
+                              new Date(notification.endDate).getTime() !==
+                                new Date(notification.startDate).getTime()
+                                ? ` to ${new Date(
+                                    notification.endDate
+                                  ).toLocaleDateString()}`
+                                : ""}
+                            </p>
+                          )}
+                          <p className="text-gray-700">
+                            {notification.description}
                           </p>
-                        )}
-                        <p className="text-gray-700">
-                          {notification.description}
-                        </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))
+                  ))
               ) : (
                 <p>No notifications available.</p>
               )}

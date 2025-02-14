@@ -82,7 +82,6 @@ const TeamModal = ({ isOpen, eventData, onClose, onTeamSubmit }) => {
         };
         console.log("Team Data:", teamData);
         const response = await registerTeam(teamData);
-        alert("Team registered successfully!");
         console.log("Response:", response);
         onTeamSubmit(response.DATA);
         onClose();

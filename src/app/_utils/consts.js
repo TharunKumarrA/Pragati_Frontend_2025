@@ -6,3 +6,5 @@ export const payU_Action =
   process.env.NEXT_PUBLIC_IS_PRODUCTION === "0"
     ? "https://test.payu.in/_payment"
     : "https://secure.payu.in/_payment";
+
+export const VERIFY_TRANSACTIONS_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/transactions/verify`;

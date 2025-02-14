@@ -33,7 +33,6 @@ const Event = () => {
 
   useEffect(() => {
     const stored = secureLocalStorage.getItem("isLoggedIn");
-    console.log("Stored isLoggedIn:", stored);
     setIsLoggedIn(stored === "1");
   }, []);
 
@@ -42,6 +41,7 @@ const Event = () => {
 
     getEvent(eventid)
       .then((data) => {
+        console.log("Event data:", data);
         if (data.DATA && data.DATA.length > 0) {
           const event = data.DATA[0];
           setEventData({
@@ -64,7 +64,7 @@ const Event = () => {
                     )
                     .join(" | ")
                 : "Contact Info Unavailable",
-            price: event.isPerHeadFee
+            price: (event.isPerHeadFee === 0)
               ? `₹${event.eventFee} / team`
               : `₹${event.eventFee} / member`,
             rewards: [

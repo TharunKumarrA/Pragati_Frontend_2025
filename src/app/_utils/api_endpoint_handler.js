@@ -99,8 +99,67 @@ export const verifyOtp = async (otp, otpToken) => {
   }
 };
 
-// New API call for Notifications
 export const getNotifications = async () => {
   const url = `${base_url}/notification/`;
   return await make_request(url, "GET");
+};
+
+export const getUserProfile = async (authToken) => {
+  const url = `${base_url}/user/profile`;
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const getUserTransactions = async (authToken) => {
+  const url = `${base_url}/user/transactions`;
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const getUserEvents = async (authToken) => {
+  const url = `${base_url}/user/events`;
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };

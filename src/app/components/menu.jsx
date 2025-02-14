@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
-import { User, X } from "lucide-react"; 
+import { User, X } from "lucide-react";
 import Image from "next/image";
 
 const FullPageMenu = ({ isOpen, onClose }) => {
@@ -28,7 +28,7 @@ const FullPageMenu = ({ isOpen, onClose }) => {
 
   const pages = [
     { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
+    { name: "About", href: "/#about" },
     { name: "Events", href: "/upcoming" },
     { name: "Schedule", href: "/upcoming" },
     { name: "Brochure", href: "/brochure" },
@@ -39,9 +39,9 @@ const FullPageMenu = ({ isOpen, onClose }) => {
     <div
       className="fixed inset-0 z-20 flex flex-col text-white"
       style={{
-        backgroundImage: 'url(/Images/backgrounds/meteora_monasteries.webp)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundImage: "url(/Images/backgrounds/meteora_monasteries.webp)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
       <div className="fixed top-0 left-0 w-full z-10 bg-white/5 backdrop-blur-sm border-white py-1 px-10 flex items-center justify-between">
@@ -59,13 +59,15 @@ const FullPageMenu = ({ isOpen, onClose }) => {
           />
           <h1 className="text-[2rem] text-white">PRAGATI</h1>
         </div>
-        <Link href="/login">
-        <div className="hidden md:block text-[#8B6F47] bg-white px-6 py-2 rounded-full border-[3px] border-[#8B6F47] shadow-md transition-all duration-300 ease-in-out transform hover:bg-[#8B6F47] hover:text-white hover:shadow-lg hover:scale-105 hover:border-[#C2A27E] active:scale-95">
-          <span className="flex items-center gap-2">
-          <User className="w-5 h-5" /> 
-            Login/Sign Up
-          </span>
-        </div>
+        <Link href="/upcoming">
+          {" "}
+          {/* Change this to /login & put the login logic for profile */}
+          <div className="hidden md:block text-[#8B6F47] bg-white px-6 py-2 rounded-full border-[3px] border-[#8B6F47] shadow-md transition-all duration-300 ease-in-out transform hover:bg-[#8B6F47] hover:text-white hover:shadow-lg hover:scale-105 hover:border-[#C2A27E] active:scale-95">
+            <span className="flex items-center gap-2">
+              <User className="w-5 h-5" />
+              Login/Sign Up
+            </span>
+          </div>
         </Link>
       </div>
 
@@ -78,7 +80,7 @@ const FullPageMenu = ({ isOpen, onClose }) => {
             key={page.name}
             href={page.href}
             className="border-b-[1px] border-white p-2 w-full hover:bg-slate-50 hover:text-black hover:transition-all hover:duration-300"
-            onClick={onClose} 
+            onClick={onClose}
           >
             {page.name}
           </Link>

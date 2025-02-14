@@ -48,7 +48,7 @@ const HeroLanding = () => {
           >
             {/* Label */}
             <p className="text-xs md:text-xs text-white/80 tracking-wide">
-              Title Sponsor
+              Event run by
             </p>
             {/* Logo */}
             <Image

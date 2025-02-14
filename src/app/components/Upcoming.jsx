@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { Facebook, Twitter, Instagram } from "lucide-react";
+import { Mail, Linkedin, Instagram } from "lucide-react";
 
 export default function UpcomingPage() {
   return (
@@ -19,23 +19,23 @@ export default function UpcomingPage() {
         {/* Social Links with Lucide Icons */}
         <div className="mt-6 flex space-x-6">
           <a
-            href="https://www.facebook.com/yourpage"
+            href="pragatiinfo@cb.amrita.edu"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-blue-600 transition-colors duration-300"
           >
-            <Facebook size={30} />
+            <Mail size={30} />
           </a>
           <a
-            href="https://www.twitter.com/yourprofile"
+            href="https://www.linkedin.com/company/pragati-asb/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-blue-400 transition-colors duration-300"
           >
-            <Twitter size={30} />
+            <Linkedin size={30} />
           </a>
           <a
-            href="https://www.instagram.com/yourprofile"
+            href="https://www.instagram.com/pragati.asb/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-pink-500 transition-colors duration-300"

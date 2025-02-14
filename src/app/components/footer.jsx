@@ -16,7 +16,7 @@ import Link from "next/link";
 const Footer = ({ current_page }) => {
   const pages = [
     { name: "HOME", href: "/" },
-    {name: "EVENTS", href: "/events"},
+    { name: "EVENTS", href: "/events" },
     { name: "TEAM", href: "/team" },
     { name: "PRIVACY POLICY", href: "/privacy-policy" },
   ];
@@ -31,6 +31,7 @@ const Footer = ({ current_page }) => {
             alt="footerImage"
             width={600}
             height={600}
+            style={{ height: "280px", objectFit: "contain" }}
           />
         </div>
 
@@ -44,10 +45,10 @@ const Footer = ({ current_page }) => {
           </div>
           <div className="mt-7">
             <Link
-              href="mailto:pragati@amrita.edu"
+              href="mailto:pragatiinfo@cb.amrita.edu"
               className="text-white text-xl flex hover:space-x-4 transition duration-500 ease-in-out lg:text-2xl"
             >
-              <p>pragati @amrita.edu</p>
+              <p>pragatiinfo@cb.amrita.edu</p>
               <ArrowRight className="align-middle mt-1.5 ml-2" />
             </Link>
           </div>
@@ -77,24 +78,12 @@ const Footer = ({ current_page }) => {
               <div className="flex flex-wrap mt-1 w-36 gap-2">
                 {[
                   {
-                    href: "", // need to add the social media links
-                    icon: <Facebook className="w-4 h-4"/>,
+                    href: "https://www.instagram.com/pragati.asb/",
+                    icon: <Instagram className="w-4 h-4" />,
                   },
                   {
-                    href: "",
-                    icon: <Twitter className="w-4 h-4"/>,
-                  },
-                  {
-                    href: "",
-                    icon: <Instagram className="w-4 h-4"/>,
-                  },
-                  {
-                    href: "",
-                    icon: <Linkedin className="w-4 h-4"/>,
-                  },
-                  {
-                    href: "",
-                    icon: <Youtube className="w-4 h-4"/>,
+                    href: "https://www.linkedin.com/company/pragati-asb/",
+                    icon: <Linkedin className="w-4 h-4" />,
                   },
                 ].map((link, index) => (
                   <Link key={index} href={link.href} target="_blank">

@@ -21,6 +21,7 @@ import { getEvent } from "@/app/_utils/api_endpoint_handler";
 import secureLocalStorage from "react-secure-storage";
 import TeamModal from "../components/TeamModal";
 import { payU_Action, payU_Key } from "@/app/_utils/consts";
+import { registerTeam } from "@/app/_utils/api_endpoint_handler";
 
 const Event = () => {
   const { eventid } = useParams();
@@ -30,6 +31,8 @@ const Event = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // State to control showing the team details modal for group events
   const [showTeamModal, setShowTeamModal] = useState(false);
+
+  const userEmail = secureLocalStorage.getItem("registerEmail") || "";
 
   useEffect(() => {
     const stored = secureLocalStorage.getItem("isLoggedIn");
@@ -64,9 +67,10 @@ const Event = () => {
                     )
                     .join(" | ")
                 : "Contact Info Unavailable",
-            price: (event.isPerHeadFee === 0)
-              ? `₹${event.eventFee} / team`
-              : `₹${event.eventFee} / member`,
+            price:
+              event.isPerHeadFee === 0
+                ? `₹${event.eventFee} / team`
+                : `₹${event.eventFee} / member`,
             rewards: [
               { place: "1st Place", amount: "₹10,000", color: "bg-orange-500" },
               { place: "2nd Place", amount: "₹7,000", color: "bg-gray-500" },
@@ -155,13 +159,31 @@ const Event = () => {
   };
 
   // This function decides what happens when the register button is clicked.
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (eventData.isGroup) {
       // For group events, show the modal to collect team details.
       setShowTeamModal(true);
     } else {
-      // For individual events, proceed directly to the payments page.
-      router.push("/payment");
+      // For individual events, register directly and proceed to payment.
+      try {
+        const teamData = {
+          eventID: eventData.eventID,
+          totalMembers: 1,
+          teamName: "Individual",
+          teamMembers: [],
+          memberRoles: [],
+        };
+        console.log("Team Data:", teamData);
+
+        // Call your team registration function.
+        const response = await registerTeam(teamData);
+        console.log("Response:", response);
+
+        // Use the existing team submission handler to trigger payment.
+        handleTeamSubmit(response.DATA);
+      } catch (error) {
+        alert(`Registration failed: ${error.message}`);
+      }
     }
   };
 

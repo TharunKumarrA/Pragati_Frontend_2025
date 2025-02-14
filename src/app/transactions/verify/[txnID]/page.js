@@ -3,8 +3,8 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import dynamic from "next/dynamic";
-import { VERIFY_TRANSACTIONS_URL } from "@/app/_utils/consts";
 import animationData from "@/app/_utils/lotties/transactionVerify";
+import { verifyTransaction } from "@/app/_utils/api"; // Adjust the path as needed
 
 // Dynamically import react-lottie with SSR disabled
 const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
@@ -14,13 +14,7 @@ export default function PaymentVerify() {
   const router = useRouter();
 
   useEffect(() => {
-    fetch(VERIFY_TRANSACTIONS_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ transactionId: txnId }),
-    })
+    verifyTransaction(txnId)
       .then((res) => {
         if (res.status === 200) {
           setTimeout(() => {

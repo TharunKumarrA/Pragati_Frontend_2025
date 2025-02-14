@@ -240,3 +240,20 @@ export const registerTeam = async (teamData) => {
   }
 };
 
+export const verifyTransaction = async (transactionId) => {
+  const url = `${base_url}/transactions/verify`; // Adjust endpoint as needed
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ transactionId }),
+    });
+
+    const responseData = await response.json();
+    return { status: response.status, ...responseData };
+  } catch (error) {
+    console.error("Verify transaction error:", error);
+    throw error;
+  }
+};

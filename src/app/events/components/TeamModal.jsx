@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Trash2 } from "lucide-react";
 import { registerTeam } from "@/app/_utils/api_endpoint_handler";
+import secureLocalStorage from "react-secure-storage";
 
 const TeamModal = ({ isOpen, eventData, onClose }) => {
   const router = useRouter();
@@ -11,10 +12,14 @@ const TeamModal = ({ isOpen, eventData, onClose }) => {
 
   useEffect(() => {
     if (eventData && eventData.isGroup) {
+      const userEmail = secureLocalStorage.getItem("registerEmail") || "";
+      const userName = secureLocalStorage.getItem("studentFullName") || "";
+      console.log({userName, userEmail})
+  
       setTeamMembers(
         Array.from({ length: eventData.minTeamSize || 1 }, (_, i) => ({
-          name: "",
-          email: "",
+          name: i === 0 ? userName : "",
+          email: i === 0 ? userEmail : "",
           role: i === 0 ? "Leader" : "Member",
         }))
       );
@@ -49,6 +54,7 @@ const TeamModal = ({ isOpen, eventData, onClose }) => {
     setTeamMembers(updatedMembers);
   };
 
+
   const handleSubmitTeam = async () => {
     if (!teamName.trim()) {
       alert("Please enter a team name.");
@@ -66,7 +72,6 @@ const TeamModal = ({ isOpen, eventData, onClose }) => {
     }
 
     
-
     try {
         const teamData = {
           eventID: eventData.eventID,
@@ -107,7 +112,7 @@ const TeamModal = ({ isOpen, eventData, onClose }) => {
           />
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-2">
           {teamMembers.map((member, index) => (
             <div
               key={index}

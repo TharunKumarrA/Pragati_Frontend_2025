@@ -29,8 +29,6 @@ const Event = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // state to control showing the team details modal for group events
   const [showTeamModal, setShowTeamModal] = useState(false);
-  // state to hold the team members list
-  const [teamMembers, setTeamMembers] = useState([]);
 
   // Check if user is logged in using secureLocalStorage
   useEffect(() => {
@@ -110,16 +108,6 @@ const Event = () => {
       .catch((error) => console.error("Error fetching event data:", error))
       .finally(() => setLoading(false));
   }, [eventid]);
-
-  // Auto-fill team member details for group events if logged in.
-  // Assumes that you store the current user's name and email in secureLocalStorage.
-  useEffect(() => {
-    if (isLoggedIn && eventData && eventData.isGroup) {
-      const userEmail = secureLocalStorage.getItem("userEmail") || "";
-      const userName = secureLocalStorage.getItem("userName") || "";
-      setTeamMembers([{ name: userName, email: userEmail }]);
-    }
-  }, [isLoggedIn, eventData]);
 
   // This function decides what happens when the register button is clicked.
   const handleRegister = () => {

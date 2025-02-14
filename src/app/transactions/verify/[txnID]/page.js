@@ -1,10 +1,13 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import Lottie from "react-lottie";
+import { useEffect } from "react";
+import dynamic from "next/dynamic";
 import { VERIFY_TRANSACTIONS_URL } from "@/app/_utils/consts";
 import animationData from "@/app/_utils/lotties/transactionVerify";
+
+// Dynamically import react-lottie with SSR disabled
+const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
 
 export default function PaymentVerify() {
   const { txnId } = useParams();
@@ -34,7 +37,7 @@ export default function PaymentVerify() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         router.push("/transactions/pending");
       });
   }, [router, txnId]);

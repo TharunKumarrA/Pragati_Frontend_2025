@@ -124,6 +124,53 @@ export const reverifyUser = async (email) => {
   }
 };
 
+export const forgotPassword = async (email) => {
+  const url = `${base_url}/auth/forgotPassword`;
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userEmail: email }),
+    });
+
+    const responseData = await response.json();
+
+    return { status: response.status, ...responseData }; // Include status code
+  } catch (error) {
+    console.error("Error sending forgot password request:", error);
+    throw error;
+  }
+}
+
+export const resetPassword = async (newPassword, otp, otpToken) => {
+  const url = `${base_url}/auth/resetPassword`;
+  const data = {
+    otp: hash.hashPassword(otp),
+    userPassword: hash.hashPassword(newPassword),
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${otpToken}`
+      },
+      body: JSON.stringify(data),
+    });
+
+    const responseData = await response.json();
+
+    return { status: response.status, ...responseData }; // Include status code
+  } catch (error) {
+    console.error("Error resetting password:", error);
+    throw error;
+  }
+}
+
 export const getNotifications = async () => {
   const url = `${base_url}/notification/`;
   return await make_request(url, "GET");

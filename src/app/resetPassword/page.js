@@ -11,7 +11,7 @@ import {
   ToastViewport,
 } from "@/app/_toast/toast";
 import { Toaster } from "@/app/_toast/toaster";
-import { reverifyUser } from "../_utils/api_endpoint_handler";
+import { forgotPassword } from "../_utils/api_endpoint_handler";
 import secureLocalStorage from "react-secure-storage";
 
 export default function ResetPassword() {
@@ -47,7 +47,7 @@ export default function ResetPassword() {
     console.log("Submitted email:", email);
 
     try {
-      const response = await reverifyUser(email);
+      const response = await forgotPassword(email);
       console.log("Reverify response:", response);
 
       if (response?.status === 200) {
@@ -57,7 +57,7 @@ export default function ResetPassword() {
           "A new OTP has been sent to your email.",
           "success"
         );
-        router.push("/reset-password/newPassword"); // FIX: router.push used correctly
+        router.push("/resetPassword/newPassword"); // FIX: router.push used correctly
       } else {
         addToast(
           "Error",

@@ -28,7 +28,7 @@ function OlympicConclave() {
 
       {/* Events Button */}
       <button
-        onClick={() => router.push("/upcoming")}
+        onClick={() => router.push("/events")}
         className="mt-4 px-8 md:px-12 py-2 md:py-3 text-xl md:text-3xl tracking-wider text-center text-black 
              border-2 border-black bg-[linear-gradient(90deg,#FACC15,#E8D096)] rounded-full 
              transition-all duration-300 transform 

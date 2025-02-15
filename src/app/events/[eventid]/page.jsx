@@ -23,6 +23,18 @@ import TeamModal from "../components/TeamModal";
 import { payU_Action, payU_Key } from "@/app/_utils/consts";
 import { registerTeam } from "@/app/_utils/api_endpoint_handler";
 
+const godEmblemMapping = {
+  Athena: ["/Images/Emblems/1a_athena.webp", "/Images/Emblems/1b_athena.webp"],
+  Apollo: [
+    "/Images/Emblems/2a_apollo.webp",
+    "/Images/Emblems/2b_mnemosyne.webp",
+  ],
+  Dionysus: ["/Images/Emblems/3a_dionysus.webp"], // Only one emblem; duplicate if needed
+  Plutus: ["/Images/Emblems/4a_plutus.webp", "/Images/Emblems/4b_demeter.webp"],
+  Hermes: ["/Images/Emblems/5a_hermes.webp", "/Images/Emblems/5b_peitho.webp"],
+  Zeus: ["/Images/Emblems/6a_nike.webp", "/Images/Emblems/6b_hephaestus.webp"],
+};
+
 const Event = () => {
   const { eventid } = useParams();
   const router = useRouter();
@@ -89,30 +101,13 @@ const Event = () => {
               },
             ],
             clubname: event.clubName,
-            poster: "/Images/temp/1.png",
+            poster: "/Images/FallbackPoster.jpg",
             logo: "/Images/temp/eventlogo.png",
-            emblems: [
-              "/Images/Emblems/1a_athena.webp",
-              "/Images/Emblems/1b_eirene.webp",
-            ],
+            emblems: godEmblemMapping[event.godName] || [],
             description:
               event.eventDescription || "No event description provided.",
-            rules: [
-              "Participants must arrive 15 minutes before the event starts.",
-              "Use of external help or unauthorized tools is strictly prohibited.",
-              "Each team is allowed a maximum of two substitutions.",
-              "Judges' decisions are final and binding.",
-              "Late submissions will result in disqualification.",
-              "Respect other participants and maintain decorum.",
-            ],
-            details: [
-              "This is a team-based event with a focus on problem-solving and creativity.",
-              "Participants will be given a set of tasks to complete within a time limit.",
-              "Judging criteria include innovation, feasibility, and presentation skills.",
-              "Winners will receive cash prizes, certificates, and potential internship opportunities.",
-              "Refreshments will be provided during the break.",
-              "Networking session with industry experts post-event.",
-            ],
+            rules: [event.rules] || ["No rules provided."],
+            details: event.eventDescription || "No details provided.",
             isRegistered: event.isRegistered || 0,
             isGroup: event.isGroup,
           });
@@ -264,7 +259,9 @@ const Event = () => {
 
         <div className="lg:w-2/3 text-white py-8 px-4">
           <p className="text-md mb-6 leading-relaxed text-justify">
-            {eventData.description}
+            {eventData.description.split("\n").map((line, index) => (
+              <p key={index}>{line}</p>
+            ))}
           </p>
 
           <div className="text-md">
@@ -314,7 +311,12 @@ const Event = () => {
 
       <div className="w-[90%] bg-black/10 backdrop-blur-md shadow-lg p-3 my-5 flex flex-col gap-5 lg:flex-row text-white items-center justify-center lg:items-start rounded-xl">
         {eventData.rewards.map((reward, index) => {
-          if (reward.amount !== "" && reward.amount !== 0 && reward.amount !== null && reward.amount !== undefined) {
+          if (
+            reward.amount !== "" &&
+            reward.amount !== 0 &&
+            reward.amount !== null &&
+            reward.amount !== undefined
+          ) {
             return (
               <div key={index} className="flex items-center space-x-4">
                 <div className={`${reward.color} rounded-full p-5`}>
@@ -337,8 +339,8 @@ const Event = () => {
             <AccordionTrigger>Details</AccordionTrigger>
             <AccordionContent className="pt-3">
               <ul className="list-disc list-inside space-y-2">
-                {eventData.details.map((detail, index) => (
-                  <li key={index}>{detail}</li>
+                {eventData.details.split("\n").map((line, index) => (
+                  <p key={index}>{line}</p> // Render each line as a <p> element
                 ))}
               </ul>
             </AccordionContent>

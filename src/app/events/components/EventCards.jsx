@@ -19,7 +19,7 @@ const EventCard = ({
   type
 }) => {
   // Define your placeholder image paths (ensure these images exist in your public folder)
-  const placeholderPoster = "/Images/temp/1.png";
+  const placeholderPoster = "/Images/FallbackPoster.jpg";
   const placeholderEmblem = "/Images/Emblems/3a_dionysus.webp";
 
   // Initialize state with fallback if the provided prop is empty or undefined

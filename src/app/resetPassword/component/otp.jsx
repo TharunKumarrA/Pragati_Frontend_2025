@@ -64,10 +64,9 @@ const Otp = () => {
     e.preventDefault();
     console.log("Submitting OTP:", otp);
 
-    const sanitizedOTP = otp.trim();
-    if (sanitizedOTP.match(/^\d{4}$/)) {
+    if (otp.match(/^\d{4}$/)) {
       const token = secureLocalStorage.getItem("registerToken");
-      const result = await verifyOtp(sanitizedOTP, token);
+      const result = await verifyOtp(otp, token);
 
       if (result && result.success) {
         toast({

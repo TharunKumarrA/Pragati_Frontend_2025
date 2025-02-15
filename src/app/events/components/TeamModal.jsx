@@ -37,18 +37,15 @@ const TeamModal = ({ isOpen, eventData, onClose, onTeamSubmit }) => {
   };
 
   const removeTeamMember = (index) => {
-    if (teamMembers.length > eventData.minTeamSize) {
+    if (index !== 0 && teamMembers.length > eventData.minTeamSize) {
       const updatedMembers = teamMembers.filter((_, i) => i !== index);
-
-      if (updatedMembers.length > 0) {
-        updatedMembers[0].role = "Leader";
-      }
-
       setTeamMembers(updatedMembers);
     }
   };
 
   const handleTeamMemberChange = (index, field, value) => {
+    // Prevent changes to the team leader's email field
+    if (index === 0 && field === "email") return;
     const updatedMembers = [...teamMembers];
     updatedMembers[index][field] = value;
     setTeamMembers(updatedMembers);
@@ -86,7 +83,8 @@ const TeamModal = ({ isOpen, eventData, onClose, onTeamSubmit }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md flex items-center justify-center z-50 px-4">
-      <div className="bg-[#322A1E] p-6 rounded-lg border-2 border-[#E5C14E] w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+      {/* Reduced max width for desktop view */}
+      <div className="bg-[#322A1E] p-6 rounded-lg border-2 border-[#E5C14E] w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <h2 className="text-white text-xl mb-4 text-center">
           Create Your Team
         </h2>
@@ -107,17 +105,8 @@ const TeamModal = ({ isOpen, eventData, onClose, onTeamSubmit }) => {
           {teamMembers.map((member, index) => (
             <div
               key={index}
-              className="bg-[#2A2218] p-4 rounded-lg flex flex-col sm:flex-row items-center sm:items-stretch gap-2 sm:gap-4"
+              className="bg-[#2A2218] p-4 rounded-lg flex flex-col sm:flex-row items-center gap-2 sm:gap-4"
             >
-              <input
-                type="text"
-                placeholder="Name"
-                value={member.name}
-                onChange={(e) =>
-                  handleTeamMemberChange(index, "name", e.target.value)
-                }
-                className="w-full sm:w-1/3 p-2 border border-gray-300 rounded text-black"
-              />
               <input
                 type="email"
                 placeholder="Email"
@@ -125,19 +114,19 @@ const TeamModal = ({ isOpen, eventData, onClose, onTeamSubmit }) => {
                 onChange={(e) =>
                   handleTeamMemberChange(index, "email", e.target.value)
                 }
-                className="w-full sm:w-1/3 p-2 border border-gray-300 rounded text-black"
+                disabled={index === 0}
+                className="w-full p-2 border border-gray-300 rounded text-black disabled:bg-gray-400"
               />
 
               <span
-                className={`px-3 py-1 text-sm font-semibold text-white rounded-lg text-center w-full sm:w-1/3
-  ${
-    member.role === "Leader" ? "bg-[#E5C14E]" : "bg-gray-600"
-  } flex items-center justify-center`}
+                className={`px-3 py-1 text-sm font-semibold text-white rounded-lg text-center ${
+                  member.role === "Leader" ? "bg-[#E5C14E]" : "bg-gray-600"
+                }`}
               >
                 {member.role}
               </span>
 
-              {teamMembers.length > eventData.minTeamSize && (
+              {index !== 0 && teamMembers.length > eventData.minTeamSize && (
                 <button
                   onClick={() => removeTeamMember(index)}
                   className="text-red-500"

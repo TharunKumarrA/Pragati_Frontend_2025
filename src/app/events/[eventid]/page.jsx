@@ -72,8 +72,21 @@ const Event = () => {
                 ? `₹${event.eventFee} / team`
                 : `₹${event.eventFee} / member`,
             rewards: [
-              { place: "1st Place", amount: "₹10,000", color: "bg-orange-500" },
-              { place: "2nd Place", amount: "₹7,000", color: "bg-gray-500" },
+              {
+                place: "1st Place",
+                amount: event.firstPrice,
+                color: "bg-amber-500",
+              },
+              {
+                place: "2nd Place",
+                amount: event.secondPrice,
+                color: "bg-gray-500",
+              },
+              {
+                place: "3rd Place",
+                amount: event.thirdPrice,
+                color: "bg-orange-500",
+              },
             ],
             clubname: event.clubName,
             poster: "/Images/temp/1.png",
@@ -300,17 +313,22 @@ const Event = () => {
       </div>
 
       <div className="w-[90%] bg-black/10 backdrop-blur-md shadow-lg p-3 my-5 flex flex-col gap-5 lg:flex-row text-white items-center justify-center lg:items-start rounded-xl">
-        {eventData.rewards.map((reward, index) => (
-          <div key={index} className="flex items-center space-x-4">
-            <div className={`${reward.color} rounded-full p-5`}>
-              <Trophy className="w-5 h-5 md:w-10 md:h-10 text-white" />
-            </div>
-            <div>
-              <p className="text-xl font-semibold">{reward.place}</p>
-              <p className="text-lg">{reward.amount}</p>
-            </div>
-          </div>
-        ))}
+        {eventData.rewards.map((reward, index) => {
+          if (reward.amount !== "" && reward.amount !== 0 && reward.amount !== null && reward.amount !== undefined) {
+            return (
+              <div key={index} className="flex items-center space-x-4">
+                <div className={`${reward.color} rounded-full p-5`}>
+                  <Trophy className="w-5 h-5 md:w-10 md:h-10 text-white" />
+                </div>
+                <div>
+                  <p className="text-xl font-semibold">{reward.place}</p>
+                  <p className="text-lg">{reward.amount}</p>
+                </div>
+              </div>
+            );
+          }
+          return null;
+        })}
       </div>
 
       <div className="w-[90%] mb-10">

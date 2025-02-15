@@ -31,16 +31,15 @@ export default function PaymentPending() {
           Payment Pending
         </h1>
         <p className="text-gray-700 text-sm text-center">
-          Wait For 10 minutes and head over to your Profile then click on My
-          Transactions.
+          Head over to your Profile
         </p>
         <p className="text-gray-700 text-sm text-center">
-          Click on Verify Now to the corresponding transaction to complete the
+          Click on Verify to the corresponding transaction to complete the
           registration.
         </p>
 
         <Link href="/" className="flex justify-center">
-          <button className="text-[#1a1a1a] px-6 py-2 rounded-full border-2 border-[#5b4711] bg-opacity-72 bg-[#fde6a8] transition-all duration-300 ease-in-out transform hover:shadow-lg hover:scale-105 active:scale-95">
+          <button className="text-[#1a1a1a] px-6 py-2 rounded-full border-2 border-[#5b4711] bg-opacity-72 bg-[#fde6a8] transition-all duration-300 ease-in-out transform hover:shadow-lg hover:scale-105 active:scale-95 mt-4">
             Back to Home
           </button>
         </Link>

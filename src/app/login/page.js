@@ -181,7 +181,7 @@ const Page = () => {
             />
             <div className="text-right mt-[15px] mb-[25px]">
               <Link
-                href="/forgot-password"
+                href="/resetPassword"
                 className="text-[#E5C055] no-underline"
               >
                 Forgot Password?

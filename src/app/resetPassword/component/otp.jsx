@@ -39,8 +39,9 @@ const Otp = () => {
             title: "OTP Resent",
             description: "A new OTP has been sent to your email.",
             variant: "success",
+            className: "bg-white text-black border border-gray-300 shadow-md",
           });
-          setTimer(120); // Restart timer
+          setTimer(120);
         } else {
           toast({
             title: "Error",
@@ -63,9 +64,7 @@ const Otp = () => {
     e.preventDefault();
     console.log("Submitting OTP:", otp);
 
-    // Trim any extra spaces
     const sanitizedOTP = otp.trim();
-    // Validate that it is exactly 4 digits
     if (sanitizedOTP.match(/^\d{4}$/)) {
       const token = secureLocalStorage.getItem("registerToken");
       const result = await verifyOtp(sanitizedOTP, token);
@@ -75,6 +74,7 @@ const Otp = () => {
           title: "OTP Verified",
           description: "You have successfully verified your OTP.",
           variant: "success",
+          className: "bg-white text-black border border-gray-300 shadow-md",
         });
         setTimeout(() => {
           router.push("/login");
@@ -116,7 +116,7 @@ const Otp = () => {
           <InputOTP
             maxLength={4}
             value={otp}
-            onChange={(value) => setOtp(value.replace(/[^0-9]/g, ""))} // Allow only digits
+            onChange={(value) => setOtp(value.replace(/[^0-9]/g, ""))}
           >
             <InputOTPGroup>
               {[...Array(4)].map((_, index) => (

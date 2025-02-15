@@ -81,8 +81,10 @@ const EventPage = () => {
     // Status filter
     if (filters.status) {
       if (
-        (filters.status === "Open" && event.eventstatus === "0") ||
-        (filters.status === "Closed" && event.eventstatus !== "0")
+        (filters.status === "Open" && event.eventstatus !== "1") ||
+        (filters.status === "Closed" &&
+          event.eventstatus !== "0" &&
+          event.eventstatus !== "2")
       ) {
         return false;
       }

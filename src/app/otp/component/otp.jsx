@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./input-otp.jsx";
 import { useRouter } from "next/navigation";
 import secureLocalStorage from "react-secure-storage";
-import { verifyOtp } from "@/app/_utils/api_endpoint_handler.js";
+import { verifyOtp, reverifyUser } from "@/app/_utils/api_endpoint_handler.js";
 
 const Otp = () => {
   const [otp, setOtp] = useState("");
@@ -29,12 +29,15 @@ const Otp = () => {
 
   const handleResend = async () => {
     if (timer === 0) {
+      await reverifyUser(registeredEmail); // Re-trigger OTP resend
+
       toast({
         title: "OTP Resent",
         description: "A new OTP has been sent to your email.",
         variant: "success",
         className: "bg-white text-black border border-gray-300 shadow-md",
       });
+
       setTimer(120);
     }
   };

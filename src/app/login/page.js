@@ -15,12 +15,14 @@ import Link from "next/link";
 import { login } from "@/app/_utils/api_endpoint_handler";
 import secureLocalStorage from "react-secure-storage";
 import { useRouter } from "next/navigation";
+import {EyeInvisibleOutlined , EyeOutlined} from "@ant-design/icons";
 
 const Page = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [toasts, setToasts] = useState([]);
+  const [visible,setVisible] = useState(false);
 
   // Dynamically require validator
   const validator = require("validator");
@@ -137,14 +139,22 @@ const Page = () => {
             <label htmlFor="password" className={styles.label}>
               Password
             </label>
+            <div className="relative w-full">
             <Input
-              type="password"
+              type={visible ? "text" : "password"}
               id="password"
-              className="w-full py-1.5 text-black"
+              className="w-full py-1.5 pr-10 text-black"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <div
+              className="absolute inset-y-0 right-2 flex items-center cursor-pointer text-gray-600"
+              onClick={() => setVisible(!visible)}
+            >
+              {visible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+            </div>
+          </div>
             <div className="text-right mt-[15px] mb-[25px]">
               <Link
                 href="/forgot-password"
@@ -161,7 +171,7 @@ const Page = () => {
             </p>
             <button
               type="submit"
-              className="bg-[#E5C055] text-black text-[16px] border-none rounded-[5px] py-[15px] px-[20px] cursor-pointer w-full mt-[20px] relative"
+              className="w-full bg-[#D4AF37] text-white py-3 px-6 rounded-md hover:bg-[#B4941F] transition-colors mt-4"
               disabled={isLoading}
             >
               {isLoading ? <div className={styles.loader}></div> : "Sign In"}

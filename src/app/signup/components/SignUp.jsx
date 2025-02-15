@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ToastProvider,
   Toast,
@@ -16,11 +16,14 @@ import validator from "validator";
 import { signup } from "@/app/_utils/api_endpoint_handler";
 import { useRouter } from "next/navigation";
 import secureLocalStorage from "react-secure-storage";
+import {EyeInvisibleOutlined , EyeOutlined} from "@ant-design/icons";
 
 const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [toasts, setToasts] = useState([]);
   const router = useRouter();
+  const [visiblePassword,setVisiblePassword] = useState(false);
+  const [visibleConfirmPassword,setVisibleConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
     userName: "",
     userEmail: "",
@@ -37,6 +40,11 @@ const Signup = () => {
     termsAccepted: false,
     needAccommodation: { day1: false, day2: false, day3: false },
   });
+
+  useEffect(() => {
+    secureLocalStorage.removeItem("registerToken"); // Remove old OTP token
+    secureLocalStorage.removeItem("registeredEmail"); // Remove old email
+  }, []);
 
   const addToast = (title, description, variant = "default") => {
     const id = Math.random().toString(36).substr(2, 9);
@@ -62,10 +70,27 @@ const Signup = () => {
           },
         };
       }
-      return {
+      const updatedData = {
         ...prevData,
         [name]: type === "checkbox" ? checked : value,
       };
+  
+      if (name === "isAmrita" && checked) {
+        updatedData.collegeName = "Amrita Vishwa Vidyapeetham";
+  
+        if (updatedData.userEmail.startsWith("cb.")) {
+          updatedData.collegeCity = "Coimbatore";
+        }
+      } else if (name === "isAmrita" && !checked) {
+        updatedData.collegeName = "";
+        updatedData.collegeCity = "";
+      }
+  
+      if (name === "userEmail" && updatedData.isAmrita && value.startsWith("cb.")) {
+        updatedData.collegeCity = "Coimbatore";
+      }
+  
+      return updatedData;
     });
   };
 
@@ -138,7 +163,6 @@ const Signup = () => {
       );
 
       if (response && response.DATA) {
-        // Store otpToken and the registered email in secure local storage
         secureLocalStorage.setItem("registerToken", response.DATA);
         secureLocalStorage.setItem("registeredEmail", formData.userEmail);
 
@@ -237,28 +261,40 @@ const Signup = () => {
                 />
               </div>
 
-              <div>
+              <div className="relative w-full">
                 <label className="block text-sm mb-2">Password</label>
                 <Input
-                  type="password"
+                  type={visiblePassword ? "text" : "password"}
                   name="userPassword"
                   value={formData.userPassword}
                   onChange={handleInputChange}
-                  className="w-full py-2 px-3 rounded-md text-black bg-white"
+                  className="w-full py-2 px-3 pr-10 rounded-md text-black bg-white border border-gray-300"
                   placeholder="Enter your password"
                 />
+                <div
+                  className="absolute inset-y-12 right-3 flex items-center cursor-pointer text-gray-600"
+                  onClick={() => setVisiblePassword(!visiblePassword)}
+                >
+                  {visiblePassword ? <EyeOutlined className="text-lg" /> : <EyeInvisibleOutlined className="text-lg" />}
+                </div>
               </div>
-
-              <div>
+              <div className="relative w-full">
                 <label className="block text-sm mb-2">Confirm Password</label>
                 <Input
-                  type="password"
+                  type={visibleConfirmPassword ? "text" : "password"}
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
-                  className="w-full py-2 px-3 rounded-md text-black bg-white"
+                  className="w-full py-2 px-3 pr-10 rounded-md text-black bg-white border border-gray-300"
                   placeholder="Confirm your password"
                 />
+                {/* Eye Icon */}
+                <div
+                  className="absolute inset-y-12 right-3 flex items-center cursor-pointer text-gray-600"
+                  onClick={() => setVisibleConfirmPassword(!visibleConfirmPassword)}
+                >
+                  {visibleConfirmPassword ? <EyeOutlined className="text-lg" /> : <EyeInvisibleOutlined className="text-lg" />}
+                </div>
               </div>
 
               <div>
@@ -372,8 +408,10 @@ const Signup = () => {
               <div className="mt-6 md:col-span-2">
                 <button
                   type="submit"
-                  disabled={isLoading}
-                  className="w-full bg-[#D4AF37] text-white py-3 px-6 rounded-md hover:bg-[#B4941F] transition-colors duration-200 disabled:opacity-50"
+                  disabled={!formData.termsAccepted || isLoading}
+                  className={`w-full bg-[#D4AF37] text-white py-3 px-6 rounded-md hover:bg-[#B4941F] transition-colors duration-200 
+                    ${!formData.termsAccepted ? "bg-gray-400 cursor-not-allowed" : "bg-[#D4AF37] hover:bg-[#B4941F] text-white"}
+                    disabled:opacity-50`}
                 >
                   {isLoading ? "Signing up..." : "Sign Up"}
                 </button>

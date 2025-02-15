@@ -9,7 +9,7 @@ export default function BrochurePage() {
       </h1>
       <div className="relative rounded overflow-hidden h-[80vh]">
         <iframe
-          src="https://ga4uaouwxu.ufs.sh/f/s7BvCMQMnrE6q22i0RUkVNMFXWB0Iq72DC4aE685KOyvmoHi"
+          src="https://ga4uaouwxu.ufs.sh/f/s7BvCMQMnrE6OJWrWqeQ7EpTVat54GqZBRePu8X9FcCNJDvl"
           title="Brochure"
           className="w-full h-full"
         />

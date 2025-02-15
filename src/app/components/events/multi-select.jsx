@@ -1,11 +1,6 @@
 import * as React from "react";
 import { cva } from "class-variance-authority";
-import {
-  CheckIcon,
-  XCircle,
-  ChevronDown,
-  XIcon,
-} from "lucide-react";
+import { CheckIcon, XCircle, ChevronDown, XIcon } from "lucide-react";
 
 import { cn } from "@/app/_utils/utils";
 import { Separator } from "@/app/components/events/separator";
@@ -46,7 +41,8 @@ const multiSelectVariants = cva(
   }
 );
 
-const MultiSelect = React.forwardRef((
+const MultiSelect = React.forwardRef(
+  (
     {
       options,
       onValueChange,
@@ -56,7 +52,7 @@ const MultiSelect = React.forwardRef((
       animation = 0,
       maxCount = 3,
       modalPopover = false,
-      asChild = false, 
+      asChild = false,
       className,
       ...props
     },
@@ -67,22 +63,23 @@ const MultiSelect = React.forwardRef((
     const [isAnimating, setIsAnimating] = React.useState(false);
 
     const handleInputKeyDown = (event) => {
-        if (event.key === "Enter") {
-          setIsPopoverOpen(true);
-        } else if (event.key === "Backspace" && !event.currentTarget.value) {
-          const newSelectedValues = [...selectedValues];
-          newSelectedValues.pop();
-          setSelectedValues(newSelectedValues);
-          onValueChange(newSelectedValues);
-        }}
+      if (event.key === "Enter") {
+        setIsPopoverOpen(true);
+      } else if (event.key === "Backspace" && !event.currentTarget.value) {
+        const newSelectedValues = [...selectedValues];
+        newSelectedValues.pop();
+        setSelectedValues(newSelectedValues);
+        onValueChange(newSelectedValues);
+      }
+    };
 
-        const toggleOption = (option) => {
-            const newSelectedValues = selectedValues.includes(option)
-              ? selectedValues.filter((value) => value !== option)
-              : [...selectedValues, option];
-            setSelectedValues(newSelectedValues);
-            onValueChange(newSelectedValues);
-          };
+    const toggleOption = (option) => {
+      const newSelectedValues = selectedValues.includes(option)
+        ? selectedValues.filter((value) => value !== option)
+        : [...selectedValues, option];
+      setSelectedValues(newSelectedValues);
+      onValueChange(newSelectedValues);
+    };
 
     const handleClear = () => {
       setSelectedValues([]);
@@ -127,10 +124,9 @@ const MultiSelect = React.forwardRef((
           >
             {selectedValues.length > 0 ? (
               <div className="flex justify-between items-center w-full">
-                <div className="flex flex-wrap items-center overflow-y-auto max-h-10"> 
-                    {selectedValues.slice(0, maxCount).map((value) => {
+                <div className="flex flex-wrap items-center overflow-y-auto max-h-10">
+                  {selectedValues.slice(0, maxCount).map((value) => {
                     const option = options.find((o) => o.value === value);
-                    // const IconComponent = option?.icon;
                     return (
                       <Badge
                         key={value}
@@ -140,9 +136,6 @@ const MultiSelect = React.forwardRef((
                         )}
                         style={{ animationDuration: `${animation}s` }}
                       >
-                        {/* {IconComponent && (
-                          <IconComponent className="h-4 w-4 mr-2" />
-                        )} */}
                         {option?.label}
                         <XCircle
                           className="ml-2 h-4 w-4 cursor-pointer"
@@ -163,7 +156,7 @@ const MultiSelect = React.forwardRef((
                       )}
                       style={{ animationDuration: `${animation}s` }}
                     >
-                      {`+ ${selectedValues.length - maxCount} more`}
+                      {`${selectedValues.length - maxCount} more`}
                       <XCircle
                         className="ml-2 h-4 w-4 cursor-pointer"
                         onClick={(event) => {
@@ -191,10 +184,8 @@ const MultiSelect = React.forwardRef((
               </div>
             ) : (
               <div className="flex items-center justify-between w-full mx-auto">
-                <span className="text-sm text-white mx-3">
-                  {placeholder}
-                </span>
-                <ChevronDown className="h-4 cursor-pointer text-white  mx-2" />
+                <span className="text-sm text-white mx-3">{placeholder}</span>
+                <ChevronDown className="h-4 cursor-pointer text-white mx-2" />
               </div>
             )}
           </Button>
@@ -212,23 +203,6 @@ const MultiSelect = React.forwardRef((
             <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup>
-                {/* <CommandItem
-                  key="all"
-                  onSelect={toggleAll}
-                  className="cursor-pointer"
-                >
-                  <div
-                    className={cn(
-                      "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                      selectedValues.length === options.length
-                        ? "bg-primary text-primary-foreground"
-                        : "opacity-50 [&_svg]:invisible"
-                    )}
-                  >
-                    <CheckIcon className="h-4 w-4" />
-                  </div>
-                  <span>(Select All)</span>
-                </CommandItem> */}
                 {options.map((option) => {
                   const isSelected = selectedValues.includes(option.value);
                   return (
@@ -247,9 +221,6 @@ const MultiSelect = React.forwardRef((
                       >
                         <CheckIcon className="h-4 w-4" />
                       </div>
-                      {/* {option.icon && (
-                        <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-                      )} */}
                       <span>{option.label}</span>
                     </CommandItem>
                   );
@@ -257,7 +228,7 @@ const MultiSelect = React.forwardRef((
               </CommandGroup>
               <CommandSeparator />
               <CommandGroup>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between w-full">
                   {selectedValues.length > 0 && (
                     <>
                       <CommandItem

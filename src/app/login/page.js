@@ -1,7 +1,11 @@
 "use client";
 
-import styles from "./styles/login.module.css";
 import React, { useState, useEffect } from "react";
+import md5 from "blueimp-md5"; // Client-friendly MD5 library
+import secureLocalStorage from "react-secure-storage";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import styles from "./styles/login.module.css";
 import {
   ToastProvider,
   Toast,
@@ -10,29 +14,30 @@ import {
   ToastDescription,
   ToastClose,
 } from "@/app/_toast/toast";
+import { login, reverifyUser } from "@/app/_utils/api_endpoint_handler";
 import { Input } from "./components/input";
-import Link from "next/link";
-import { login } from "@/app/_utils/api_endpoint_handler";
-import secureLocalStorage from "react-secure-storage";
-import { useRouter } from "next/navigation";
+import validator from "validator";
+
+/**
+ * Returns a Gravatar URL for the given email.
+ * If the user does not have a Gravatar, the `identicon` is used.
+ */
+const getGravatarUrl = (email, size = 200) => {
+  const trimmedEmail = email.trim().toLowerCase();
+  const hash = md5(trimmedEmail);
+  return `https://www.gravatar.com/avatar/${hash}?s=${size}&d=identicon&r=pg`;
+};
 
 const Page = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [toasts, setToasts] = useState([]);
-
-  // Dynamically require validator
-  const validator = require("validator");
-
   const router = useRouter();
 
-  // Clear secure storage on mount
   useEffect(() => {
     secureLocalStorage.clear();
   }, []);
-
-  const validateEmail = (email) => validator.isEmail(email);
 
   const addToast = (title, description, variant = "default") => {
     const id = Math.random().toString(36).substr(2, 9);
@@ -50,7 +55,7 @@ const Page = () => {
     e.preventDefault();
     setToasts([]);
 
-    if (!validateEmail(email)) {
+    if (!validator.isEmail(email)) {
       addToast("Error", "Please enter a valid email address.", "destructive");
       return;
     }
@@ -65,8 +70,13 @@ const Page = () => {
     try {
       const response = await login(email, password);
 
-      // Check for a successful login.
       if (response && response.MESSAGE === "Login successful") {
+        // Use the user's custom profilePic if it exists;
+        // otherwise generate one using Gravatar.
+        const profilePic =
+          response.DATA.USER.profilePic ||
+          getGravatarUrl(response.DATA.USER.userEmail);
+
         secureLocalStorage.setItem("registerToken", response.DATA.TOKEN);
         secureLocalStorage.setItem(
           "studentFullName",
@@ -77,18 +87,14 @@ const Page = () => {
           response.DATA.USER.userEmail
         );
         secureLocalStorage.setItem("rollNumber", response.DATA.USER.rollNumber);
-        secureLocalStorage.setItem("isLoggedIn", 1);
-        secureLocalStorage.setItem(
-          "profilePic",
-          response.DATA.USER.profilePic || null
-        );
+        secureLocalStorage.setItem("isLoggedIn", "1");
+        secureLocalStorage.setItem("profilePic", profilePic);
 
-        // Dispatch a single custom auth update event.
         window.dispatchEvent(
           new CustomEvent("authUpdate", {
             detail: {
               isLoggedIn: true,
-              profilePic: response.DATA.USER.profilePic || null,
+              profilePic,
             },
           })
         );
@@ -97,16 +103,44 @@ const Page = () => {
         setTimeout(() => {
           router.push("/events");
         }, 1500);
-      } else {
-        throw new Error(response?.MESSAGE || "Login failed");
       }
     } catch (error) {
-      console.log("Error logging in:", error);
-      addToast(
-        "Error",
-        error.message || "An unexpected error occurred. Please try again.",
-        "destructive"
-      );
+      console.error("Error logging in:", error);
+
+      if (error.status === 403) {
+        try {
+          const reverifyResponse = await reverifyUser(email);
+          if (reverifyResponse.status === 200) {
+            secureLocalStorage.setItem(
+              "registerToken",
+              reverifyResponse.DATA.TOKEN
+            );
+            secureLocalStorage.setItem("registerEmail", email);
+
+            addToast("Success", "OTP sent successfully!");
+            router.push("/otp");
+          } else {
+            addToast(
+              "Error",
+              reverifyResponse.MESSAGE || "Failed to send OTP.",
+              "destructive"
+            );
+          }
+        } catch (reverifyError) {
+          console.error("Error sending reverify request:", reverifyError);
+          addToast(
+            "Error",
+            "An error occurred while resending OTP.",
+            "destructive"
+          );
+        }
+      } else {
+        addToast(
+          "Error",
+          error.message || "An unexpected error occurred. Please try again.",
+          "destructive"
+        );
+      }
     } finally {
       setIsLoading(false);
     }
@@ -115,7 +149,7 @@ const Page = () => {
   return (
     <ToastProvider>
       <div className="bg-cover bg-center h-screen flex items-center justify-center relative bg-black bg-opacity-50 bg-blend-darken">
-        <div className={`${styles.loginBox}`}>
+        <div className={styles.loginBox}>
           <h2 className="text-[24px] text-center mt-[30px] mb-[20px] [font-family:var(--font-chicavenue)]">
             Sign In
           </h2>

@@ -142,7 +142,7 @@ export const getUserProfile = async (authToken) => {
     if (!response.ok) {
       throw new Error(response.statusText);
     }
-    const res =  await response.json();
+    const res = await response.json();
     console.log(res);
     return res;
   } catch (error) {
@@ -153,7 +153,8 @@ export const getUserProfile = async (authToken) => {
 
 export const getEvents = async () => {
   const url = `${base_url}/event/all`;
-  console.log(url);
+  console.log("getEvents: URL is", url);
+
   // Check if we're in a browser environment and if the user is logged in
   let token = null;
   if (typeof window !== "undefined") {
@@ -163,14 +164,18 @@ export const getEvents = async () => {
     }
   }
 
-  // Construct the request options, adding the Authorization header if a token exists
+  // Construct the request options
   const options = {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   };
 
+  // Check for token and add the Authorization header accordingly
   if (token) {
     options.headers["Authorization"] = `Bearer ${token}`;
+    console.log("getEvents: Bearer token added:", token);
+  } else {
+    console.log("getEvents: No bearer token added");
   }
 
   try {
@@ -183,26 +188,30 @@ export const getEvents = async () => {
 
     return responseData;
   } catch (error) {
-    console.error("Request error:", error);
+    console.error("getEvents: Request error:", error);
     throw error;
   }
 };
 
 export const getEvent = async (eventId) => {
   const url = `${base_url}/event/${eventId}`;
+  console.log("getEvent: URL is", url);
 
-  // Optionally include bearer token if available
   let token = null;
   if (typeof window !== "undefined") {
     const isLoggedIn = secureLocalStorage.getItem("isLoggedIn");
     if (isLoggedIn === "1") {
-      token = secureLocalStorage.getItem("token");
+      // Use the same token key as other functions
+      token = secureLocalStorage.getItem("registerToken");
     }
   }
 
   const headers = { "Content-Type": "application/json" };
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
+    console.log("getEvent: Bearer token added:", token);
+  } else {
+    console.log("getEvent: No bearer token added");
   }
 
   try {
@@ -213,7 +222,7 @@ export const getEvent = async (eventId) => {
     const responseData = await response.json();
 
     if (!response.ok) {
-      console.log("Request error:", responseData);
+      console.log("getEvent: Request error:", responseData);
       const error = new Error(responseData.MESSAGE || response.statusText);
       error.status = response.status;
       throw error;
@@ -221,24 +230,27 @@ export const getEvent = async (eventId) => {
 
     return responseData;
   } catch (error) {
-    console.error("Request error:", error);
+    console.error("getEvent: Request error:", error);
     throw error;
   }
 };
 
 export const registerTeam = async (teamData) => {
   const url = `${base_url}/registration/event`;
+  console.log("registerTeam: URL is", url);
 
   let token = null;
   if (typeof window !== "undefined") {
-    console.log("Window exists");
     const isLoggedIn = secureLocalStorage.getItem("isLoggedIn");
-    console.log("Is logged in:", isLoggedIn);
     if (isLoggedIn === "1") {
-      console.log("User is logged in");
       token = secureLocalStorage.getItem("registerToken");
-      console.log("Token:", token);
     }
+  }
+
+  if (token) {
+    console.log("registerTeam: Bearer token available:", token);
+  } else {
+    console.log("registerTeam: No bearer token found");
   }
 
   try {
@@ -246,7 +258,7 @@ export const registerTeam = async (teamData) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: token ? `Bearer ${token}` : "",
       },
       body: JSON.stringify(teamData),
     });
@@ -257,7 +269,7 @@ export const registerTeam = async (teamData) => {
     }
     return responseData;
   } catch (error) {
-    console.error("Request error:", error);
+    console.error("registerTeam: Request error:", error);
     throw error;
   }
 };
@@ -269,7 +281,7 @@ export const verifyTransaction = async (transactionId) => {
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ "txnID": transactionId }),
+      body: JSON.stringify({ txnID: transactionId }),
     });
 
     const responseData = await response.json();

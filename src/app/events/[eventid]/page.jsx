@@ -224,7 +224,7 @@ const Event = () => {
           />
           {console.log("isLoggedIn state:", isLoggedIn)}
           {isLoggedIn ? (
-            eventData.isRegistered === 1 ? (
+            eventData.isRegistered === "1" ? (
               <button
                 disabled
                 className="bg-gray-500 border-gray-500 cursor-not-allowed w-full py-3 text-center rounded-xl text-lg font-bold shadow-md"

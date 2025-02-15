@@ -77,10 +77,10 @@ const FullPageMenu = ({ isOpen, onClose }) => {
   const pages = [
     { name: "Home", href: "/" },
     { name: "About", href: "/#about" },
-    { name: "Events", href: "/upcoming" },
+    { name: "Events", href: "/events" },
     { name: "Notifications", href: "/notifications" },
     { name: "Schedule", href: "/upcoming" },
-    { name: "Brochure", href: "/upcoming" },
+    { name: "Brochure", href: "/brochure" },
   ];
 
   if (!isLoggedIn) {

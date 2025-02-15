@@ -338,3 +338,25 @@ export const verifyTransaction = async (transactionId) => {
     throw error;
   }
 };
+
+export const getTags = async () => {
+  const url = `${base_url}/tag`;
+  console.log("getTags: URL is", url);
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const responseData = await response.json();
+    if (!response.ok) {
+      throw new Error(responseData.MESSAGE || response.statusText);
+    }
+    
+    return responseData;
+  } catch (error) {
+    console.error("getTags: Request error:", error);
+    throw error;
+  }
+}

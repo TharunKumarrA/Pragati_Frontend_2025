@@ -1,30 +1,31 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import SingleSelectFilter from "./SingleSelectFilter";
 import MultiSelect from "@/app/components/events/multi-select";
-
-// Tag options (each option has a value and label)
-const tags = [
-  { value: "artificial intelligence", label: "Artificial Intelligence" },
-  { value: "leadership", label: "Leadership" },
-  { value: "marketing", label: "Marketing" },
-  { value: "finance", label: "Finance" },
-  { value: "technology", label: "Technology" },
-  { value: "entrepreneurship", label: "Entrepreneurship" },
-  { value: "strategy", label: "Strategy" },
-];
+import { getTags } from "@/app/_utils/api_endpoint_handler";
 
 // Date options (should match event.eventDate format)
 const dates = [
   { value: "1", label: "1" },
   { value: "2", label: "2" },
-  // Add more as needed
 ];
 
 const FilterSection = ({ onFilterChange }) => {
+  const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedDates, setSelectedDates] = useState([]);
   const [status, setStatus] = useState(null);
   const [type, setType] = useState(null);
+
+  // Fetch tags from the API
+  useEffect(() => {
+    getTags().then((response) => {
+      const tags = response.DATA.map((tag) => ({
+        value: tag.tagAbbrevation,
+        label: tag.tagName,
+      }));
+      setTags(tags);
+    });
+  }, []);
 
   // When any filter changes, update the parent.
   // We convert each selected value to a string by extracting the value if needed.

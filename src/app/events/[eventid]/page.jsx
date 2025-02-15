@@ -126,8 +126,8 @@ const Event = () => {
         firstname: responseData["userName"],
         email: responseData["userEmail"],
         phone: responseData["phoneNumber"],
-        surl: responseData["surl"] || "http://localhost:3000/payment", // need to update this
-        furl: responseData["furl"] || "http://localhost:3000/payment", // need to update this
+        surl: responseData["surl"] || `http://localhost:3000/transactions/verify/${responseData["txnID"]}`, 
+        furl: responseData["furl"] || `http://localhost:3000/transactions/verify/${responseData["txnID"]}`,
         hash: responseData["hash"],
       };
 

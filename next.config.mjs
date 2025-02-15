@@ -25,6 +25,18 @@ const nextConfig = {
   images: {
     domains: ["i.imgur.com", "imgur.com", "www.gravatar.com", "example.com"],
   },
+  experimental: {
+    serverActions: {
+      allowedOrigins: [
+        "localhost",
+        "test.payu.in",
+        "testtxncdn.payubiz.in",
+        "secure.payu.in",
+        "txncdn.payu.in",
+        "anokha.amrita.edu",
+      ],
+    },
+  },
 };
 
 export default nextConfig;

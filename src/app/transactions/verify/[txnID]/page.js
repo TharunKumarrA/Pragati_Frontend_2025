@@ -10,11 +10,11 @@ import { verifyTransaction } from "@/app/_utils/api_endpoint_handler";
 const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
 
 export default function PaymentVerify() {
-  const { txnId } = useParams();
+  const { txnID } = useParams();
   const router = useRouter();
 
   useEffect(() => {
-    verifyTransaction(txnId)
+    verifyTransaction(txnID)
       .then((res) => {
         if (res.status === 200) {
           setTimeout(() => {
@@ -34,7 +34,7 @@ export default function PaymentVerify() {
         console.error(err);
         router.push("/transactions/pending");
       });
-  }, [router, txnId]);
+  }, [router, txnID]);
 
   const defaultOptions = {
     loop: true,
@@ -54,7 +54,7 @@ export default function PaymentVerify() {
           Hold On while we verify your payment.
         </h1>
         <p className="text-gray-700 text-sm text-center">
-          Your transaction id is <span className="font-bold">{txnId}</span>
+          Your transaction id is <span className="font-bold">{txnID}</span>
         </p>
         <p className="text-gray-700 text-sm text-center">
           Please do not close this page or go back.

@@ -241,13 +241,13 @@ export const registerTeam = async (teamData) => {
 };
 
 export const verifyTransaction = async (transactionId) => {
-  const url = `${base_url}/transactions/verify`; // Adjust endpoint as needed
+  const url = `${base_url}/transaction/verify`; // Adjust endpoint as needed
 
   try {
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ transactionId }),
+      body: JSON.stringify({ "txnID": transactionId }),
     });
 
     const responseData = await response.json();

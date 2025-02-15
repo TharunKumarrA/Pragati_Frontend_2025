@@ -234,7 +234,7 @@ const Profile = () => {
                   <button
                     className="text-[#1a1a1a] mt-2 px-4 py-1 rounded-full border-2 border-[#5b4711] bg-opacity-72 bg-[#fde6a8] transition-all duration-300 ease-in-out transform hover:shadow-lg hover:scale-105 active:scale-95"
                     onClick={() =>
-                      router.push(`/transactions/${txn.transactionID}`)
+                      router.push(`/transactions/verify/${txn.txnID}`)
                     }
                   >
                     Verify

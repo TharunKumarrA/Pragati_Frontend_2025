@@ -112,49 +112,61 @@ const Event = () => {
   }, [eventid]);
 
   // Handler for team registration submission from the modal
-  const handleTeamSubmit = (responseData) => {
+  const handleTeamSubmit = async (teamData) => {
     // Show a confirmation prompt before proceeding
     const confirmed = window.confirm(
-      "Team registered successfully. Do you want to proceed to payment?"
+      "Team details received. Do you want to register the team and proceed to payment?"
     );
+
+    console.log("Team Data:", teamData);
     if (confirmed) {
-      const payUData = {
-        key: payU_Key,
-        txnid: responseData["txnID"],
-        amount: responseData["amount"],
-        productinfo: responseData["productInfo"],
-        firstname: responseData["userName"],
-        email: responseData["userEmail"],
-        phone: responseData["phoneNumber"],
-        surl: responseData["surl"] || `http://localhost:3000/transactions/verify/${responseData["txnID"]}`, 
-        furl: responseData["furl"] || `http://localhost:3000/transactions/verify/${responseData["txnID"]}`,
-        hash: responseData["hash"],
-      };
+      try {
+        // Call your API to register the team and get transaction details
+        const response = await registerTeam(teamData);
+        const responseData = response.DATA;
+        console.log("Team registration response:", responseData);
 
-      console.log("PayU Data:", payUData);
+        // Prepare payment data using responseData
+        const payUData = {
+          key: payU_Key,
+          txnid: responseData.txnID,
+          amount: responseData.amount,
+          productinfo: responseData.productInfo,
+          firstname: responseData.userName,
+          email: responseData.userEmail,
+          phone: responseData.phoneNumber,
+          surl:
+            responseData.surl ||
+            `http://localhost:3000/transactions/verify/${responseData.txnID}`,
+          furl:
+            responseData.furl ||
+            `http://localhost:3000/transactions/verify/${responseData.txnID}`,
+          hash: responseData.hash,
+        };
 
-      const payUForm = document.createElement("form");
-      payUForm.method = "post";
-      payUForm.action = payU_Action;
+        console.log("PayU Data:", payUData);
 
-      for (const key in payUData) {
-        console.log("Key:", key, "Value:", payUData[key]);
-        if (payUData.hasOwnProperty(key)) {
-          const hiddenField = document.createElement("input");
-          hiddenField.type = "hidden";
-          hiddenField.name = key;
-          hiddenField.value = payUData[key];
+        // Create and submit the payment form
+        const payUForm = document.createElement("form");
+        payUForm.method = "post";
+        payUForm.action = payU_Action;
 
-          payUForm.appendChild(hiddenField);
+        for (const key in payUData) {
+          if (Object.hasOwn(payUData, key)) {
+            const hiddenField = document.createElement("input");
+            hiddenField.type = "hidden";
+            hiddenField.name = key;
+            hiddenField.value = payUData[key];
+            payUForm.appendChild(hiddenField);
+          }
         }
+
+        document.body.appendChild(payUForm);
+        console.log("Submitting PayU form...");
+        payUForm.submit();
+      } catch (error) {
+        alert(`Team registration failed: ${error.message}`);
       }
-
-      document.body.appendChild(payUForm);
-
-      console.log("Submitting PayU form...");
-      console.log("PayU Form:", payUForm);
-
-      payUForm.submit();
     }
   };
 
@@ -175,12 +187,7 @@ const Event = () => {
         };
         console.log("Team Data:", teamData);
 
-        // Call your team registration function.
-        const response = await registerTeam(teamData);
-        console.log("Response:", response);
-
-        // Use the existing team submission handler to trigger payment.
-        handleTeamSubmit(response.DATA);
+        handleTeamSubmit(teamData);
       } catch (error) {
         alert(`Registration failed: ${error.message}`);
       }

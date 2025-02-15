@@ -14,8 +14,8 @@ const TeamModal = ({ isOpen, eventData, onClose, onTeamSubmit }) => {
     if (eventData && eventData.isGroup) {
       const userEmail = secureLocalStorage.getItem("registerEmail") || "";
       const userName = secureLocalStorage.getItem("studentFullName") || "";
-      console.log({userName, userEmail})
-  
+      console.log({ userName, userEmail });
+
       setTeamMembers(
         Array.from({ length: eventData.minTeamSize || 1 }, (_, i) => ({
           name: i === 0 ? userName : "",
@@ -54,8 +54,7 @@ const TeamModal = ({ isOpen, eventData, onClose, onTeamSubmit }) => {
     setTeamMembers(updatedMembers);
   };
 
-
-  const handleSubmitTeam = async () => {
+  const handleSubmitTeam = () => {
     if (!teamName.trim()) {
       alert("Please enter a team name.");
       return;
@@ -71,24 +70,16 @@ const TeamModal = ({ isOpen, eventData, onClose, onTeamSubmit }) => {
       }
     }
 
-    
-    try {
-        const teamData = {
-          eventID: eventData.eventID,
-          totalMembers: teamMembers.length,
-          teamName,
-          teamMembers: teamMembers.slice(1).map((m) => m.email),
-          memberRoles: teamMembers.slice(1).map((m) => m.role),
-        };
-        console.log("Team Data:", teamData);
-        const response = await registerTeam(teamData);
-        console.log("Response:", response);
-        onTeamSubmit(response.DATA);
-        onClose();
-      } catch (error) {
-        alert(`Registration failed: ${error.message}`);
-      }
-      
+    const teamData = {
+      eventID: eventData.eventID,
+      totalMembers: teamMembers.length,
+      teamName,
+      teamMembers: teamMembers.slice(1).map((m) => m.email),
+      memberRoles: teamMembers.slice(1).map((m) => m.role),
+    };
+    console.log("Team Data:", teamData);
+    onTeamSubmit(teamData);
+    onClose();
   };
 
   if (!isOpen) return null;

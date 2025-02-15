@@ -57,7 +57,7 @@ const TeamModal = ({ isOpen, eventData, onClose, onTeamSubmit }) => {
       return;
     }
     for (let member of teamMembers) {
-      if (!member.name || !member.email) {
+      if (!member.email) {
         alert("Please fill in all team member details.");
         return;
       }

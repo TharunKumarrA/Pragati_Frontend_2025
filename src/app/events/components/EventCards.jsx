@@ -16,7 +16,7 @@ const EventCard = ({
   eventid,
   tags,
   isDisabled,
-  type
+  type,
 }) => {
   // Define your placeholder image paths (ensure these images exist in your public folder)
   const placeholderPoster = "/Images/FallbackPoster.jpg";
@@ -34,7 +34,11 @@ const EventCard = ({
   );
 
   return (
-    <div className="bg-[#322A1E] bg-opacity-60 border-2 mx-auto border-[#E5C14E] rounded-3xl px-8 md:px-5 py-4 w-full max-w-[320px] md:max-w-[350px] lg:max-w-[380px] relative group transition-all transform hover:scale-105 hover:shadow-2xl backdrop-blur-md">
+    <div   className={`rounded-3xl px-8 md:px-5 py-4 w-full max-w-[320px] md:max-w-[350px] lg:max-w-[380px] relative group transition-all transform hover:scale-105 hover:shadow-2xl backdrop-blur-md ${isDisabled ? 'bg-black bg-opacity-60 cursor-not-allowed' : 'bg-[#322A1E] bg-opacity-60 border-2 mx-auto border-[#E5C14E]'}`}
+>
+      {isDisabled && (
+        <div className="absolute inset-0 bg-gray-500 bg-opacity-50 rounded-3xl"></div> // The grey overlay
+      )}
       <Link href={`/events/${eventid}`} passHref>
         <div className="relative w-full">
           <Image
@@ -115,7 +119,10 @@ const EventCard = ({
 
           <div className="text-right">
             <div className="text-[#E5C14E] text-lg md:text-xl font-bold">
-              ₹{price} <span className="text-xs font-normal">/{type === "Group" ? "team" : "member"}</span>
+              ₹{price}{" "}
+              <span className="text-xs font-normal">
+                /{type === "Group" ? "team" : "member"}
+              </span>
             </div>
             <div className="text-xs text-gray-300">Incl. of GST</div>
           </div>

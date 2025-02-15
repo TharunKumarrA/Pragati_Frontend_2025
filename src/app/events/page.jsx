@@ -146,7 +146,7 @@ const EventPage = () => {
                 poster={event.poster}
                 eventid={event.eventid}
                 tags={event.tags}
-                isDisabled={event.eventstatus === "0"}
+                isDisabled={!(event.eventstatus === "1")}
                 emblem1={emblem1}
                 emblem2={emblem2}
                 type={event.type}

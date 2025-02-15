@@ -43,6 +43,8 @@ const Event = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // State to control showing the team details modal for group events
   const [showTeamModal, setShowTeamModal] = useState(false);
+  // State to store event status
+  const [eventStatus, setEventStatus] = useState("");
 
   const userEmail = secureLocalStorage.getItem("registerEmail") || "";
 
@@ -59,6 +61,7 @@ const Event = () => {
         console.log("Event data:", data);
         if (data.DATA && data.DATA.length > 0) {
           const event = data.DATA[0];
+          setEventStatus(event.eventStatus);
           setEventData({
             eventID: event.eventID,
             title: event.eventName || "",
@@ -106,7 +109,7 @@ const Event = () => {
             emblems: godEmblemMapping[event.godName] || [],
             description:
               event.eventDescription || "No event description provided.",
-            rules: [event.rules] || ["No rules provided."],
+            rules: event.rules != null ? [event.rules] : ["No rules provided."],
             details: event.eventDescription || "No details provided.",
             isRegistered: event.isRegistered || 0,
             isGroup: event.isGroup,
@@ -223,13 +226,29 @@ const Event = () => {
 
       <div className="flex flex-col min-w-[90%] lg:flex-row items-center justify-center lg:items-start mt-5 mx-2 lg:mx-20 bg-[#ffffff]/2 rounded-xl shadow-lg overflow-hidden backdrop-blur-md">
         <div className="w-[350px] flex flex-col items-center p-5">
-          <Image
-            src={eventData.poster}
-            alt="Event Poster"
-            width={500}
-            height={500}
-            className="w-full h-auto rounded-lg object-cover mb-6 shadow-md"
-          />
+          <div className="relative w-fit h-fit">
+            <Image
+              src={eventData.poster}
+              alt="Event Poster"
+              width={500}
+              height={500}
+              className="w-full h-auto rounded-lg object-cover mb-6 shadow-md"
+            />
+            {eventStatus == "0" && (
+              <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 rounded-lg">
+                <span className="text-white text-2xl font-bold">
+                  Event Closed
+                </span>
+              </div>
+            )}
+            {eventStatus == "2" && (
+              <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 rounded-lg">
+                <span className="text-white text-2xl font-bold">
+                  Registrations Closed
+                </span>
+              </div>
+            )}
+          </div>
           {console.log("isLoggedIn state:", isLoggedIn)}
           {isLoggedIn ? (
             eventData.isRegistered === "1" ? (
@@ -241,8 +260,11 @@ const Event = () => {
               </button>
             ) : (
               <button
+                disabled = {eventStatus != "1" ? true : false}
                 onClick={handleRegister}
-                className="bg-[#322A1E] border-[#E5C14E] hover:scale-105 transition-all border-2 w-full text-[#E5C14E] py-3 text-center rounded-xl text-lg font-bold shadow-md"
+                className={`bg-[#322A1E] border-[#E5C14E] hover:scale-105 transition-all border-2 w-full text-[#E5C14E] py-3 text-center rounded-xl text-lg font-bold shadow-md ${
+                  eventStatus != "1" ? "cursor-not-allowed" : ""
+                }`}
               >
                 Register
               </button>
@@ -250,7 +272,9 @@ const Event = () => {
           ) : (
             <Link
               href="/login"
-              className="bg-[#322A1E] border-[#E5C14E] hover:scale-105 transition-all border-2 w-full text-[#E5C14E] py-3 text-center rounded-xl text-lg font-bold shadow-md"
+              className={`bg-[#322A1E] border-[#E5C14E] hover:scale-105 transition-all border-2 w-full text-[#E5C14E] py-3 text-center rounded-xl text-lg font-bold shadow-md ${
+                eventStatus != "1" ? "cursor-not-allowed" : ""
+              }`}
             >
               Login to Register
             </Link>

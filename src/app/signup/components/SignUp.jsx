@@ -141,7 +141,7 @@ const Signup = () => {
         secureLocalStorage.setItem("registerToken", response.DATA);
         secureLocalStorage.setItem("registeredEmail", formData.userEmail);
 
-        addToast("Success", "Registration successful!");
+        addToast("Success", "OTP Sent to email");
         setTimeout(() => {
           router.push("/otp");
         }, 1500);

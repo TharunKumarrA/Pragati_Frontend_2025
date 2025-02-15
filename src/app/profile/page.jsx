@@ -150,7 +150,7 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* Registrations Section */}
+          {/* Registered Events Section */}
           <div
             className="p-6 rounded-lg shadow-md border border-gray-300"
             style={{
@@ -168,7 +168,7 @@ const Profile = () => {
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                     <h3 className="text-xl font-semibold">
-                      {reg.teamName || "Event"}
+                      {reg.eventName || reg.teamName || "Event"}
                     </h3>
                     <span
                       className={`${
@@ -210,12 +210,12 @@ const Profile = () => {
             {transactions.length > 0 ? (
               transactions.map((txn) => (
                 <div
-                  key={txn.transactionID}
+                  key={txn.txnID}
                   className="bg-white bg-opacity-50 p-4 rounded-lg shadow-lg mb-4 border border-amber-300"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                     <h3 className="text-xl font-semibold">
-                      Event ID: {txn.eventID}
+                      {txn.eventName || "Unknown Event"}
                     </h3>
                     <span className={getStatusColor(txn.transactionStatus)}>
                       {txn.transactionStatus === "2"
@@ -230,15 +230,22 @@ const Profile = () => {
                       <span className="font-semibold">Amount: </span>
                       {txn.amount}
                     </p>
+                    <p>
+                      <span className="font-semibold">Transaction ID: </span>
+                      {txn.txnID}
+                    </p>
                   </div>
-                  <button
-                    className="text-[#1a1a1a] mt-2 px-4 py-1 rounded-full border-2 border-[#5b4711] bg-opacity-72 bg-[#fde6a8] transition-all duration-300 ease-in-out transform hover:shadow-lg hover:scale-105 active:scale-95"
-                    onClick={() =>
-                      router.push(`/transactions/verify/${txn.txnID}`)
-                    }
-                  >
-                    Verify
-                  </button>
+                  {(txn.transactionStatus === "1" ||
+                    txn.transactionStatus === "Pending") && (
+                    <button
+                      className="text-[#1a1a1a] mt-2 px-4 py-1 rounded-full border-2 border-[#5b4711] bg-opacity-72 bg-[#fde6a8] transition-all duration-300 ease-in-out transform hover:shadow-lg hover:scale-105 active:scale-95"
+                      onClick={() =>
+                        router.push(`/transactions/verify/${txn.txnID}`)
+                      }
+                    >
+                      Verify
+                    </button>
+                  )}
                 </div>
               ))
             ) : (

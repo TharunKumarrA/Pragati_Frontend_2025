@@ -38,9 +38,9 @@ export default function PaymentPending() {
           registration.
         </p>
 
-        <Link href="/" className="flex justify-center">
+        <Link href="/profile" className="flex justify-center">
           <button className="text-[#1a1a1a] px-6 py-2 rounded-full border-2 border-[#5b4711] bg-opacity-72 bg-[#fde6a8] transition-all duration-300 ease-in-out transform hover:shadow-lg hover:scale-105 active:scale-95 mt-4">
-            Back to Home
+            Back to Site
           </button>
         </Link>
       </div>

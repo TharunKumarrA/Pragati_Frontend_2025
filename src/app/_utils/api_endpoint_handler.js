@@ -130,7 +130,7 @@ export const getNotifications = async () => {
 };
 
 export const getUserProfile = async (authToken) => {
-  const url = `${base_url}/user/profile`;
+  const url = `${base_url}/profile`;
   try {
     const response = await fetch(url, {
       method: "GET",
@@ -142,47 +142,9 @@ export const getUserProfile = async (authToken) => {
     if (!response.ok) {
       throw new Error(response.statusText);
     }
-    return await response.json();
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-};
-
-export const getUserTransactions = async (authToken) => {
-  const url = `${base_url}/user/transactions`;
-  try {
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-    return await response.json();
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-};
-
-export const getUserEvents = async (authToken) => {
-  const url = `${base_url}/user/events`;
-  try {
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-    return await response.json();
+    const res =  await response.json();
+    console.log(res);
+    return res;
   } catch (error) {
     console.log(error);
     return null;

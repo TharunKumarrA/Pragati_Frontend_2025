@@ -119,7 +119,7 @@ const EventCard = ({
 
           <div className="text-right">
             <div className="text-[#E5C14E] text-lg md:text-xl font-bold">
-              ₹{price}{" "}
+              ₹{Math.ceil(price*1.18)}{" "}
               <span className="text-xs font-normal">
                 /{type === "Group" ? "team" : "member"}
               </span>

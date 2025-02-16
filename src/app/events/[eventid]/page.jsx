@@ -84,8 +84,8 @@ const Event = () => {
                 : "Contact Info Unavailable",
             price:
               event.isPerHeadFee === 0
-                ? `₹${event.eventFee} / team`
-                : `₹${event.eventFee} / member`,
+                ? `₹${Math.ceil(event.eventFee * 1.18)} / team`
+                : `₹${Math.ceil(event.eventFee * 1.18)} / member`,
             rewards: [
               {
                 place: "1st Place",
@@ -260,7 +260,7 @@ const Event = () => {
               </button>
             ) : (
               <button
-                disabled = {eventStatus != "1" ? true : false}
+                disabled={eventStatus != "1" ? true : false}
                 onClick={handleRegister}
                 className={`bg-[#322A1E] border-[#E5C14E] hover:scale-105 transition-all border-2 w-full text-[#E5C14E] py-3 text-center rounded-xl text-lg font-bold shadow-md ${
                   eventStatus != "1" ? "cursor-not-allowed" : ""

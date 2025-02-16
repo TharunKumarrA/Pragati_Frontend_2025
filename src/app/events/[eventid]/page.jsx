@@ -282,11 +282,11 @@ const Event = () => {
         </div>
 
         <div className="lg:w-2/3 text-white py-8 px-4">
-          <p className="text-md mb-6 leading-relaxed text-justify">
+          <div className="text-md mb-6 leading-relaxed text-justify">
             {eventData.description.split("\n").map((line, index) => (
               <p key={index}>{line}</p>
             ))}
-          </p>
+          </div>
 
           <div className="text-md">
             <div className="flex items-center gap-4 mb-2">

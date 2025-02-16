@@ -8,6 +8,7 @@ import {
   Phone,
   IndianRupeeIcon,
   Trophy,
+  Clock,
 } from "lucide-react";
 import Image from "next/image";
 import {
@@ -260,7 +261,7 @@ const Event = () => {
               </button>
             ) : (
               <button
-                disabled = {eventStatus != "1" ? true : false}
+                disabled={eventStatus != "1" ? true : false}
                 onClick={handleRegister}
                 className={`bg-[#322A1E] border-[#E5C14E] hover:scale-105 transition-all border-2 w-full text-[#E5C14E] py-3 text-center rounded-xl text-lg font-bold shadow-md ${
                   eventStatus != "1" ? "cursor-not-allowed" : ""
@@ -291,10 +292,16 @@ const Event = () => {
           <div className="text-md">
             <div className="flex items-center gap-4 mb-2">
               <Calendar className="w-5 h-5 text-[#E5C14E]" />
-              <span>
-                {eventData.date === "1" ? "3rd" : "4th"} March 2025 |{" "}
-                {eventData.time}
-              </span>
+              <span>{eventData.date === "1" ? "3rd" : "4th"} March 2025</span>
+            </div>
+
+            <div className="flex items-center gap-4 mb-2">
+              <Clock className="w-5 h-5 text-[#E5C14E]" />
+              <div className="flex flex-col">
+                {eventData.time.split("\n").map((round, index) => (
+                  <span key={index}>{round}</span>
+                ))}
+              </div>
             </div>
 
             <div className="flex items-center gap-4 mb-2">

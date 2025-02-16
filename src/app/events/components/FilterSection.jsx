@@ -16,7 +16,7 @@ const FilterSection = ({ onFilterChange, allTags }) => {
   const [status, setStatus] = useState(null);
   const [type, setType] = useState(null);
 
-  useEffect(() => {
+ useEffect(() => {
     const formattedTags = allTags.map((tag) => ({
       value: tag,
       label: tag,

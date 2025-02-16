@@ -110,7 +110,7 @@ const Event = () => {
             emblems: godEmblemMapping[event.godName] || [],
             description:
               event.eventDescription || "No event description provided.",
-            rules: event.rules != null ? [event.rules] : ["No rules provided."],
+            rules: event.rules != null ? [event.rules] : [],
             details: event.eventDescription || "No details provided.",
             isRegistered: event.isRegistered || 0,
             isGroup: event.isGroup,
@@ -267,15 +267,13 @@ const Event = () => {
                   eventStatus != "1" ? "cursor-not-allowed" : ""
                 }`}
               >
-                Register
+                {eventStatus == "1" ? "Register" : "Registrations Closed"}
               </button>
             )
           ) : (
             <Link
               href="/login"
-              className={`bg-[#322A1E] border-[#E5C14E] hover:scale-105 transition-all border-2 w-full text-[#E5C14E] py-3 text-center rounded-xl text-lg font-bold shadow-md ${
-                eventStatus != "1" ? "cursor-not-allowed" : ""
-              }`}
+              className={`bg-[#322A1E] border-[#E5C14E] hover:scale-105 transition-all border-2 w-full text-[#E5C14E] py-3 text-center rounded-xl text-lg font-bold shadow-md`}
             >
               Login to Register
             </Link>
@@ -378,18 +376,20 @@ const Event = () => {
           </AccordionItem>
         </Accordion>
 
-        <Accordion type="single" className="mt-4" collapsible>
-          <AccordionItem value="item-2">
-            <AccordionTrigger>Rules</AccordionTrigger>
-            <AccordionContent className="pt-3">
-              <ul className="list-disc list-inside space-y-2">
-                {eventData.rules.map((detail, index) => (
-                  <li key={index}>{detail}</li>
-                ))}
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+        {eventData.rules.length > 0 ? (
+          <Accordion type="single" className="mt-4" collapsible>
+            <AccordionItem value="item-2">
+              <AccordionTrigger>Rules</AccordionTrigger>
+              <AccordionContent className="pt-3">
+                <ul className="list-disc list-inside space-y-2">
+                  {eventData.rules.map((detail, index) => (
+                    <li key={index}>{detail}</li>
+                  ))}
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        ) : null}
       </div>
 
       {/* Modal for Group Event Team Registration */}

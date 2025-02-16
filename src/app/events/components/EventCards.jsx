@@ -57,7 +57,7 @@ const EventCard = ({
           <div className="absolute z-0 top-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end items-center rounded-xl text-lg font-bold cursor-pointer">
             <div className="mb-10 pb-5 text-center">
               <button className="bg-[#E5C14E] text-black py-2 px-4 rounded-xl text-lg font-bold">
-                Register Now!
+                {isDisabled==true ? "Registrations Closed!" :"Register Now!"}
               </button>
             </div>
           </div>

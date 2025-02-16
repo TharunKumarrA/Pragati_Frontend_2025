@@ -141,10 +141,6 @@ const Profile = () => {
                     <span className="font-semibold">Accommodation Day 2: </span>
                     {userDetails.needAccommodationDay2 ? "Yes" : "No"}
                   </div>
-                  <div>
-                    <span className="font-semibold">Accommodation Day 3: </span>
-                    {userDetails.needAccommodationDay3 ? "Yes" : "No"}
-                  </div>
                 </div>
               )}
             </div>

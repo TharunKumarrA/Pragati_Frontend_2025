@@ -9,23 +9,20 @@ const dates = [
   { value: "2", label: "2" },
 ];
 
-const FilterSection = ({ onFilterChange }) => {
+const FilterSection = ({ onFilterChange, allTags }) => {
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedDates, setSelectedDates] = useState([]);
   const [status, setStatus] = useState(null);
   const [type, setType] = useState(null);
 
-  // Fetch tags from the API
-  useEffect(() => {
-    getTags().then((response) => {
-      const tags = response.DATA.map((tag) => ({
-        value: tag.tagAbbrevation,
-        label: tag.tagName,
-      }));
-      setTags(tags);
-    });
-  }, []);
+ useEffect(() => {
+    const formattedTags = allTags.map((tag) => ({
+      value: tag,
+      label: tag,
+    }));
+    setTags(formattedTags);
+  }, [allTags]);
 
   // When any filter changes, update the parent.
   // We convert each selected value to a string by extracting the value if needed.

@@ -35,7 +35,7 @@ const Signup = () => {
     academicYear: "",
     degree: "",
     termsAccepted: false,
-    needAccommodation: { day1: false, day2: false, day3: false },
+    needAccommodation: [false, false, false],
   });
 
   const addToast = (title, description, variant = "default") => {
@@ -121,11 +121,12 @@ const Signup = () => {
 
     setIsLoading(true);
     try {
+      console.log(formData);
       const response = await signup(
         formData.userName,
         formData.userEmail,
         formData.userPassword,
-        formData.confirmPassword, // <-- Added this parameter
+        formData.confirmPassword,
         formData.phoneNumber,
         formData.isAmrita,
         formData.collegeName,
@@ -134,22 +135,19 @@ const Signup = () => {
         formData.userDepartment,
         formData.academicYear,
         formData.degree,
-        formData.needAccommodation
+        formData.needAccommodation[0],
+        formData.needAccommodation[1],
+        formData.needAccommodation[2]
       );
 
       if (response && response.DATA) {
-        // Store otpToken and the registered email in secure local storage
         secureLocalStorage.setItem("registerToken", response.DATA);
         secureLocalStorage.setItem("registeredEmail", formData.userEmail);
 
-        addToast("Success", "Registration successful!");
-
-        // Redirect to OTP page after a short delay
+        addToast("Success", "OTP Sent to email");
         setTimeout(() => {
           router.push("/otp");
         }, 1500);
-      } else {
-        throw new Error("Registration failed");
       }
     } catch (error) {
       addToast(
@@ -326,19 +324,21 @@ const Signup = () => {
                   Need Accommodation:
                 </label>
                 <div className="flex gap-6">
-                  {Object.keys(formData.needAccommodation).map((day) => (
-                    <label key={day} className="flex items-center gap-2">
-                      <input
-                        type="checkbox"
-                        name="needAccommodation"
-                        value={day}
-                        checked={formData.needAccommodation[day]}
-                        onChange={handleInputChange}
-                        className="w-4 h-4"
-                      />
-                      <span className="text-sm">Day {day.slice(-1)}</span>
-                    </label>
-                  ))}
+                  {Object.keys(formData.needAccommodation)
+                    .filter((day, index) => index < 2) // Only show first 2 days
+                    .map((day) => (
+                      <label key={day} className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          name="needAccommodation"
+                          value={day}
+                          checked={formData.needAccommodation[day]}
+                          onChange={handleInputChange}
+                          className="w-4 h-4"
+                        />
+                        <span className="text-sm">Day {parseInt(day.slice(-1))+1}</span>
+                      </label>
+                    ))}
                 </div>
               </div>
 

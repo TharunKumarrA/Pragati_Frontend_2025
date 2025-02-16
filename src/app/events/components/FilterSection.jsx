@@ -1,25 +1,63 @@
-import { useState } from "react";
+import { useState, useEffect, use } from "react";
 import SingleSelectFilter from "./SingleSelectFilter";
 import MultiSelect from "@/app/components/events/multi-select";
+import { getTags } from "@/app/_utils/api_endpoint_handler";
 
-const tags = [
-  { value: "networking", label: "Networking" },
-  { value: "leadership", label: "Leadership" },
-  { value: "marketing", label: "Marketing" },
-  { value: "finance", label: "Finance" },
-  { value: "technology", label: "Technology" },
-  { value: "entrepreneurship", label: "Entrepreneurship" },
-  { value: "strategy", label: "Strategy" },
-];
-
+// Date options (should match event.eventDate format)
 const dates = [
-  { value: "3rd", label: "01" },
-  { value: "4th", label: "02" },
+  { value: "1", label: "1" },
+  { value: "2", label: "2" },
 ];
 
-const FilterSection = () => {
+const FilterSection = ({ onFilterChange, allTags }) => {
+  const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedDates, setSelectedDates] = useState([]);
+  const [status, setStatus] = useState(null);
+  const [type, setType] = useState(null);
+
+ useEffect(() => {
+    const formattedTags = allTags.map((tag) => ({
+      value: tag,
+      label: tag,
+    }));
+    setTags(formattedTags);
+  }, [allTags]);
+
+  // When any filter changes, update the parent.
+  // We convert each selected value to a string by extracting the value if needed.
+  useEffect(() => {
+    onFilterChange({
+      tags: selectedTags.map((tag) =>
+        typeof tag === "string" ? tag : tag.value
+      ),
+      dates: selectedDates.map((date) =>
+        typeof date === "string" ? date : date.value
+      ),
+      status,
+      type,
+    });
+  }, [selectedTags, selectedDates, status, type, onFilterChange]);
+
+  const handleStatusToggle = (selection) => {
+    if (selection["Open"]) {
+      setStatus("Open");
+    } else if (selection["Closed"]) {
+      setStatus("Closed");
+    } else {
+      setStatus(null);
+    }
+  };
+
+  const handleTypeToggle = (selection) => {
+    if (selection["Group"]) {
+      setType("Group");
+    } else if (selection["Individual"]) {
+      setType("Individual");
+    } else {
+      setType(null);
+    }
+  };
 
   return (
     <div className="mx-auto w-full px-2 py-4 pb-6 flex flex-wrap items-center justify-center gap-2">
@@ -36,16 +74,21 @@ const FilterSection = () => {
         options={dates}
         onValueChange={setSelectedDates}
         defaultValue={selectedDates}
-        placeholder="Select Day"
+        placeholder="Select Date"
         variant="inverted"
         animation={2}
         maxCount={3}
       />
-
-      <SingleSelectFilter option1="Management" option2="Non Management" className="" />
-      <SingleSelectFilter option1="Open" option2="Closed" className="" />
-      <SingleSelectFilter option1="Group" option2="Individual" className="" />
-      
+      <SingleSelectFilter
+        option1="Open"
+        option2="Closed"
+        onToggle={handleStatusToggle}
+      />
+      <SingleSelectFilter
+        option1="Group"
+        option2="Individual"
+        onToggle={handleTypeToggle}
+      />
     </div>
   );
 };

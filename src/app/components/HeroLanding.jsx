@@ -1,6 +1,7 @@
 import Link from "next/link";
 import StatsBox from "./StatsBox";
 import Image from "next/image";
+import { MoveUpRight } from "lucide-react";
 
 const HeroLanding = () => {
   return (
@@ -49,7 +50,7 @@ const HeroLanding = () => {
       </div>
 
       {/* Centered Mascot */}
-      <div
+      {/* <div
         className="scale-75 absolute top-1/2 left-1/2 transform -translate-x-[40%] -translate-y-[20%]
         shadow-[0_5px_20px_rgba(255,255,255,0.15)] 
         p-4 bg-white/5 border border-white/10 flex items-center justify-center 
@@ -62,9 +63,9 @@ const HeroLanding = () => {
           height={200}
           className="w-[150px] h-[150px] md:w-[200px] md:h-[200px]"
         />
-      </div>
+      </div> */}
 
-      <div className="absolute bottom-[4rem] w-full px-6 mx-auto">
+      <div className="absolute bottom-[4rem] w-full px-6 mx-auto flex flex-col items-center">
         {/* Stats Section */}
         <div className="grid grid-cols-1 md:flex px-4 md:items-center gap-2 md:gap-3 md:justify-center mt-6">
           <div className="w-full md:w-auto">
@@ -72,8 +73,22 @@ const HeroLanding = () => {
           </div>
           <div className="grid grid-cols-2 md:flex md:justify-center gap-2 md:gap-3 w-full md:w-auto">
             <StatsBox title="Events" value="20+" />
-            <StatsBox title="Sponsors" value="15+" />
+            <div onClick={() => window.location.href = "/events"}>
+              <StatsBox title="Events 🡵" value="View " />
+            </div>
           </div>
+        </div>
+
+        {/* Events Button */}
+        <div className="flex justify-center mt-4">
+          <Link href="/events"
+            className="flex flex-row justify-center items-center align-middle px-4 md:px-12 py-2 text-lg md:text-3xl tracking-wider text-center text-black 
+               border-2 border-black bg-[linear-gradient(90deg,#FACC15,#E8D096)] rounded-full [font-family:var(--font-chicavenue)]"
+            tabIndex={0}
+          >
+            Register for Events
+            <MoveUpRight className="w-6 h-6 ml-2 font-extrabold" />
+          </Link>
         </div>
       </div>
     </div>

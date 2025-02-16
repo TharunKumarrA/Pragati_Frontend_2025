@@ -107,10 +107,10 @@ const GodModal = ({ god, closeModal }) => {
                   ))}
                 </div>
               )}
-
+{/* 
               <div className="button px-6 py-2 text-lg tracking-wider text-center text-black border-2 border-black bg-[linear-gradient(90deg, #FACC15, #E8D096)] rounded-full hover:bg-opacity-80 max-md:text-sm max-md:px-4 max-md:py-1 [font-family:var(--font-chicavenue)]">
                 MY EVENTS
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

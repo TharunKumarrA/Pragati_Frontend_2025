@@ -16,8 +16,9 @@ import {
   ToastClose,
   ToastViewport,
 } from "@/app/_toast/toast";
+import { Toaster } from "@/app/_toast/toaster";
+import { toast } from "@/app/_hooks/use-toast";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../component/input-otp";
-import { toast } from "@/app/_hooks/use-toast.js";
 
 const OtpNewPassword = () => {
   const [otp, setOtp] = useState("");
@@ -25,6 +26,7 @@ const OtpNewPassword = () => {
   const [registeredEmail, setRegisteredEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [toasts, setToasts] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -80,44 +82,60 @@ const OtpNewPassword = () => {
 
   return (
     <div className="h-screen flex justify-center items-center">
-      <div className="bg-white p-6 rounded-xl shadow-lg w-96 space-y-4 text-center">
-        <h1 className="text-2xl font-bold">OTP & Password Reset</h1>
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <div className="flex justify-center items-center">
-            <InputOTP
-              maxLength={4}
-              value={otp}
-              onChange={(val) => setOtp(val.replace(/[^0-9]/g, ""))}
+      <ToastProvider>
+        <Toaster />
+        <div className="bg-white p-6 rounded-xl shadow-lg w-96 space-y-4 text-center">
+          <h1 className="text-2xl font-bold">OTP & Password Reset</h1>
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <div className="flex justify-center items-center">
+              <InputOTP
+                maxLength={4}
+                value={otp}
+                onChange={(val) => setOtp(val.replace(/[^0-9]/g, ""))}
+              >
+                <InputOTPGroup>
+                  {[...Array(4)].map((_, i) => (
+                    <InputOTPSlot key={i} index={i} />
+                  ))}
+                </InputOTPGroup>
+              </InputOTP>
+            </div>
+            <input
+              className="w-full px-4 py-2 border rounded-lg"
+              type="password"
+              placeholder="New Password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <input
+              className="w-full px-4 py-2 border rounded-lg"
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmNewPassword}
+              onChange={(e) => setConfirmNewPassword(e.target.value)}
+            />
+            <button
+              className="w-full py-3 rounded-lg bg-gray-800 text-white font-bold hover:bg-gray-700"
+              type="submit"
             >
-              <InputOTPGroup>
-                {[...Array(4)].map((_, i) => (
-                  <InputOTPSlot key={i} index={i} />
-                ))}
-              </InputOTPGroup>
-            </InputOTP>
-          </div>
-          <input
-            className="w-full px-4 py-2 border rounded-lg"
-            type="password"
-            placeholder="New Password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
-          <input
-            className="w-full px-4 py-2 border rounded-lg"
-            type="password"
-            placeholder="Confirm Password"
-            value={confirmNewPassword}
-            onChange={(e) => setConfirmNewPassword(e.target.value)}
-          />
-          <button
-            className="w-full py-3 rounded-lg bg-gray-800 text-white font-bold hover:bg-gray-700"
-            type="submit"
+              Submit
+            </button>
+          </form>
+        </div>
+        {/* Render the toasts */}
+        <ToastViewport />
+        {toasts.map(({ id, title, description, variant }) => (
+          <Toast
+            key={id}
+            variant={variant}
+            onOpenChange={() => removeToast(id)}
           >
-            Submit
-          </button>
-        </form>
-      </div>
+            <ToastTitle>{title}</ToastTitle>
+            <ToastDescription>{description}</ToastDescription>
+            <ToastClose />
+          </Toast>
+        ))}
+      </ToastProvider>
     </div>
   );
 };

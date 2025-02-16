@@ -2,12 +2,12 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, Clock, MapPin } from "lucide-react";
+import { Calendar, Group, MapPin } from "lucide-react";
 
 const EventCard = ({
   title,
   date,
-  time,
+  isGroup,
   venue,
   price,
   emblem1,
@@ -109,8 +109,8 @@ const EventCard = ({
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-[#E5C14E]" />
-              <span className="text-xs md:text-sm">{time}</span>
+              <Group className="w-4 h-4 text-[#E5C14E]" />
+              <span className="text-xs md:text-sm">{isGroup === 1 ? "Group": "Individual"} Event</span>
             </div>
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-[#E5C14E]" />

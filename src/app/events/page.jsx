@@ -44,6 +44,7 @@ const EventPage = () => {
             eventstatus: event.eventStatus,
             type: event.isGroup === 1 ? "Group" : "Individual",
             godName: event.godName, // Use godName from API
+            isPerHeadFee: event.isPerHeadFee,
           }));
           setEvents(formattedEvents);
           console.log("Events:", formattedEvents);
@@ -155,6 +156,7 @@ const EventPage = () => {
                 emblem1={emblem1}
                 emblem2={emblem2}
                 type={event.type}
+                isPerHeadFee={event.isPerHeadFee}
               />
             );
           })

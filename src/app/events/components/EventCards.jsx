@@ -17,6 +17,7 @@ const EventCard = ({
   tags,
   isDisabled,
   type,
+  isPerHeadFee,
 }) => {
   // Define your placeholder image paths (ensure these images exist in your public folder)
   const placeholderPoster = "/Images/FallbackPoster.jpg";
@@ -121,7 +122,7 @@ const EventCard = ({
             <div className="text-[#E5C14E] text-lg md:text-xl font-bold">
               ₹{Math.ceil(price*1.18)}{" "}
               <span className="text-xs font-normal">
-                /{type === "Group" ? "team" : "member"}
+                /{isPerHeadFee === 1 ? " member" : " team"}
               </span>
             </div>
             <div className="text-xs text-gray-300">Incl. of GST</div>

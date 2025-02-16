@@ -49,7 +49,7 @@ const HeroLanding = () => {
       </div>
 
       {/* Centered Mascot */}
-      <div
+      {/* <div
         className="scale-75 absolute top-1/2 left-1/2 transform -translate-x-[40%] -translate-y-[20%]
         shadow-[0_5px_20px_rgba(255,255,255,0.15)] 
         p-4 bg-white/5 border border-white/10 flex items-center justify-center 
@@ -62,7 +62,7 @@ const HeroLanding = () => {
           height={200}
           className="w-[150px] h-[150px] md:w-[200px] md:h-[200px]"
         />
-      </div>
+      </div> */}
 
       <div className="absolute bottom-[4rem] w-full px-6 mx-auto">
         {/* Stats Section */}
@@ -72,7 +72,9 @@ const HeroLanding = () => {
           </div>
           <div className="grid grid-cols-2 md:flex md:justify-center gap-2 md:gap-3 w-full md:w-auto">
             <StatsBox title="Events" value="20+" />
-            <StatsBox title="Sponsors" value="15+" />
+            <div onClick={() => window.location.href = "/events"}>
+              <StatsBox title="Events 🡵" value="View " />
+            </div>
           </div>
         </div>
       </div>

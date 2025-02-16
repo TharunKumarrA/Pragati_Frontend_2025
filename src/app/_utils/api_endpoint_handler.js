@@ -52,7 +52,9 @@ export const signup = async (
   userDepartment,
   academicYear,
   degree,
-  needAccommodation
+  needAccommodationDay1,
+  needAccommodationDay2,
+  needAccommodationDay3
 ) => {
   const url = `${base_url}/auth/signup`;
   const data = {
@@ -68,7 +70,9 @@ export const signup = async (
     userDepartment: userDepartment,
     academicYear: parseInt(academicYear, 10), // Convert academicYear to a number
     degree: degree,
-    needAccommodation: needAccommodation,
+    needAccommodationDay1: needAccommodationDay1,
+    needAccommodationDay2: needAccommodationDay2,
+    needAccommodationDay3: needAccommodationDay3,
   };
 
   return await make_request(url, "POST", data);

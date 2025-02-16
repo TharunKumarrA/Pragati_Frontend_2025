@@ -35,7 +35,7 @@ const Signup = () => {
     academicYear: "",
     degree: "",
     termsAccepted: false,
-    needAccommodation: { day1: false, day2: false, day3: false },
+    needAccommodation: [false, false, false],
   });
 
   const addToast = (title, description, variant = "default") => {
@@ -135,7 +135,9 @@ const Signup = () => {
         formData.userDepartment,
         formData.academicYear,
         formData.degree,
-        formData.needAccommodation
+        formData.needAccommodation[0],
+        formData.needAccommodation[1],
+        formData.needAccommodation[2]
       );
 
       if (response && response.DATA) {
@@ -334,7 +336,7 @@ const Signup = () => {
                           onChange={handleInputChange}
                           className="w-4 h-4"
                         />
-                        <span className="text-sm">Day {day.slice(-1)}</span>
+                        <span className="text-sm">Day {parseInt(day.slice(-1))+1}</span>
                       </label>
                     ))}
                 </div>

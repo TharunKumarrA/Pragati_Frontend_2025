@@ -20,6 +20,7 @@ const godEmblemMapping = {
 const EventPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [events, setEvents] = useState([]);
+  const [allTags, setAllTags] = useState([]);
   const [filters, setFilters] = useState({
     tags: [], // Now an array of strings
     dates: [], // Now an array of strings
@@ -46,6 +47,8 @@ const EventPage = () => {
           }));
           setEvents(formattedEvents);
           console.log("Events:", formattedEvents);
+          const uniqueTags = [...new Set(formattedEvents.flatMap((event) => event.tags))];
+          setAllTags(uniqueTags);
         }
       })
       .catch((error) => console.error("Error fetching events:", error));
@@ -112,7 +115,7 @@ const EventPage = () => {
           className="px-3 py-3 md:w-[70%] w-[80%] text-black rounded-xl focus:border-0 focus:outline-0"
         />
       </div>
-      <FilterSection onFilterChange={setFilters} />
+      <FilterSection onFilterChange={setFilters} allTags={allTags} />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 px-10">
         {filteredEvents.length > 0 ? (
           filteredEvents.map((event, index) => {

@@ -110,7 +110,7 @@ const EventCard = ({
             </div>
             <div className="flex items-center gap-2">
               <Group className="w-4 h-4 text-[#E5C14E]" />
-              <span className="text-xs md:text-sm">{isGroup === 1 ? "Group": "Individual"} Event</span>
+              <span className="text-xs md:text-sm">{isGroup} Event</span>
             </div>
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-[#E5C14E]" />

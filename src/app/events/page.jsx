@@ -146,7 +146,7 @@ const EventPage = () => {
                 key={index}
                 title={event.title}
                 date={event.date}
-                time={event.time}
+                isGroup={event.type}
                 venue={event.venue}
                 price={event.price}
                 poster={event.poster}

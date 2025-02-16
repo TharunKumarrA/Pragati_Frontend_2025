@@ -121,6 +121,7 @@ const Signup = () => {
 
     setIsLoading(true);
     try {
+      console.log(formData);
       const response = await signup(
         formData.userName,
         formData.userEmail,
@@ -321,19 +322,21 @@ const Signup = () => {
                   Need Accommodation:
                 </label>
                 <div className="flex gap-6">
-                  {Object.keys(formData.needAccommodation).map((day) => (
-                    <label key={day} className="flex items-center gap-2">
-                      <input
-                        type="checkbox"
-                        name="needAccommodation"
-                        value={day}
-                        checked={formData.needAccommodation[day]}
-                        onChange={handleInputChange}
-                        className="w-4 h-4"
-                      />
-                      <span className="text-sm">Day {day.slice(-1)}</span>
-                    </label>
-                  ))}
+                  {Object.keys(formData.needAccommodation)
+                    .filter((day, index) => index < 2) // Only show first 2 days
+                    .map((day) => (
+                      <label key={day} className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          name="needAccommodation"
+                          value={day}
+                          checked={formData.needAccommodation[day]}
+                          onChange={handleInputChange}
+                          className="w-4 h-4"
+                        />
+                        <span className="text-sm">Day {day.slice(-1)}</span>
+                      </label>
+                    ))}
                 </div>
               </div>
 

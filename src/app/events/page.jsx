@@ -48,7 +48,9 @@ const EventPage = () => {
           }));
           setEvents(formattedEvents);
           console.log("Events:", formattedEvents);
-          const uniqueTags = [...new Set(formattedEvents.flatMap((event) => event.tags))];
+          const uniqueTags = [
+            ...new Set(formattedEvents.flatMap((event) => event.tags)),
+          ];
           setAllTags(uniqueTags);
         }
       })

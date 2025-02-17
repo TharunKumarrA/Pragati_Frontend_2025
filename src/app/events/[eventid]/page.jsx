@@ -105,8 +105,8 @@ const Event = () => {
               },
             ],
             clubname: event.clubName,
-            poster: "/Images/FallbackPoster.jpg",
-            logo: "/Images/FallbackClub.jpg",
+            poster: event.eventImageUrl ? event.eventImageUrl : "/Images/FallbackPoster.jpg",
+            logo: event.clubImageUrl ? event.clubImageUrl : "/Images/FallbackClub.jpg",
             emblems: godEmblemMapping[event.godName] || [],
             description:
               event.eventDescription || "No event description provided.",

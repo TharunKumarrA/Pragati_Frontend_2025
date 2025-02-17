@@ -73,8 +73,8 @@ const HeroLanding = () => {
           </div>
           <div className="grid grid-cols-2 md:flex md:justify-center gap-2 md:gap-3 w-full md:w-auto">
             <StatsBox title="Events" value="20+" />
-            <div onClick={() => window.location.href = "/events"}>
-              <StatsBox title="Events 🡵" value="View " />
+            <div onClick={() => window.location.href = "/notifications"}>
+              <StatsBox title="Happening" value="What's 🡵" />
             </div>
           </div>
         </div>
@@ -83,7 +83,8 @@ const HeroLanding = () => {
         <div className="flex justify-center mt-4">
           <Link href="/events"
             className="flex flex-row justify-center items-center align-middle px-4 md:px-12 py-2 text-lg md:text-3xl tracking-wider text-center text-black 
-               border-2 border-black bg-[linear-gradient(90deg,#FACC15,#E8D096)] rounded-full [font-family:var(--font-chicavenue)]"
+               border-2 border-black bg-[linear-gradient(90deg,#FACC15,#E8D096)] rounded-full [font-family:var(--font-chicavenue)] hover:scale-105 hover:-translate-y-1 hover:shadow-lg hover:bg-opacity-80 
+             active:scale-95 active:translate-y-0 focus:outline-none transition-all duration-300 transform"
             tabIndex={0}
           >
             Register for Events

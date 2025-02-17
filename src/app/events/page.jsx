@@ -6,7 +6,7 @@ import { getEvents } from "../_utils/api_endpoint_handler";
 
 // Mapping of god names to their emblem image paths
 const godEmblemMapping = {
-  Athena: ["/Images/Emblems/1a_athena.webp", "/Images/Emblems/1b_athena.webp"],
+  Athena: ["/Images/Emblems/1a_athena.webp", "/Images/Emblems/1b_eirene.webp"],
   Apollo: [
     "/Images/Emblems/2a_apollo.webp",
     "/Images/Emblems/2b_mnemosyne.webp",
@@ -48,7 +48,9 @@ const EventPage = () => {
           }));
           setEvents(formattedEvents);
           console.log("Events:", formattedEvents);
-          const uniqueTags = [...new Set(formattedEvents.flatMap((event) => event.tags))];
+          const uniqueTags = [
+            ...new Set(formattedEvents.flatMap((event) => event.tags)),
+          ];
           setAllTags(uniqueTags);
         }
       })
@@ -121,6 +123,7 @@ const EventPage = () => {
         {filteredEvents.length > 0 ? (
           filteredEvents.map((event, index) => {
             // Use godName from the event to get the emblem paths
+            console.log("Event:", event);
             const god = event.godName ? event.godName.trim() : "";
             const emblems = godEmblemMapping[god] || [];
             let emblem1 = "";

@@ -25,7 +25,7 @@ import { payU_Action, payU_Key } from "@/app/_utils/consts";
 import { registerTeam } from "@/app/_utils/api_endpoint_handler";
 
 const godEmblemMapping = {
-  Athena: ["/Images/Emblems/1a_athena.webp", "/Images/Emblems/1b_athena.webp"],
+  Athena: ["/Images/Emblems/1a_athena.webp", "/Images/Emblems/1b_eirene.webp"],
   Apollo: [
     "/Images/Emblems/2a_apollo.webp",
     "/Images/Emblems/2b_mnemosyne.webp",
@@ -48,6 +48,10 @@ const Event = () => {
   const [eventStatus, setEventStatus] = useState("");
 
   const userEmail = secureLocalStorage.getItem("registerEmail") || "";
+  const placeholderPoster = "/Images/FallbackPoster.jpg";
+  const placeholderClub = "/Images/FallbackClub.jpg";
+  const [posterSrc, setPosterSrc] = useState(placeholderPoster);
+  const [logoSrc, setLogoSrc] = useState(placeholderClub);
 
   useEffect(() => {
     const stored = secureLocalStorage.getItem("isLoggedIn");
@@ -63,6 +67,17 @@ const Event = () => {
         if (data.DATA && data.DATA.length > 0) {
           const event = data.DATA[0];
           setEventStatus(event.eventStatus);
+          setPosterSrc(
+            event.eventImageUrl && event.eventImageUrl.trim() !== ""
+              ? event.eventImageUrl
+              : placeholderPoster
+          );
+          setLogoSrc(
+            event.clubImageUrl && event.clubImageUrl.trim() !== ""
+              ? event.clubImageUrl
+              : placeholderClub
+          );
+
           setEventData({
             eventID: event.eventID,
             title: event.eventName || "",
@@ -105,8 +120,8 @@ const Event = () => {
               },
             ],
             clubname: event.clubName,
-            poster: "/Images/FallbackPoster.jpg",
-            logo: "/Images/FallbackClub.jpg",
+            poster: posterSrc,
+            logo: logoSrc,
             emblems: godEmblemMapping[event.godName] || [],
             description:
               event.eventDescription || "No event description provided.",
@@ -212,11 +227,16 @@ const Event = () => {
   return (
     <div className="bg-black bg-opacity-50 min-h-screen flex flex-col items-center">
       <Image
-        src={eventData.logo}
+        src={logoSrc}
         alt="Event Logo"
         width={100}
         height={100}
         className="w-20 h-auto rounded-lg mt-[4rem] object-cover shadow-md"
+        onError={() => {
+          if (logoSrc !== placeholderClub) {
+            setLogoSrc(placeholderClub);
+          }
+        }}
       />
       <p className="text-white text-center text-lg font-semibold">
         {eventData.clubname} Presents
@@ -229,11 +249,16 @@ const Event = () => {
         <div className="w-[350px] flex flex-col items-center p-5">
           <div className="relative w-fit h-fit">
             <Image
-              src={eventData.poster}
+              src={posterSrc}
               alt="Event Poster"
               width={500}
               height={500}
               className="w-full h-auto rounded-lg object-cover mb-6 shadow-md"
+              onError={() => {
+                if (posterSrc !== placeholderPoster) {
+                  setPosterSrc(placeholderPoster);
+                }
+              }}
             />
             {eventStatus == "0" && (
               <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 rounded-lg">

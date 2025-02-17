@@ -166,10 +166,10 @@ const Event = () => {
           phone: responseData.phoneNumber,
           surl:
             responseData.surl ||
-            `http://localhost:3000/transactions/verify/${responseData.txnID}`,
+            `https://pragati.amrita.edu/transactions/verify/${responseData.txnID}`,
           furl:
             responseData.furl ||
-            `http://localhost:3000/transactions/verify/${responseData.txnID}`,
+            `https://pragati.amrita.edu/transactions/verify/${responseData.txnID}`,
           hash: responseData.hash,
         };
 

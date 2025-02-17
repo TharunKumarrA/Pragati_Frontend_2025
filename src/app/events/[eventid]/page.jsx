@@ -63,7 +63,6 @@ const Event = () => {
 
     getEvent(eventid)
       .then((data) => {
-        console.log("Event data:", data);
         if (data.DATA && data.DATA.length > 0) {
           const event = data.DATA[0];
           setEventStatus(event.eventStatus);
@@ -147,13 +146,11 @@ const Event = () => {
       "Team details received. Do you want to register the team and proceed to payment?"
     );
 
-    console.log("Team Data:", teamData);
     if (confirmed) {
       try {
         // Call your API to register the team and get transaction details
         const response = await registerTeam(teamData);
         const responseData = response.DATA;
-        console.log("Team registration response:", responseData);
 
         // Prepare payment data using responseData
         const payUData = {
@@ -173,7 +170,6 @@ const Event = () => {
           hash: responseData.hash,
         };
 
-        console.log("PayU Data:", payUData);
 
         // Create and submit the payment form
         const payUForm = document.createElement("form");
@@ -214,7 +210,6 @@ const Event = () => {
           teamMembers: [],
           memberRoles: [],
         };
-        console.log("Team Data:", teamData);
 
         handleTeamSubmit(teamData);
       } catch (error) {
@@ -277,7 +272,6 @@ const Event = () => {
               </div>
             )}
           </div>
-          {console.log("isLoggedIn state:", isLoggedIn)}
           {isLoggedIn ? (
             eventData.isRegistered === "1" ? (
               <button
@@ -309,8 +303,8 @@ const Event = () => {
           {/* Conditional note for group events */}
           {eventData.isGroup === 1 ? (
             <p className="mt-2 text-xs text-center text-gray-300 italic">
-              * All team members must sign up on Pragati to complete event
-              registration.
+              *All team members must sign up on Pragati for registration. Only
+              the leader pays the fee.
             </p>
           ) : null}
         </div>
@@ -352,9 +346,12 @@ const Event = () => {
               <span>{eventData.contact}</span>
             </div>
 
-            <div className="flex items-center gap-4 mb-2">
-              <IndianRupeeIcon className="w-5 h-5 text-[#E5C14E]" />
-              <span className="text-xl font-semibold">{eventData.price}</span>
+            <div className="flex items-center gap-1 mb-2">
+              <div className="flex items-center gap-4 mb-2">
+                <IndianRupeeIcon className="w-5 h-5 text-[#E5C14E]" />
+                <span className="text-xl font-semibold">{eventData.price}</span>
+              </div>
+              <div className="text-xs text-gray-300">Incl. of GST</div>
             </div>
           </div>
 

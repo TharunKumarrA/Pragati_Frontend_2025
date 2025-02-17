@@ -14,7 +14,6 @@ const TeamModal = ({ isOpen, eventData, onClose, onTeamSubmit }) => {
     if (eventData && eventData.isGroup) {
       const userEmail = secureLocalStorage.getItem("registerEmail") || "";
       const userName = secureLocalStorage.getItem("studentFullName") || "";
-      console.log({ userName, userEmail });
 
       setTeamMembers(
         Array.from({ length: eventData.minTeamSize || 1 }, (_, i) => ({
@@ -74,7 +73,6 @@ const TeamModal = ({ isOpen, eventData, onClose, onTeamSubmit }) => {
       teamMembers: teamMembers.slice(1).map((m) => m.email),
       memberRoles: teamMembers.slice(1).map((m) => m.role),
     };
-    console.log("Team Data:", teamData);
     onTeamSubmit(teamData);
     onClose();
   };

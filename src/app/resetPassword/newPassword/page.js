@@ -47,7 +47,6 @@ const OtpNewPassword = () => {
       const token = secureLocalStorage.getItem("registerToken");
       try {
         const response = await resetPassword(newPassword, otp, token);
-        console.log("Reset password response:", response);
 
         if (response?.status === 200) {
           toast({

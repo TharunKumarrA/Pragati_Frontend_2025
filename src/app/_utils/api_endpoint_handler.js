@@ -194,7 +194,6 @@ export const getUserProfile = async (authToken) => {
       throw new Error(response.statusText);
     }
     const res = await response.json();
-    console.log(res);
     return res;
   } catch (error) {
     console.log(error);
@@ -204,7 +203,6 @@ export const getUserProfile = async (authToken) => {
 
 export const getEvents = async () => {
   const url = `${base_url}/event/all`;
-  console.log("getEvents: URL is", url);
 
   // Check if we're in a browser environment and if the user is logged in
   let token = null;
@@ -224,7 +222,6 @@ export const getEvents = async () => {
   // Check for token and add the Authorization header accordingly
   if (token) {
     options.headers["Authorization"] = `Bearer ${token}`;
-    console.log("getEvents: Bearer token added:", token);
   } else {
     console.log("getEvents: No bearer token added");
   }
@@ -246,7 +243,6 @@ export const getEvents = async () => {
 
 export const getEvent = async (eventId) => {
   const url = `${base_url}/event/${eventId}`;
-  console.log("getEvent: URL is", url);
 
   let token = null;
   if (typeof window !== "undefined") {
@@ -260,7 +256,6 @@ export const getEvent = async (eventId) => {
   const headers = { "Content-Type": "application/json" };
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
-    console.log("getEvent: Bearer token added:", token);
   } else {
     console.log("getEvent: No bearer token added");
   }
@@ -288,7 +283,6 @@ export const getEvent = async (eventId) => {
 
 export const registerTeam = async (teamData) => {
   const url = `${base_url}/registration/event`;
-  console.log("registerTeam: URL is", url);
 
   let token = null;
   if (typeof window !== "undefined") {
@@ -299,7 +293,7 @@ export const registerTeam = async (teamData) => {
   }
 
   if (token) {
-    console.log("registerTeam: Bearer token available:", token);
+    console.log("registerTeam: Bearer token available");
   } else {
     console.log("registerTeam: No bearer token found");
   }
@@ -345,7 +339,6 @@ export const verifyTransaction = async (transactionId) => {
 
 export const getTags = async () => {
   const url = `${base_url}/tag`;
-  console.log("getTags: URL is", url);
 
   try {
     const response = await fetch(url, {

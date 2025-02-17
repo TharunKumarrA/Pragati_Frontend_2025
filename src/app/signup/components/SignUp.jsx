@@ -336,7 +336,9 @@ const Signup = () => {
                           onChange={handleInputChange}
                           className="w-4 h-4"
                         />
-                        <span className="text-sm">Day {parseInt(day.slice(-1))+1}</span>
+                        <span className="text-sm">
+                          Day {parseInt(day.slice(-1)) + 1}
+                        </span>
                       </label>
                     ))}
                 </div>
@@ -363,7 +365,14 @@ const Signup = () => {
                     className="w-4 h-4"
                   />
                   <span className="text-sm">
-                    I agree to the terms and conditions
+                    I agree to the{" "}
+                    <Link
+                      href="/termsAndConditions"
+                      className="underline text-blue-500"
+                      target="_blank"
+                    >
+                      terms and conditions
+                    </Link>
                   </span>
                 </label>
               </div>

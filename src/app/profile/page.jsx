@@ -109,10 +109,13 @@ const Profile = () => {
                     <span className="font-semibold">Name: </span>
                     {userDetails.userName}
                   </div>
-                  <div>
-                    <span className="font-semibold">Email: </span>
-                    {userDetails.userEmail}
+                  <div className="flex items-center space-x-2">
+                    <span className="font-semibold">Email:</span>
+                    <span className="inline-block w-64 md:w-full truncate">
+                      {userDetails.userEmail}
+                    </span>
                   </div>
+
                   <div>
                     <span className="font-semibold">Phone: </span>
                     {userDetails.phoneNumber}

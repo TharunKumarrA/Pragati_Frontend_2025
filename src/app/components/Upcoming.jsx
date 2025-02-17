@@ -12,7 +12,7 @@ export default function UpcomingPage() {
       {/* Main Content */}
       <div className="relative z-0 flex flex-col items-center justify-center text-center">
         <h1 className="text-5xl font-bold text-white">
-          Registrations Opening Soon
+          Page Coming Soon
         </h1>
         <p className="mt-4 text-xl text-white">Stay tuned for more details.</p>
 

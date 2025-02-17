@@ -24,6 +24,12 @@ const nextConfig = {
   },
   images: {
     domains: ["i.imgur.com", "imgur.com", "www.gravatar.com", "example.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.ufs.sh", 
+      },
+    ],
   },
   experimental: {
     serverActions: {

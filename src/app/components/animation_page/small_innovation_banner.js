@@ -50,7 +50,7 @@ export default function SmallInnovationBanner() {
         alt="Robot Hand"
         width={200}
         height={150}
-        className="absolute bottom-[50%] -right-[10%] scale-10 z-20"
+        className="absolute bottom-[55%] -right-[12%] scale-10 z-20"
         priority
       />
 

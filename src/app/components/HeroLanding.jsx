@@ -73,8 +73,8 @@ const HeroLanding = () => {
           </div>
           <div className="grid grid-cols-2 md:flex md:justify-center gap-2 md:gap-3 w-full md:w-auto">
             <StatsBox title="Events" value="20+" />
-            <div onClick={() => window.location.href = "/events"}>
-              <StatsBox title="Events 🡵" value="View " />
+            <div onClick={() => window.location.href = "/notifications"}>
+              <StatsBox title="Happening" value="What's 🡵" />
             </div>
           </div>
         </div>

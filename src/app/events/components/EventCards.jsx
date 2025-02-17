@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Group, MapPin } from "lucide-react";
@@ -34,9 +34,31 @@ const EventCard = ({
     emblem2 && emblem2.trim() !== "" ? emblem2 : placeholderEmblem
   );
 
+  // Inside EventCard component:
+  useEffect(() => {
+    setPosterSrc(poster && poster.trim() !== "" ? poster : placeholderPoster);
+  }, [poster]);
+
+  useEffect(() => {
+    setEmblem1Src(
+      emblem1 && emblem1.trim() !== "" ? emblem1 : placeholderEmblem
+    );
+  }, [emblem1]);
+
+  useEffect(() => {
+    setEmblem2Src(
+      emblem2 && emblem2.trim() !== "" ? emblem2 : placeholderEmblem
+    );
+  }, [emblem2]);
+
   return (
-    <div   className={`rounded-3xl px-8 md:px-5 py-4 w-full max-w-[320px] md:max-w-[350px] lg:max-w-[380px] relative group transition-all transform hover:scale-105 hover:shadow-2xl backdrop-blur-md ${isDisabled ? 'bg-black bg-opacity-60 cursor-not-allowed' : 'bg-[#322A1E] bg-opacity-60 border-2 mx-auto border-[#E5C14E]'}`}
->
+    <div
+      className={`rounded-3xl px-8 md:px-5 py-4 w-full max-w-[320px] md:max-w-[350px] lg:max-w-[380px] relative group transition-all transform hover:scale-105 hover:shadow-2xl backdrop-blur-md ${
+        isDisabled
+          ? "bg-black bg-opacity-60 cursor-not-allowed"
+          : "bg-[#322A1E] bg-opacity-60 border-2 mx-auto border-[#E5C14E]"
+      }`}
+    >
       {isDisabled && (
         <div className="absolute inset-0 bg-gray-500 bg-opacity-50 rounded-3xl"></div> // The grey overlay
       )}
@@ -57,7 +79,7 @@ const EventCard = ({
           <div className="absolute z-0 top-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end items-center rounded-xl text-lg font-bold cursor-pointer">
             <div className="mb-10 pb-5 text-center">
               <button className="bg-[#E5C14E] text-black py-2 px-4 rounded-xl text-lg font-bold">
-                {isDisabled==true ? "Registrations Closed!" :"Register Now!"}
+                {isDisabled == true ? "Registrations Closed!" : "Register Now!"}
               </button>
             </div>
           </div>
@@ -120,7 +142,7 @@ const EventCard = ({
 
           <div className="text-right">
             <div className="text-[#E5C14E] text-lg md:text-xl font-bold">
-              ₹{Math.ceil(price*1.18)}{" "}
+              ₹{Math.ceil(price * 1.18)}{" "}
               <span className="text-xs font-normal">
                 /{isPerHeadFee === 1 ? " member" : " team"}
               </span>

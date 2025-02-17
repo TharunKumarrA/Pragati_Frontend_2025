@@ -25,7 +25,7 @@ import { payU_Action, payU_Key } from "@/app/_utils/consts";
 import { registerTeam } from "@/app/_utils/api_endpoint_handler";
 
 const godEmblemMapping = {
-  Athena: ["/Images/Emblems/1a_athena.webp", "/Images/Emblems/1b_athena.webp"],
+  Athena: ["/Images/Emblems/1a_athena.webp", "/Images/Emblems/1b_eirene.webp"],
   Apollo: [
     "/Images/Emblems/2a_apollo.webp",
     "/Images/Emblems/2b_mnemosyne.webp",
@@ -52,7 +52,7 @@ const Event = () => {
   const placeholderClub = "/Images/FallbackClub.jpg";
   const [posterSrc, setPosterSrc] = useState(placeholderPoster);
   const [logoSrc, setLogoSrc] = useState(placeholderClub);
-  
+
   useEffect(() => {
     const stored = secureLocalStorage.getItem("isLoggedIn");
     setIsLoggedIn(stored === "1");

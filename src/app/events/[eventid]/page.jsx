@@ -305,6 +305,14 @@ const Event = () => {
               Login to Register
             </Link>
           )}
+
+          {/* Conditional note for group events */}
+          {eventData.isGroup === 1 ? (
+            <p className="mt-2 text-xs text-center text-gray-300 italic">
+              * All team members must sign up on Pragati to complete event
+              registration.
+            </p>
+          ) : null}
         </div>
 
         <div className="lg:w-2/3 text-white py-8 px-4">

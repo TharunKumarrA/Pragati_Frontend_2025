@@ -83,7 +83,8 @@ const HeroLanding = () => {
         <div className="flex justify-center mt-4">
           <Link href="/events"
             className="flex flex-row justify-center items-center align-middle px-4 md:px-12 py-2 text-lg md:text-3xl tracking-wider text-center text-black 
-               border-2 border-black bg-[linear-gradient(90deg,#FACC15,#E8D096)] rounded-full [font-family:var(--font-chicavenue)]"
+               border-2 border-black bg-[linear-gradient(90deg,#FACC15,#E8D096)] rounded-full [font-family:var(--font-chicavenue)] hover:scale-105 hover:-translate-y-1 hover:shadow-lg hover:bg-opacity-80 
+             active:scale-95 active:translate-y-0 focus:outline-none transition-all duration-300 transform"
             tabIndex={0}
           >
             Register for Events

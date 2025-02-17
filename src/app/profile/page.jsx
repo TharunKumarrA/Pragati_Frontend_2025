@@ -87,7 +87,7 @@ const Profile = () => {
         <div className="w-full max-w-6xl space-y-6">
           {/* Profile Section */}
           <div
-            className="p-6 rounded-lg shadow-md border border-gray-300 flex flex-col md:flex-row items-center gap-6"
+            className="p-6 rounded-2xl shadow-md border border-gray-300 flex flex-col md:flex-row items-center gap-6"
             style={{
               background: "linear-gradient(to bottom, #fffef5, #fdf2d0)",
             }}
@@ -148,7 +148,7 @@ const Profile = () => {
 
           {/* Registered Events Section */}
           <div
-            className="p-6 rounded-lg shadow-md border border-gray-300"
+            className="p-6 rounded-2xl shadow-md border border-gray-300"
             style={{
               background: "linear-gradient(to bottom, #fffef5, #fdf2d0)",
             }}
@@ -195,7 +195,7 @@ const Profile = () => {
 
           {/* Transactions Section */}
           <div
-            className="p-6 rounded-lg shadow-md border border-gray-300"
+            className="p-6 rounded-2xl shadow-md border border-gray-300"
             style={{
               background: "linear-gradient(to bottom, #fffef5, #fdf2d0)",
             }}

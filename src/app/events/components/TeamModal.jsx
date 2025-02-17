@@ -84,7 +84,7 @@ const TeamModal = ({ isOpen, eventData, onClose, onTeamSubmit }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md flex items-center justify-center z-50 px-4">
       {/* Reduced max width for desktop view */}
-      <div className="bg-[#322A1E] p-6 rounded-lg border-2 border-[#E5C14E] w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+      <div className="bg-[#322A1E] p-6 rounded-2xl border-2 border-[#E5C14E] w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <h2 className="text-white text-xl mb-4 text-center">
           Create Your Team
         </h2>
@@ -105,7 +105,7 @@ const TeamModal = ({ isOpen, eventData, onClose, onTeamSubmit }) => {
           {teamMembers.map((member, index) => (
             <div
               key={index}
-              className="bg-[#2A2218] p-4 rounded-lg flex flex-col sm:flex-row items-center gap-2 sm:gap-4"
+              className="bg-[#2A2218] p-4 rounded-2xl flex flex-col sm:flex-row items-center gap-2 sm:gap-4"
             >
               <input
                 type="email"
@@ -140,7 +140,7 @@ const TeamModal = ({ isOpen, eventData, onClose, onTeamSubmit }) => {
 
         <button
           onClick={addTeamMember}
-          className="mt-4 w-full sm:w-auto px-4 py-2 border-[#E5C14E] border-2 text-white rounded-xl"
+          className="mt-4 w-full sm:w-auto px-4 py-2 border-[#E5C14E] border-2 text-white rounded-2xl"
         >
           Add Team Member
         </button>
@@ -148,13 +148,13 @@ const TeamModal = ({ isOpen, eventData, onClose, onTeamSubmit }) => {
         <div className="flex flex-col sm:flex-row justify-end mt-4 gap-2">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-gray-500 text-white rounded w-full sm:w-auto"
+            className="px-4 py-2 bg-gray-500 text-white rounded-2xl w-full sm:w-auto"
           >
             Cancel
           </button>
           <button
             onClick={handleSubmitTeam}
-            className="px-4 py-2 bg-[#E5C14E] text-white rounded w-full sm:w-auto"
+            className="px-4 py-2 bg-[#E5C14E] text-white rounded-2xl w-full sm:w-auto"
           >
             Submit
           </button>

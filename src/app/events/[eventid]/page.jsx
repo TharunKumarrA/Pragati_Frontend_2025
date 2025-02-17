@@ -129,6 +129,8 @@ const Event = () => {
             details: event.eventDescription || "No details provided.",
             isRegistered: event.isRegistered || 0,
             isGroup: event.isGroup,
+            teamName: event.teamDetails ? event.teamDetails[0].teamName : null,
+            teamMembers: event.teamDetails || [],
           });
         } else {
           setEventData(null);
@@ -401,20 +403,41 @@ const Event = () => {
           </AccordionItem>
         </Accordion>
 
-        {eventData.rules.length > 0 ? (
+        {eventData.rules &&
+          eventData.rules.filter((rule) => rule.trim() !== "").length > 0 && (
+            <Accordion type="single" className="mt-4" collapsible>
+              <AccordionItem value="item-2">
+                <AccordionTrigger>Rules</AccordionTrigger>
+                <AccordionContent className="pt-3">
+                  <ul className="list-disc list-inside space-y-2">
+                    {eventData.rules
+                      .filter((rule) => rule.trim() !== "")
+                      .map((detail, index) => (
+                        <li key={index}>{detail}</li>
+                      ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          )}
+
+        {eventData.teamMembers && eventData.teamMembers.length > 0 && (
           <Accordion type="single" className="mt-4" collapsible>
-            <AccordionItem value="item-2">
-              <AccordionTrigger>Rules</AccordionTrigger>
+            <AccordionItem value="team-details">
+              <AccordionTrigger>Team Details</AccordionTrigger>
               <AccordionContent className="pt-3">
-                <ul className="list-disc list-inside space-y-2">
-                  {eventData.rules.map((detail, index) => (
-                    <li key={index}>{detail}</li>
+                <p className="font-semibold">Team Name: {eventData.teamName}</p>
+                <ul className="list-disc list-inside space-y-2 mt-2">
+                  {eventData.teamMembers.map((member, index) => (
+                    <li key={index}>
+                      {member.userName} - {member.userEmail}
+                    </li>
                   ))}
                 </ul>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-        ) : null}
+        )}
       </div>
 
       {/* Modal for Group Event Team Registration */}

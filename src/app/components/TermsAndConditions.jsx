@@ -95,6 +95,14 @@ const TermsAndConditionsContent = () => {
       <p>The following policies apply to cancellations:</p>
       <ul>
         <li>
+          Cancellations made 7 days before the event may be eligible for a full
+          refund.
+        </li>
+        <li>
+          No refunds will be provided for cancellations made less than 7 days
+          before the event.
+        </li>
+        <li>
           The organizers reserve the right to cancel or postpone the event due
           to unforeseen circumstances.
         </li>

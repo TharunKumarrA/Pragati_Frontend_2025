@@ -123,7 +123,6 @@ const Signup = () => {
 
     setIsLoading(true);
     try {
-      console.log(formData);
       const response = await signup(
         formData.userName,
         formData.userEmail,

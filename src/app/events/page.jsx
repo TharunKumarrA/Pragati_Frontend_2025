@@ -47,7 +47,6 @@ const EventPage = () => {
             isPerHeadFee: event.isPerHeadFee,
           }));
           setEvents(formattedEvents);
-          console.log("Events:", formattedEvents);
           const uniqueTags = [
             ...new Set(formattedEvents.flatMap((event) => event.tags)),
           ];
@@ -123,7 +122,6 @@ const EventPage = () => {
         {filteredEvents.length > 0 ? (
           filteredEvents.map((event, index) => {
             // Use godName from the event to get the emblem paths
-            console.log("Event:", event);
             const god = event.godName ? event.godName.trim() : "";
             const emblems = godEmblemMapping[god] || [];
             let emblem1 = "";
@@ -136,14 +134,6 @@ const EventPage = () => {
               emblem1 = emblems[0];
               emblem2 = emblems[1];
             }
-            console.log(
-              "God:",
-              god,
-              "=> Emblem1:",
-              emblem1,
-              "Emblem2:",
-              emblem2
-            );
             return (
               <EventCard
                 key={index}

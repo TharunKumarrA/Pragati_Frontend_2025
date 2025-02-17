@@ -44,11 +44,9 @@ export default function ResetPassword() {
       return;
     }
     setError("");
-    console.log("Submitted email:", email);
 
     try {
       const response = await forgotPassword(email);
-      console.log("Reverify response:", response);
 
       if (response?.status === 200) {
         secureLocalStorage.setItem("registerToken", response.DATA.TOKEN);

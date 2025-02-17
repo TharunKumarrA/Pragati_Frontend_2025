@@ -63,7 +63,6 @@ const Event = () => {
 
     getEvent(eventid)
       .then((data) => {
-        console.log("Event data:", data);
         if (data.DATA && data.DATA.length > 0) {
           const event = data.DATA[0];
           setEventStatus(event.eventStatus);
@@ -147,13 +146,11 @@ const Event = () => {
       "Team details received. Do you want to register the team and proceed to payment?"
     );
 
-    console.log("Team Data:", teamData);
     if (confirmed) {
       try {
         // Call your API to register the team and get transaction details
         const response = await registerTeam(teamData);
         const responseData = response.DATA;
-        console.log("Team registration response:", responseData);
 
         // Prepare payment data using responseData
         const payUData = {
@@ -173,7 +170,6 @@ const Event = () => {
           hash: responseData.hash,
         };
 
-        console.log("PayU Data:", payUData);
 
         // Create and submit the payment form
         const payUForm = document.createElement("form");
@@ -214,7 +210,6 @@ const Event = () => {
           teamMembers: [],
           memberRoles: [],
         };
-        console.log("Team Data:", teamData);
 
         handleTeamSubmit(teamData);
       } catch (error) {
@@ -277,7 +272,6 @@ const Event = () => {
               </div>
             )}
           </div>
-          {console.log("isLoggedIn state:", isLoggedIn)}
           {isLoggedIn ? (
             eventData.isRegistered === "1" ? (
               <button

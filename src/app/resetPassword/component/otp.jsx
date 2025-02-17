@@ -31,7 +31,6 @@ const Otp = () => {
     if (timer === 0 && registeredEmail) {
       try {
         const response = await reverifyUser(registeredEmail);
-        console.log("Reverify response:", response);
 
         if (response?.status === 200) {
           secureLocalStorage.setItem("registerToken", response.DATA.TOKEN);
@@ -61,7 +60,6 @@ const Otp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting OTP:", otp);
 
     // Trim any extra spaces
     const sanitizedOTP = otp.trim();

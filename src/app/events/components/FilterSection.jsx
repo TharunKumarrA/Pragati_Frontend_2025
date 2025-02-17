@@ -5,8 +5,8 @@ import { getTags } from "@/app/_utils/api_endpoint_handler";
 
 // Date options (should match event.eventDate format)
 const dates = [
-  { value: "1", label: "1" },
-  { value: "2", label: "2" },
+  { value: "1", label: "March 3" },
+  { value: "2", label: "March 4" },
 ];
 
 const FilterSection = ({ onFilterChange, allTags }) => {
@@ -16,7 +16,7 @@ const FilterSection = ({ onFilterChange, allTags }) => {
   const [status, setStatus] = useState(null);
   const [type, setType] = useState(null);
 
- useEffect(() => {
+  useEffect(() => {
     const formattedTags = allTags.map((tag) => ({
       value: tag,
       label: tag,

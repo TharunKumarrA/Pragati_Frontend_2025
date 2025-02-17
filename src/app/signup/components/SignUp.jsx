@@ -38,6 +38,8 @@ const Signup = () => {
     needAccommodation: [false, false, false],
   });
 
+  const accommodationDates = ["March 3", "March 4"];
+
   const addToast = (title, description, variant = "default") => {
     const id = Math.random().toString(36).substr(2, 9);
     setToasts((prevToasts) => [
@@ -326,7 +328,7 @@ const Signup = () => {
                 <div className="flex gap-6">
                   {Object.keys(formData.needAccommodation)
                     .filter((day, index) => index < 2) // Only show first 2 days
-                    .map((day) => (
+                    .map((day, index) => (
                       <label key={day} className="flex items-center gap-2">
                         <input
                           type="checkbox"
@@ -337,7 +339,7 @@ const Signup = () => {
                           className="w-4 h-4"
                         />
                         <span className="text-sm">
-                          Day {parseInt(day.slice(-1)) + 1}
+                          {accommodationDates[index]}
                         </span>
                       </label>
                     ))}

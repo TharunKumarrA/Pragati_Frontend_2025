@@ -18,8 +18,43 @@ const poppins = localFont({
 export const metadata = {
   title: "Pragati 2025",
   description: "ASB fest",
+  keywords: [
+    "Pragati 2025",
+    "ASB fest",
+    "Amrita",
+    "fest",
+    "celebration",
+  ],
+  authors: [{ name: "Pragati Team", url: "https://pragati.amrita.edu" }],
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://pragati.amrita.edu",
+  },
+  icons: {
+    icon: "/Assets/Logo.ico", 
+    shortcut: "/Assets/Logo.ico",
+    apple: "/Assets/Logo.ico",
+  },
+  openGraph: {
+    title: "Pragati 2025",
+    description: "ASB fest",
+    url: "https://pragati.amrita.edu",
+    images: [
+      {
+        url: "/Assets/logo.png",
+        width: 800,
+        height: 600,
+        alt: "Pragati Logo",
+      },
+    ],
+    siteName: "Pragati 2025",
+    locale: "en_US",
+    type: "website",
+  },  
 };
-
 
 const backgroundImages = [
   "/Images/backgrounds/aegean_seascape.webp",

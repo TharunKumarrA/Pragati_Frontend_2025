@@ -3,6 +3,12 @@ const base_url = `${process.env.NEXT_PUBLIC_API_BASE_URL}`;
 import hash from "./hash";
 import secureLocalStorage from "react-secure-storage";
 
+// Helper function to clear storage and redirect
+const redirectToLogin = () => {
+  secureLocalStorage.clear();
+  window.location.href = "/login";
+};
+
 const make_request = async (url, method, data = null) => {
   try {
     const options = {
@@ -15,10 +21,16 @@ const make_request = async (url, method, data = null) => {
     }
 
     const response = await fetch(url, options);
+
+    // Check for unauthorized response
+    if (response.status === 401) {
+      redirectToLogin();
+      return;
+    }
+
     const responseData = await response.json();
 
     if (!response.ok) {
-      // Include status in the thrown error
       console.log("Request error:", responseData);
       const error = new Error(responseData.MESSAGE || response.statusText);
       error.status = response.status;
@@ -28,7 +40,7 @@ const make_request = async (url, method, data = null) => {
     return responseData;
   } catch (error) {
     console.error("Request error:", error);
-    throw error; // Rethrow to be caught in handleSubmit
+    throw error;
   }
 };
 
@@ -68,7 +80,7 @@ export const signup = async (
     collegeCity: collegeCity,
     rollNumber: rollNumber,
     userDepartment: userDepartment,
-    academicYear: parseInt(academicYear, 10), // Convert academicYear to a number
+    academicYear: parseInt(academicYear, 10),
     degree: degree,
     needAccommodationDay1: needAccommodationDay1,
     needAccommodationDay2: needAccommodationDay2,
@@ -80,25 +92,28 @@ export const signup = async (
 
 export const verifyOtp = async (otp, otpToken) => {
   const url = `${base_url}/auth/verifyUser`;
-  const data = { otp: hash.hashPassword(otp) }; // Hash the OTP
+  const data = { otp: hash.hashPassword(otp) };
 
   try {
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${otpToken}`, // Send OTP Token as Bearer token
+        Authorization: `Bearer ${otpToken}`,
       },
       body: JSON.stringify(data),
     });
 
+    if (response.status === 401) {
+      redirectToLogin();
+      return;
+    }
+
     const json = await response.json();
 
     if (response.ok) {
-      // Wrap the response with a success flag
       return { success: true, ...json };
     } else {
-      // Optionally, include an error flag or message here
       return { success: false, ...json };
     }
   } catch (error) {
@@ -119,9 +134,14 @@ export const reverifyUser = async (email) => {
       body: JSON.stringify({ userEmail: email }),
     });
 
+    if (response.status === 401) {
+      redirectToLogin();
+      return;
+    }
+
     const responseData = await response.json();
 
-    return { status: response.status, ...responseData }; // Include status code
+    return { status: response.status, ...responseData };
   } catch (error) {
     console.error("Error sending reverify request:", error);
     throw error;
@@ -140,14 +160,19 @@ export const forgotPassword = async (email) => {
       body: JSON.stringify({ userEmail: email }),
     });
 
+    if (response.status === 401) {
+      redirectToLogin();
+      return;
+    }
+
     const responseData = await response.json();
 
-    return { status: response.status, ...responseData }; // Include status code
+    return { status: response.status, ...responseData };
   } catch (error) {
     console.error("Error sending forgot password request:", error);
     throw error;
   }
-}
+};
 
 export const resetPassword = async (newPassword, otp, otpToken) => {
   const url = `${base_url}/auth/resetPassword`;
@@ -161,19 +186,24 @@ export const resetPassword = async (newPassword, otp, otpToken) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${otpToken}`
+        Authorization: `Bearer ${otpToken}`,
       },
       body: JSON.stringify(data),
     });
 
+    if (response.status === 401) {
+      redirectToLogin();
+      return;
+    }
+
     const responseData = await response.json();
 
-    return { status: response.status, ...responseData }; // Include status code
+    return { status: response.status, ...responseData };
   } catch (error) {
     console.error("Error resetting password:", error);
     throw error;
   }
-}
+};
 
 export const getNotifications = async () => {
   const url = `${base_url}/notification/`;
@@ -190,6 +220,12 @@ export const getUserProfile = async (authToken) => {
         Authorization: `Bearer ${authToken}`,
       },
     });
+
+    if (response.status === 401) {
+      redirectToLogin();
+      return;
+    }
+
     if (!response.ok) {
       throw new Error(response.statusText);
     }
@@ -203,8 +239,6 @@ export const getUserProfile = async (authToken) => {
 
 export const getEvents = async () => {
   const url = `${base_url}/event/all`;
-
-  // Check if we're in a browser environment and if the user is logged in
   let token = null;
   if (typeof window !== "undefined") {
     const isLoggedIn = secureLocalStorage.getItem("isLoggedIn");
@@ -213,13 +247,11 @@ export const getEvents = async () => {
     }
   }
 
-  // Construct the request options
   const options = {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   };
 
-  // Check for token and add the Authorization header accordingly
   if (token) {
     options.headers["Authorization"] = `Bearer ${token}`;
   } else {
@@ -228,6 +260,10 @@ export const getEvents = async () => {
 
   try {
     const response = await fetch(url, options);
+    if (response.status === 401) {
+      redirectToLogin();
+      return;
+    }
     const responseData = await response.json();
 
     if (!response.ok) {
@@ -248,7 +284,6 @@ export const getEvent = async (eventId) => {
   if (typeof window !== "undefined") {
     const isLoggedIn = secureLocalStorage.getItem("isLoggedIn");
     if (isLoggedIn === "1") {
-      // Use the same token key as other functions
       token = secureLocalStorage.getItem("registerToken");
     }
   }
@@ -265,6 +300,10 @@ export const getEvent = async (eventId) => {
       method: "GET",
       headers,
     });
+    if (response.status === 401) {
+      redirectToLogin();
+      return;
+    }
     const responseData = await response.json();
 
     if (!response.ok) {
@@ -307,7 +346,10 @@ export const registerTeam = async (teamData) => {
       },
       body: JSON.stringify(teamData),
     });
-
+    if (response.status === 401) {
+      redirectToLogin();
+      return;
+    }
     const responseData = await response.json();
     if (!response.ok) {
       throw new Error(responseData.MESSAGE || response.statusText);
@@ -320,7 +362,7 @@ export const registerTeam = async (teamData) => {
 };
 
 export const verifyTransaction = async (transactionId) => {
-  const url = `${base_url}/transaction/verify`; // Adjust endpoint as needed
+  const url = `${base_url}/transaction/verify`;
 
   try {
     const response = await fetch(url, {
@@ -328,6 +370,11 @@ export const verifyTransaction = async (transactionId) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ txnID: transactionId }),
     });
+
+    if (response.status === 401) {
+      redirectToLogin();
+      return;
+    }
 
     const responseData = await response.json();
     return { status: response.status, ...responseData };
@@ -346,14 +393,19 @@ export const getTags = async () => {
       headers: { "Content-Type": "application/json" },
     });
 
+    if (response.status === 401) {
+      redirectToLogin();
+      return;
+    }
+
     const responseData = await response.json();
     if (!response.ok) {
       throw new Error(responseData.MESSAGE || response.statusText);
     }
-    
+
     return responseData;
   } catch (error) {
     console.error("getTags: Request error:", error);
     throw error;
   }
-}
+};

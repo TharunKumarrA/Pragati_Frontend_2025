@@ -86,7 +86,9 @@ const Event = () => {
             minTeamSize: event.minTeamSize || 1,
             maxTeamSize: event.maxTeamSize || 1,
             teamSize: event.isGroup
-              ? `${event.minTeamSize}-${event.maxTeamSize} Members`
+              ? event.minTeamSize === event.maxTeamSize
+                ? `${event.minTeamSize} Members`
+                : `${event.minTeamSize}-${event.maxTeamSize} Members`
               : "Individual Event",
             contact:
               event.organizers && event.organizers.length > 0
@@ -169,7 +171,6 @@ const Event = () => {
             `https://pragati.amrita.edu/transactions/verify/${responseData.txnID}`,
           hash: responseData.hash,
         };
-
 
         // Create and submit the payment form
         const payUForm = document.createElement("form");

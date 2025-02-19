@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import EventCard from "./components/EventCards";
 import FilterSection from "./components/FilterSection";
 import { getEvents } from "../_utils/api_endpoint_handler";
+import Footer from "../components/footer";
 
 // Mapping of god names to their emblem image paths
 const godEmblemMapping = {
@@ -104,7 +105,7 @@ const EventPage = () => {
   });
 
   return (
-    <div className="py-5 bg-black bg-opacity-50 min-h-screen">
+    <div className="pt  -5 bg-black bg-opacity-50 min-h-screen">
       <h1 className="text-white mt-10 text-[2rem] pt-5 md:text-[3rem] text-center">
         Events
       </h1>
@@ -156,6 +157,9 @@ const EventPage = () => {
         ) : (
           <p className="text-white text-center col-span-4">No events found</p>
         )}
+      </div>
+      <div className="mt-10">
+        <Footer />
       </div>
     </div>
   );

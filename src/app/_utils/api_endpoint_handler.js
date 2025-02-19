@@ -160,17 +160,27 @@ export const forgotPassword = async (email) => {
       body: JSON.stringify({ userEmail: email }),
     });
 
-    if (response.status === 401) {
-      redirectToLogin();
-      return;
-    }
-
     const responseData = await response.json();
+
+    const message =
+      typeof responseData.MESSAGE === "string"
+        ? responseData.MESSAGE
+        : responseData.MESSAGE?.MESSAGE || "Something went wrong.";
+
+    if (!response.ok) {
+      return {
+        status: response.status,
+        MESSAGE: message,
+      };
+    }
 
     return { status: response.status, ...responseData };
   } catch (error) {
     console.error("Error sending forgot password request:", error);
-    throw error;
+    return {
+      status: "error",
+      MESSAGE: "Network error or server unreachable.",
+    };
   }
 };
 
@@ -191,17 +201,27 @@ export const resetPassword = async (newPassword, otp, otpToken) => {
       body: JSON.stringify(data),
     });
 
-    if (response.status === 401) {
-      redirectToLogin();
-      return;
-    }
-
     const responseData = await response.json();
+
+    const message =
+      typeof responseData.MESSAGE === "string"
+        ? responseData.MESSAGE
+        : responseData.MESSAGE?.MESSAGE || "Something went wrong.";
+
+    if (!response.ok) {
+      return {
+        status: response.status,
+        MESSAGE: message,
+      };
+    }
 
     return { status: response.status, ...responseData };
   } catch (error) {
     console.error("Error resetting password:", error);
-    throw error;
+    return {
+      status: "error",
+      MESSAGE: "Network error or server unreachable.",
+    };
   }
 };
 

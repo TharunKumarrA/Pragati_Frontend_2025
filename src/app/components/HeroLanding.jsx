@@ -4,6 +4,13 @@ import Image from "next/image";
 import { MoveUpRight } from "lucide-react";
 
 const HeroLanding = () => {
+  const notifText = (
+    <div className="flex items-center">
+      What&apos;s
+      <MoveUpRight className="w-6 h-6 ml-2 font-extrabold" />
+    </div>
+  );
+  
   return (
     <div className="relative min-h-screen flex flex-col cursor-default">
       {/* Hero Background */}
@@ -85,7 +92,7 @@ const HeroLanding = () => {
           <div className="grid grid-cols-2 md:flex md:justify-center gap-2 md:gap-3 w-full md:w-auto">
             <StatsBox title="Events" value="20+" />
             <div onClick={() => (window.location.href = "/notifications")}>
-              <StatsBox title="Happening" value="What's 🡵" />
+              <StatsBox title="Happening" value={notifText} />
             </div>
           </div>
         </div>

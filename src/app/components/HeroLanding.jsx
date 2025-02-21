@@ -4,6 +4,13 @@ import Image from "next/image";
 import { MoveUpRight } from "lucide-react";
 
 const HeroLanding = () => {
+  const notifText = (
+    <div className="flex items-center">
+      What&apos;s
+      <MoveUpRight className="w-6 h-6 ml-2 font-extrabold" />
+    </div>
+  );
+  
   return (
     <div className="relative min-h-screen flex flex-col cursor-default">
       {/* Hero Background */}
@@ -15,7 +22,11 @@ const HeroLanding = () => {
           {/* Organized by ASB */}
           <div className="flex flex-col gap-1 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 text-center transform transition-all duration-500 ease-in-out hover:scale-105 hover:shadow-lg hover:shadow-[#f3e5c0]/50">
             <p className="text-white text-xs p-1 ">Organized by</p>
-            <Link href="https://www.amrita.edu/school/business/coimbatore/" target="_blank" passHref>
+            <Link
+              href="https://www.amrita.edu/school/business/coimbatore/"
+              target="_blank"
+              passHref
+            >
               <Image
                 src="/Images/ASB.png"
                 width={148}
@@ -28,8 +39,12 @@ const HeroLanding = () => {
 
           {/* Sponsored by BNY Mellon */}
           <div className="flex flex-col bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 text-center transform transition-all duration-500 ease-in-out hover:scale-105 hover:shadow-lg hover:shadow-[#f3e5c0]/50">
-            <p className="text-white text-xs p-1">Event Run By</p>
-            <Link href="https://www.bny.com/corporate/global/en.html" target="_blank" passHref>
+            <p className="text-white text-xs p-1">Title Sponsor</p>
+            <Link
+              href="https://www.bny.com/corporate/global/en.html"
+              target="_blank"
+              passHref
+            >
               <Image
                 src="/Images/BNY.png"
                 width={128}
@@ -47,6 +62,9 @@ const HeroLanding = () => {
         <p className="text-xl md:text-2xl leading-[100%] px-8 text-white text-center mt-0">
           Where ancient wisdom meets modern innovation
         </p>
+        <div className="flex flex-col gap-1 bg-white/30 backdrop-blur-sm rounded-xl border border-white/20 text-center transform transition-all duration-500 ease-in-out hover:scale-105 hover:shadow-lg hover:shadow-[#f3e5c0]/50 p-3 text-slate-700 mt-4">
+          March 3rd & 4th, 2025
+        </div>
       </div>
 
       {/* Centered Mascot */}
@@ -73,15 +91,16 @@ const HeroLanding = () => {
           </div>
           <div className="grid grid-cols-2 md:flex md:justify-center gap-2 md:gap-3 w-full md:w-auto">
             <StatsBox title="Events" value="20+" />
-            <div onClick={() => window.location.href = "/notifications"}>
-              <StatsBox title="Happening" value="What's 🡵" />
+            <div onClick={() => (window.location.href = "/notifications")}>
+              <StatsBox title="Happening" value={notifText} />
             </div>
           </div>
         </div>
 
         {/* Events Button */}
         <div className="flex justify-center mt-4">
-          <Link href="/events"
+          <Link
+            href="/events"
             className="flex flex-row justify-center items-center align-middle px-4 md:px-12 py-2 text-lg md:text-3xl tracking-wider text-center text-black 
                border-2 border-black bg-[linear-gradient(90deg,#FACC15,#E8D096)] rounded-full [font-family:var(--font-chicavenue)] hover:scale-105 hover:-translate-y-1 hover:shadow-lg hover:bg-opacity-80 
              active:scale-95 active:translate-y-0 focus:outline-none transition-all duration-300 transform"

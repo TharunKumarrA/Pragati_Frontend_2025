@@ -17,6 +17,7 @@ import {
 import { login, reverifyUser } from "@/app/_utils/api_endpoint_handler";
 import { Input } from "./components/input";
 import validator from "validator";
+import {EyeInvisibleOutlined , EyeOutlined} from "@ant-design/icons";
 
 /**
  * Returns a Gravatar URL for the given email.
@@ -34,6 +35,7 @@ const Page = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [toasts, setToasts] = useState([]);
   const router = useRouter();
+  const [visible,setVisible] = useState(false);
 
   useEffect(() => {
     secureLocalStorage.clear();
@@ -171,14 +173,22 @@ const Page = () => {
             <label htmlFor="password" className={styles.label}>
               Password
             </label>
+            <div className="relative w-full">
             <Input
-              type="password"
+              type={visible ? "text" : "password"}
               id="password"
-              className="w-full py-1.5 text-black"
+              className="w-full py-1.5 pr-10 text-black"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <div
+              className="absolute inset-y-0 right-2 flex items-center cursor-pointer text-gray-600"
+              onClick={() => setVisible(!visible)}
+            >
+              {visible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+            </div>
+          </div>
             <div className="text-right mt-[15px] mb-[25px]">
               <Link
                 href="/resetPassword"
@@ -195,7 +205,7 @@ const Page = () => {
             </p>
             <button
               type="submit"
-              className="bg-[#E5C055] text-black text-[16px] border-none rounded-[5px] py-[15px] px-[20px] cursor-pointer w-full mt-[20px] relative"
+              className="w-full bg-[#D4AF37] text-white py-3 px-6 rounded-md hover:bg-[#B4941F] transition-colors mt-4"
               disabled={isLoading}
             >
               {isLoading ? <div className={styles.loader}></div> : "Sign In"}

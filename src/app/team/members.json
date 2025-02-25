@@ -1,0 +1,18 @@
+{
+    "DEV TEAM": {
+        "data": [
+            {
+                "Name": "Arjun Patel",
+                "Dept": "CSE",
+                "Year": 3,
+                "ContactEmail": "arjun.patel@amrita.edu",
+                "Instagram": "",
+                "Linkedin": "https://www.linkedin.com/in/arjun-patel",
+                "Github": "https://github.com/arjunpatel",
+                "Image": "/Images/individual_gods/1a_athena.webp",
+                "Role": "Frontend Developer",
+                "GreekSymbol": "α"
+            }
+        ]
+    }
+}

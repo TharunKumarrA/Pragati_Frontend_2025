@@ -1,0 +1,53 @@
+{
+    "DEV TEAM": {
+        "data": [
+            {
+                "Name": "Arjun Patel",
+                "Dept": "CSE",
+                "Year": 3,
+                "ContactEmail": "arjun.patel@amrita.edu",
+                "Instagram": "",
+                "Linkedin": "https://www.linkedin.com/in/arjun-patel",
+                "Github": "https://github.com/arjunpatel",
+                "Image":"",
+                "Role": "Frontend Developer"
+            },
+            {
+                "Name": "Neha Verma",
+                "Dept": "IT",
+                "Year": 2,
+                "ContactEmail": "neha.verma@amrita.edu",
+                "Instagram": "",
+                "Linkedin": "https://www.linkedin.com/in/neha-verma",
+                "Github": "https://github.com/nehaverma",
+                "Image":"",
+                "Role": "Backend Developer"
+            }
+        ],
+        "name": "Development"
+    },
+    "ORG TEAM": {
+        "data": [
+            {
+                "Name": "Rahul Menon",
+                "Position": "Event Coordinator",
+                "ContactEmail": "rahul.menon@amrita.edu",
+                "Instagram": "",
+                "Linkedin": "https://www.linkedin.com/in/rahul-menon",
+                "Github": "",
+                "Image":"",
+                "Role": "Event Management"
+            },
+            {
+                "Name": "Sneha Ramesh",
+                "Position": "Marketing Lead",
+                "ContactEmail": "sneha.ramesh@amrita.edu",
+                "Instagram": "",
+                "Linkedin": "https://www.linkedin.com/in/sneha-ramesh",
+                "Github": "",
+                "Role": "Marketing & Outreach"
+            }
+        ],
+        "name": "Organizational"
+    }
+}

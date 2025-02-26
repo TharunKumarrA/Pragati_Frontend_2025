@@ -334,7 +334,7 @@ export default function Page() {
                         <button
                             onClick={handlePrev}
                             disabled={activeButton === 0}
-                            className="p-2 rounded-full transition-all duration-300 transform hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="p-2 rounded-full hover:bg-yellow-500/20 transition-all duration-300 transform hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
                             aria-label="Previous"
                         >
                             <IoArrowBack size={20} />

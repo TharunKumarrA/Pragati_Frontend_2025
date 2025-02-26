@@ -4,6 +4,30 @@ import { IoArrowBack, IoArrowForward } from "react-icons/io5";
 import gsap from "gsap";
 import ProfileCard from "./components/profile";
 import { useSwipeable } from "react-swipeable";
+import styled from "styled-components";
+
+const Button = styled.button`
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #352b1e;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  &:hover::after {
+    transform-origin: left;
+    transform: scaleX(1);
+  }
+`;
 
 export default function Page() {
     const [jsonData, setJsonData] = useState({});
@@ -185,7 +209,7 @@ export default function Page() {
 
             gsap.to(underlineRefs.current[index], {
                 scaleX: 1,
-                backgroundColor: "#000",
+                backgroundColor: "#352b1e",
                 duration: 0.3,
                 ease: "power3.out",
             });
@@ -275,7 +299,7 @@ export default function Page() {
     return (
         <div className="pt-5 bg-black bg-opacity-50 min-h-screen flex flex-col">
             <h1 className="text-white mt-10 text-[2rem] pt-5 md:text-[3rem] text-center">
-                Team Members
+                Team PRAGATI 25'
             </h1>
 
             <nav ref={navRef} className="w-full text-white transition-all duration-300 z-50 my-5 h-auto">
@@ -361,7 +385,6 @@ export default function Page() {
                 </div>
             </nav>
 
-            {/* Rest of your component */}
             <div className="w-full py-4 flex flex-col items-center">
                 <h1 ref={headingRef} className="hidden lg:block text-4xl text-white mb-8">
                     {`${jsonData[verticals[activeButton]]?.name} TEAM`}</h1>

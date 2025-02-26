@@ -30,7 +30,7 @@ const ProfileCard = ({
             4: 'IV',
             5: 'V'
         };
-        return romanNumerals[num] || num.toString();
+        return romanNumerals[num] || String(num || "");
     };
 
     
@@ -92,44 +92,31 @@ const ProfileCard = ({
     }, [imageLoaded]);
 
     useEffect(() => {
-        const card = cardRef.current;
-        const text = textRef.current;
-        const socials = socialsRef.current;
-
-        if (window.innerWidth > 768) {
-            gsap.set(socials, { y: "0%", opacity: 1 });
-        }
-
-        if(window.innerWidth < 768){
-            gsap.set(socials, { y: "-50%", opacity: 1 });
-        }
-
-
+        gsap.set(socialsRef.current, { opacity: 0, y: "30%" });
+      
         const handleHover = () => {
-            if (window.innerWidth > 768) {
-                gsap.to(text, { y: "320%", duration: 1, ease: "power2.inOut" });
-                gsap.to(socials, { y: "-200%", opacity: 1, duration: 1, ease: "power2.inOut" });
-                gsap.to(card, { scale: 1.05, duration: 0.5, ease: "power2.out" });
-            }
+          gsap.to(textRef.current, { y: "250%", duration: 1, ease: "power2.inOut" });
+          gsap.to(socialsRef.current, { y: "-250%", opacity: 1, duration: 1, ease: "power2.inOut" });
         };
-        
+      
         const handleLeave = () => {
-            if (window.innerWidth > 768) {
-                gsap.to(text, { y: "0%", duration: 1, ease: "power2.inOut" });
-                gsap.to(socials, { y: "-50%", opacity: 0, duration: 0.5, ease: "power2.inOut" });
-                gsap.to(card, { scale: 1, duration: 1, ease: "power2.out" });
-            }
+          gsap.to(textRef.current, { y: "0%", duration: 0.8, ease: "power2.inOut" });
+          gsap.to(socialsRef.current, { y: "30%", opacity: 0, duration: 0.5, ease: "power2.inOut" });
         };
-        
-
+      
+        const card = cardRef.current;
+      
         card.addEventListener("mouseenter", handleHover);
         card.addEventListener("mouseleave", handleLeave);
-
+      
         return () => {
-            card.removeEventListener("mouseenter", handleHover);
-            card.removeEventListener("mouseleave", handleLeave);
+          card.removeEventListener("mouseenter", handleHover);
+          card.removeEventListener("mouseleave", handleLeave);
+          gsap.killTweensOf([textRef.current, socialsRef.current]); // Kill GSAP animations
         };
-    }, []);
+      }, []);
+      
+    
 
     console.log("Icons Imported:", FaLinkedin, FaInstagram, FaEnvelope, FaGithub);
 
@@ -173,7 +160,7 @@ const ProfileCard = ({
                         </p>
                     </div>
 
-                    <div ref={socialsRef} className="flex justify-center items-center space-x-6 mt-4 opacity-100">
+                    <div ref={socialsRef} className="absolute flex justify-center items-center space-x-6 opacity-100">
                         {linkedin && (
                             <a href={linkedin} target="_blank" rel="noopener noreferrer"
                                 className="text-white text-3xl hover:text-[#E5C14E] transition-colors duration-300">

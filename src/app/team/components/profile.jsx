@@ -96,7 +96,7 @@ const ProfileCard = ({
       
         const handleHover = () => {
           gsap.to(textRef.current, { y: "250%", duration: 1, ease: "power2.inOut" });
-          gsap.to(socialsRef.current, { y: "-250%", opacity: 1, duration: 1, ease: "power2.inOut" });
+          gsap.to(socialsRef.current, { y: "-50%", opacity: 1, duration: 1, ease: "power2.inOut" });
         };
       
         const handleLeave = () => {
@@ -121,7 +121,6 @@ const ProfileCard = ({
     console.log("Icons Imported:", FaLinkedin, FaInstagram, FaEnvelope, FaGithub);
 
     return (
-        <div className="flex items-center justify-center h-screen w-screen ">
             <div
                 ref={cardRef}
                 className="rounded-2xl bg-[#352b1e] aspect-[1/1.5] w-full max-w-xs flex flex-col justify-center items-center p-6 relative overflow-hidden border-2 border-[#E5C14E]"
@@ -188,7 +187,6 @@ const ProfileCard = ({
                     </div>
                 </div>
             </div>
-        </div>
     );
 };
 

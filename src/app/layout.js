@@ -2,6 +2,7 @@ import Head from "next/head";
 import ClientSideLayout from "./ClientSideLayout";
 import localFont from "next/font/local";
 import "@/app/styles/globals.css";
+import { ChatPopup } from "./components/chat-popup";
 
 const chicAvenue = localFont({
   src: "/_fonts/ChicAvenue.woff",
@@ -103,6 +104,7 @@ export default function RootLayout({ children }) {
       </Head>
       <ClientSideLayout backgroundImage={randomBackground}>
         {children}
+        <ChatPopup />
       </ClientSideLayout>
     </html>
   );

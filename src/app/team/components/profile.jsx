@@ -105,7 +105,7 @@ const ProfileCard = ({
     return (
         <div
             ref={cardRef}
-            className="rounded-2xl bg-[#352b1e] aspect-[1/1.5] w-full max-w-xs flex flex-col justify-center items-center p-6 relative overflow-hidden border-2 border-[#E5C14E]"
+            className="rounded-2xl bg-[#1a1918c7] aspect-[1/1.5] w-full max-w-xs flex flex-col justify-center items-center p-6 relative overflow-hidden border-2 border-[#E5C14E]"
             onMouseEnter={() => setIsHovered(true)} // ✅ React handles hover event
             onMouseLeave={() => setIsHovered(false)}
         >

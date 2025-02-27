@@ -13,7 +13,8 @@ const ProfileCard = ({
     linkedin,
     github,
     image,
-    GreekSymbol =  "α"
+    GreekSymbol,
+    ORG
 }) => {
     const cardRef = useRef(null);
     const textRef = useRef(null);
@@ -21,7 +22,7 @@ const ProfileCard = ({
     const loadingRef = useRef(null);
     const imageRef = useRef(null);
     const [imageLoaded, setImageLoaded] = useState(false);
-    const [isHovered, setIsHovered] = useState(false); // ✅ Individual hover state
+    const [isHovered, setIsHovered] = useState(false);
 
     const numberToRoman = (num) => {
         const romanNumerals = { 1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V' };

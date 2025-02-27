@@ -406,6 +406,7 @@ export default function Page() {
                                     image={member.Image}
                                     role={member.Role}
                                     GreekSymbol={member.GreekSymbol}
+                                    ORG={member.ORG}
                                 />
                             </div>
                         ))}

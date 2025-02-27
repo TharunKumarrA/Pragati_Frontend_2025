@@ -1,139 +1,4 @@
 {
-    "DEV TEAM": {
-        "data": [
-            {
-                "Name": "Ashwin Narayanan S",
-                "Position": "Developer",
-                "ContactEmail": "",
-                "Instagram": "",
-                "Linkedin": "",
-                "Github": "",
-                "Image": "",
-                "Role": "Software Development"
-            },
-            {
-                "Name": "Abhinav Ramakrishnan",
-                "Position": "Developer",
-                "ContactEmail": "",
-                "Instagram": "",
-                "Linkedin": "",
-                "Github": "",
-                "Image": "",
-                "Role": "Software Development"
-            },
-            {
-                "Name": "Tharun Kumarr A",
-                "Position": "Developer",
-                "ContactEmail": "",
-                "Instagram": "",
-                "Linkedin": "",
-                "Github": "",
-                "Image": "",
-                "Role": "Software Development"
-            },
-            {
-                "Name": "Thanus Kumaar A",
-                "Position": "Developer",
-                "ContactEmail": "",
-                "Instagram": "",
-                "Linkedin": "",
-                "Github": "",
-                "Image": "",
-                "Role": "Software Development"
-            },
-            {
-                "Name": "Amritha Nandini",
-                "Position": "Developer",
-                "ContactEmail": "",
-                "Instagram": "",
-                "Linkedin": "",
-                "Github": "",
-                "Image": "",
-                "Role": "Software Development"
-            },
-            {
-                "Name": "Saran Dharshan P",
-                "Position": "Developer",
-                "ContactEmail": "",
-                "Instagram": "",
-                "Linkedin": "",
-                "Github": "",
-                "Image": "",
-                "Role": "Software Development"
-            },
-            {
-                "Name": "Naganathan M R",
-                "Position": "Developer",
-                "ContactEmail": "",
-                "Instagram": "",
-                "Linkedin": "",
-                "Github": "",
-                "Image": "",
-                "Role": "Software Development"
-            },
-            {
-                "Name": "Amrith",
-                "Position": "Developer",
-                "ContactEmail": "",
-                "Instagram": "",
-                "Linkedin": "",
-                "Github": "",
-                "Image": "",
-                "Role": "Software Development"
-            },
-            {
-                "Name": "Adithya Ajay",
-                "Position": "Developer",
-                "ContactEmail": "",
-                "Instagram": "",
-                "Linkedin": "",
-                "Github": "",
-                "Image": "",
-                "Role": "Software Development"
-            },
-            {
-                "Name": "Keerthivasan S V",
-                "Position": "Developer",
-                "ContactEmail": "",
-                "Instagram": "",
-                "Linkedin": "",
-                "Github": "",
-                "Image": "",
-                "Role": "Software Development"
-            },
-            {
-                "Name": "Kavinesh",
-                "Position": "Developer",
-                "ContactEmail": "",
-                "Instagram": "",
-                "Linkedin": "",
-                "Github": "",
-                "Image": "",
-                "Role": "Software Development"
-            },
-            {
-                "Name": "Saran",
-                "Position": "Developer",
-                "ContactEmail": "",
-                "Instagram": "",
-                "Linkedin": "",
-                "Github": "",
-                "Image": "",
-                "Role": "Software Development"
-            },
-            {
-                "Name": "Akshay",
-                "Position": "Developer",
-                "ContactEmail": "",
-                "Instagram": "",
-                "Linkedin": "",
-                "Github": "",
-                "Image": "",
-                "Role": "Software Development"
-            }
-        ],
-        "name": "Development"
-    },
         "ORG TEAM": {
             "data": [
                 {
@@ -143,7 +8,7 @@
                     "Instagram": "",
                     "Linkedin": "https://www.linkedin.com/in/suganth-vaibav-g-s-a28a12218",
                     "Github": "",
-                    "Image": "https://drive.google.com/open?id=1_vN8YjaJwsBLbTCNRoZFuDWxh2_zvAol",
+                    "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONs1PGfTifWMnZcziQEGlb286VFrIKkjoJ5paH",
                     "Role": "Sanskriti"
                 },
                 {
@@ -153,7 +18,7 @@
                     "Instagram": "",
                     "Linkedin": "https://www.linkedin.com/in/asfia-thahaseen-2275a1282",
                     "Github": "",
-                    "Image": "https://drive.google.com/open?id=1x6sg2HngXIZW-gVCm17zRyPpgjfd5-XX",
+                    "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONxYPHZanXFU72k6tCB5eumwi1AgrTqyxS4dlY",
                     "Role": "Fortune"
                 },
                 {
@@ -163,7 +28,7 @@
                     "Instagram": "",
                     "Linkedin": "https://www.linkedin.com/in/thejaswiini-madhu-a8a104227",
                     "Github": "",
-                    "Image": "https://drive.google.com/open?id=1vjyB38Mguk3FGKv-LoWnRbdTuYMpj9HC",
+                    "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONGmBBrnQyBf7mRgZDdFl2SXjcq8MnWrtuOwQv",
                     "Role": "Gen M"
                 },
                 {
@@ -173,7 +38,7 @@
                     "Instagram": "",
                     "Linkedin": "www.linkedin.com/in/kaviya021",
                     "Github": "",
-                    "Image": "https://drive.google.com/open?id=1zhpxNekYTisUt9DLQ3Fq6NeT3H3-mj5A",
+                    "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONTLmknmGPJ1mAlVEaHSv9Mqh5tBKbkyQwD2dj",
                     "Role": "Operation Committee"
                 },
                 {
@@ -183,7 +48,7 @@
                     "Instagram": "",
                     "Linkedin": "https://www.linkedin.com/in/shreelekha-08rk",
                     "Github": "",
-                    "Image": "https://drive.google.com/open?id=1I-NwPPrRk8inLbBRl8L8THM6bebfj4ZJ",
+                    "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONuG0MApPMwDfosZk1RWKYXmdIi8EcBT6VnjbU",
                     "Role": "Sanskriti"
                 },
                 {
@@ -193,7 +58,7 @@
                     "Instagram": "",
                     "Linkedin": "https://www.linkedin.com/in/lahul-rajendran-383860204",
                     "Github": "",
-                    "Image": "https://drive.google.com/open?id=1ugHMgePBxcoYufGGyq4XO_w5dJhjNVKE",
+                    "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONQM7UrMJdBa7OU3RDgcG2AvYotrpV9e5wnkhS",
                     "Role": "Jagriti Committee"
                 },
                 {
@@ -203,7 +68,7 @@
                     "Instagram": "",
                     "Linkedin": "linkedin.com/in/devadarsan-g-17688822a",
                     "Github": "",
-                    "Image": "https://drive.google.com/open?id=1opgt_relqFaTNkar8MQYn9MRfVT-QFNq",
+                    "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONP7xIA4bHELFMWXglytq4RSC3n2jVvaJD1wI9",
                     "Role": "Ozone"
                 },
                 {
@@ -213,7 +78,7 @@
                     "Instagram": "",
                     "Linkedin": "https://www.linkedin.com/in/rohith-s-varier-06b2791a2",
                     "Github": "",
-                    "Image": "https://drive.google.com/open?id=12X-6Q7xmKGqPMVVgkgd30iTEmekUMESK",
+                    "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONaAjhW2kHydE7XCnSZlgJmk5Vq0whMRrBvYjc",
                     "Role": "Strategy Committee"
                 },
                 {
@@ -223,7 +88,7 @@
                     "Instagram": "",
                     "Linkedin": "https://www.linkedin.com/in/nandu-gokul-85322b280",
                     "Github": "",
-                    "Image": "https://drive.google.com/open?id=1ab6QoyseI4vZLwyB40Xn664CicOM_pBI",
+                    "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONtBYKnMrdOnViz4oxjbvDS1l9MX3uph0yWAJw",
                     "Role": "Public Relations"
                 },
                 {
@@ -233,7 +98,7 @@
                     "Instagram": "",
                     "Linkedin": "http://linkedin.com/in/sreya-hariharan-217509273",
                     "Github": "",
-                    "Image": "https://drive.google.com/open?id=1-9iI4_fQZz3t_YAn0DsI56a85B4iYdkY",
+                    "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONwSLGoxWlxBWqPwMSHIKNvne5pCm2DGTJY6kX",
                     "Role": "Marketing Committee"
                 },
                 {
@@ -243,7 +108,7 @@
                     "Instagram": "",
                     "Linkedin": "https://www.linkedin.com/in/shubhangi-ramamoorthy-10075321b",
                     "Github": "",
-                    "Image": "https://drive.google.com/open?id=1yeydklLsuH9re8Gyk53eRjZP68E1I9Kf",
+                    "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONLjv3z7o0IOepwZT5MVn94oKSi2BhJWaylcLm",
                     "Role": "Corporate Relations"
                 },
                 {
@@ -253,11 +118,156 @@
                     "Instagram": "",
                     "Linkedin": "https://www.linkedin.com/in/kadhambari-rajendran-332644177",
                     "Github": "",
-                    "Image": "https://drive.google.com/open?id=1io2UQv3z4tjr_ZvRsJH8QQBvDgnZGQ5_",
+                    "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONv0mxK9gTlDoK7OjEm0YHb49yWzRk86wSuf1a",
                     "Role": "Finance Committee"
                 }
             ],
             "name": "Organization"
+},
+            "DEV TEAM": {
+        "data": [
+            {
+                "Name": "Ashwin Narayanan S",
+                "Position": "Developer",
+                "ContactEmail": "ashrockzzz2003@gmail.com",
+                "Instagram": "https://www.instagram.com/ashrock_m13/",
+                "Linkedin": "https://www.linkedin.com/in/ashwin2003/",
+                "Github": "https://github.com/Ashrockzzz2003",
+                "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONLXgXFfo0IOepwZT5MVn94oKSi2BhJWaylcLm",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Abhinav Ramakrishnan",
+                "Position": "Developer",
+                "ContactEmail": "abhinavramki2@gmail.com",
+                "Instagram": "",
+                "Linkedin": "https://www.linkedin.com/in/abhinav-ark-ramakrishnan/",
+                "Github": "https://github.com/Abhinav-ark",
+                "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONo48NzX0B9vHyn06hN3GuMxzZtWIcFlTJqfUo",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Barath Kumar J",
+                "Position": "Developer",
+                "ContactEmail": "barathkumarj001@gmail.com",
+                "Instagram": "https://www.instagram.com/_barath_j_121?igsh=ODAycGV5MmllYXVw",
+                "Linkedin": "https://www.linkedin.com/in/barath-kumar-j-3852a921b",
+                "Github": "https://GitHub.com/Barathj121",
+                "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONu6MEx3PMwDfosZk1RWKYXmdIi8EcBT6VnjbU",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Tharun Kumarr A",
+                "Position": "Frontend Developer",
+                "ContactEmail": "tharunkumarra@gmail.com",
+                "Instagram": "https://www.instagram.com/astro_tharun_/",
+                "Linkedin": "https://in.linkedin.com/in/tharun-kumarr",
+                "Github": "https://github.com/TharunKumarrA",
+                "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONZRkSQL6voqBQDaXG5VuUHSfn7hCTObJ6P1lt",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Thanus Kumaar A",
+                "Position": "Developer",
+                "ContactEmail": "thanuskumaara@gmail.com",
+                "Instagram": "",
+                "Linkedin": "https://www.linkedin.com/in/thanus-kumaar/",
+                "Github": "https://github.com/Thanus-Kumaar",
+                "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONlcdXXMdUTxLXNGvbS0QiAtVaUoPC5pO3jYze",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Amritha Nandini",
+                "Position": "Frontend Developer",
+                "ContactEmail": "amrithanandini2003@gmail.com",
+                "Instagram": "https://www.instagram.com/amrututu/",
+                "Linkedin": "https://www.linkedin.com/in/amrithanandini/",
+                "Github": "https://github.com/amri-tah",
+                "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONOhNPhXl5eiHcpbtwLEFPSC4xUsN8R60hDlJ2",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Saran Dharshan P",
+                "Position": "Backend Developer",
+                "ContactEmail": "sarandharshanpushparaj@gmail.com",
+                "Instagram": "https://www.instagram.com/bettercallsaran/",
+                "Linkedin": "https://www.linkedin.com/in/sarandharshan/",
+                "Github": "https://github.com/SaranDharshanSP",
+                "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxON2gdvfUL0hGJo7U1TK5vXnEsAOaNYCQe8RBFd",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Naganathan M R",
+                "Position": "Backend Developer",
+                "ContactEmail": "naganathan1555@gmail.com",
+                "Instagram": "https://www.instagram.com/naganathan_.15._/",
+                "Linkedin": "https://www.linkedin.com/in/naganathan-m-r-388434286/",
+                "Github": "https://github.com/Naganathan05",
+                "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONQqfc7cJdBa7OU3RDgcG2AvYotrpV9e5wnkhS",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Adithya Ajay",
+                "Position": "Frontend Developer",
+                "ContactEmail": "adithyaajay2005@gmail.com",
+                "Instagram": "",
+                "Linkedin": "www.linkedin.com/in/adithya-ajay-a4332a32a",
+                "Github": "https://github.com/Achilles80",
+                "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxON62IAskjoRvW0f2YyXQCeIc74HMPNLUsr9dOw",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Akshay K S",
+                "Position": "Backend Developer",
+                "ContactEmail": "akshayks1005@gmail.com",
+                "Instagram": "https://www.instagram.com/_akshay._.13_/",
+                "Linkedin": "https://www.linkedin.com/in/akshay-ks-312133292/",
+                "Github": "https://github.com/akshayks13",
+                "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxON3aO9JfqBUgTq27CKrFouakPlBYE84XZwdH1s",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Amrith B",
+                "Position": "Frontend Developer",
+                "ContactEmail": "amrith2503@gmail.com",
+                "Instagram": "",
+                "Linkedin": "https://www.linkedin.com/in/amrith-b-b2ab0b329?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+                "Github": "https://github.com/AMRITH03",
+                "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONbx8a3N2hG0xHS5MgARNrDFwJU61pvdBWPXuK",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Keerthivasan S V",
+                "Position": "Frontend Developer",
+                "ContactEmail": "cb.sc.u4aie23037@cb.students.amrita.edu",
+                "Instagram": "https://www.instagram.com/keerrrthiv/",
+                "Linkedin": "https://www.linkedin.com/in/keerthivasansv",
+                "Github": "https://github.com/Keerthivasan-Venkitajalam",
+                "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONPc7D8GbHELFMWXglytq4RSC3n2jVvaJD1wI9",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Kavinesh P",
+                "Position": "Backend Developer",
+                "ContactEmail": "kavinesh.p123@gmail.com",
+                "Instagram": "",
+                "Linkedin": "https://www.linkedin.com/in/kavinesh-parthasarathi-6742a0294/",
+                "Github": "https://github.com/Kavinesh11",
+                "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONwJVZJCWlxBWqPwMSHIKNvne5pCm2DGTJY6kX",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Saran Hiruthik M",
+                "Position": "Backend Developer",
+                "ContactEmail": "saran.hiruthik83@gmail.com",
+                "Instagram": "https://instagram.com/sarxn_._",
+                "Linkedin": "https://www.linkedin.com/in/saran-hiruthik-m/",
+                "Github": "https://github.com/hirux06",
+                "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONIu8nuLfaoUvijPm5gE8RCHxWlhwyVAO0uTNJ",
+                "Role": "Software Development"
+            }
+        ],
+        "name": "Development"
         }
-    }
+}
     

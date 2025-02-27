@@ -2,52 +2,262 @@
     "DEV TEAM": {
         "data": [
             {
-                "Name": "Arjun Patel",
-                "Dept": "CSE",
-                "Year": 3,
-                "ContactEmail": "arjun.patel@amrita.edu",
+                "Name": "Ashwin Narayanan S",
+                "Position": "Developer",
+                "ContactEmail": "",
                 "Instagram": "",
-                "Linkedin": "https://www.linkedin.com/in/arjun-patel",
-                "Github": "https://github.com/arjunpatel",
-                "Image":"",
-                "Role": "Frontend Developer"
+                "Linkedin": "",
+                "Github": "",
+                "Image": "",
+                "Role": "Software Development"
             },
             {
-                "Name": "Neha Verma",
-                "Dept": "IT",
-                "Year": 2,
-                "ContactEmail": "neha.verma@amrita.edu",
+                "Name": "Abhinav Ramakrishnan",
+                "Position": "Developer",
+                "ContactEmail": "",
                 "Instagram": "",
-                "Linkedin": "https://www.linkedin.com/in/neha-verma",
-                "Github": "https://github.com/nehaverma",
-                "Image":"",
-                "Role": "Backend Developer"
+                "Linkedin": "",
+                "Github": "",
+                "Image": "",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Tharun Kumarr A",
+                "Position": "Developer",
+                "ContactEmail": "",
+                "Instagram": "",
+                "Linkedin": "",
+                "Github": "",
+                "Image": "",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Thanus Kumaar A",
+                "Position": "Developer",
+                "ContactEmail": "",
+                "Instagram": "",
+                "Linkedin": "",
+                "Github": "",
+                "Image": "",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Amritha Nandini",
+                "Position": "Developer",
+                "ContactEmail": "",
+                "Instagram": "",
+                "Linkedin": "",
+                "Github": "",
+                "Image": "",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Saran Dharshan P",
+                "Position": "Developer",
+                "ContactEmail": "",
+                "Instagram": "",
+                "Linkedin": "",
+                "Github": "",
+                "Image": "",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Naganathan M R",
+                "Position": "Developer",
+                "ContactEmail": "",
+                "Instagram": "",
+                "Linkedin": "",
+                "Github": "",
+                "Image": "",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Amrith",
+                "Position": "Developer",
+                "ContactEmail": "",
+                "Instagram": "",
+                "Linkedin": "",
+                "Github": "",
+                "Image": "",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Adithya Ajay",
+                "Position": "Developer",
+                "ContactEmail": "",
+                "Instagram": "",
+                "Linkedin": "",
+                "Github": "",
+                "Image": "",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Keerthivasan S V",
+                "Position": "Developer",
+                "ContactEmail": "",
+                "Instagram": "",
+                "Linkedin": "",
+                "Github": "",
+                "Image": "",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Kavinesh",
+                "Position": "Developer",
+                "ContactEmail": "",
+                "Instagram": "",
+                "Linkedin": "",
+                "Github": "",
+                "Image": "",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Saran",
+                "Position": "Developer",
+                "ContactEmail": "",
+                "Instagram": "",
+                "Linkedin": "",
+                "Github": "",
+                "Image": "",
+                "Role": "Software Development"
+            },
+            {
+                "Name": "Akshay",
+                "Position": "Developer",
+                "ContactEmail": "",
+                "Instagram": "",
+                "Linkedin": "",
+                "Github": "",
+                "Image": "",
+                "Role": "Software Development"
             }
         ],
         "name": "Development"
     },
-    "ORG TEAM": {
-        "data": [
-            {
-                "Name": "Rahul Menon",
-                "Position": "Event Coordinator",
-                "ContactEmail": "rahul.menon@amrita.edu",
-                "Instagram": "",
-                "Linkedin": "https://www.linkedin.com/in/rahul-menon",
-                "Github": "",
-                "Image":"",
-                "Role": "Event Management"
-            },
-            {
-                "Name": "Sneha Ramesh",
-                "Position": "Marketing Lead",
-                "ContactEmail": "sneha.ramesh@amrita.edu",
-                "Instagram": "",
-                "Linkedin": "https://www.linkedin.com/in/sneha-ramesh",
-                "Github": "",
-                "Role": "Marketing & Outreach"
-            }
-        ],
-        "name": "Organizational"
+        "ORG TEAM": {
+            "data": [
+                {
+                    "Name": "Suganth Vaibav G S",
+                    "Position": "Forum Head",
+                    "ContactEmail": "gssuganthvaibav@gmail.com",
+                    "Instagram": "",
+                    "Linkedin": "https://www.linkedin.com/in/suganth-vaibav-g-s-a28a12218",
+                    "Github": "",
+                    "Image": "https://drive.google.com/open?id=1_vN8YjaJwsBLbTCNRoZFuDWxh2_zvAol",
+                    "Role": "Sanskriti"
+                },
+                {
+                    "Name": "Asfia Thahaseen",
+                    "Position": "Forum Head",
+                    "ContactEmail": "asfiathahaseen786@gmail.com",
+                    "Instagram": "",
+                    "Linkedin": "https://www.linkedin.com/in/asfia-thahaseen-2275a1282",
+                    "Github": "",
+                    "Image": "https://drive.google.com/open?id=1x6sg2HngXIZW-gVCm17zRyPpgjfd5-XX",
+                    "Role": "Fortune"
+                },
+                {
+                    "Name": "Thejaswiini. M",
+                    "Position": "Forum Head",
+                    "ContactEmail": "thejaswiini22@gmail.com",
+                    "Instagram": "",
+                    "Linkedin": "https://www.linkedin.com/in/thejaswiini-madhu-a8a104227",
+                    "Github": "",
+                    "Image": "https://drive.google.com/open?id=1vjyB38Mguk3FGKv-LoWnRbdTuYMpj9HC",
+                    "Role": "Gen M"
+                },
+                {
+                    "Name": "Kaviyaselvi Selvakumar",
+                    "Position": "Vice President",
+                    "ContactEmail": "cb.bu.p2asb23085@cb.students.amrita.edu",
+                    "Instagram": "",
+                    "Linkedin": "www.linkedin.com/in/kaviya021",
+                    "Github": "",
+                    "Image": "https://drive.google.com/open?id=1zhpxNekYTisUt9DLQ3Fq6NeT3H3-mj5A",
+                    "Role": "Operation Committee"
+                },
+                {
+                    "Name": "Shreelekha",
+                    "Position": "Forum Head",
+                    "ContactEmail": "snshreelekha08@gmail.com",
+                    "Instagram": "",
+                    "Linkedin": "https://www.linkedin.com/in/shreelekha-08rk",
+                    "Github": "",
+                    "Image": "https://drive.google.com/open?id=1I-NwPPrRk8inLbBRl8L8THM6bebfj4ZJ",
+                    "Role": "Sanskriti"
+                },
+                {
+                    "Name": "Lahul GR",
+                    "Position": "Vice President",
+                    "ContactEmail": "rajendranlahul3@gmail.com",
+                    "Instagram": "",
+                    "Linkedin": "https://www.linkedin.com/in/lahul-rajendran-383860204",
+                    "Github": "",
+                    "Image": "https://drive.google.com/open?id=1ugHMgePBxcoYufGGyq4XO_w5dJhjNVKE",
+                    "Role": "Jagriti Committee"
+                },
+                {
+                    "Name": "Devadarsan G",
+                    "Position": "Forum Head",
+                    "ContactEmail": "cb.bu.p2asb23051@cb.students.amrita.edu",
+                    "Instagram": "",
+                    "Linkedin": "linkedin.com/in/devadarsan-g-17688822a",
+                    "Github": "",
+                    "Image": "https://drive.google.com/open?id=1opgt_relqFaTNkar8MQYn9MRfVT-QFNq",
+                    "Role": "Ozone"
+                },
+                {
+                    "Name": "Rohith S Varier",
+                    "Position": "President",
+                    "ContactEmail": "rohithvarier13@gmail.com",
+                    "Instagram": "",
+                    "Linkedin": "https://www.linkedin.com/in/rohith-s-varier-06b2791a2",
+                    "Github": "",
+                    "Image": "https://drive.google.com/open?id=12X-6Q7xmKGqPMVVgkgd30iTEmekUMESK",
+                    "Role": "Strategy Committee"
+                },
+                {
+                    "Name": "Nandu Gokul",
+                    "Position": "Vice President",
+                    "ContactEmail": "nandugokul1607@gmail.com",
+                    "Instagram": "",
+                    "Linkedin": "https://www.linkedin.com/in/nandu-gokul-85322b280",
+                    "Github": "",
+                    "Image": "https://drive.google.com/open?id=1ab6QoyseI4vZLwyB40Xn664CicOM_pBI",
+                    "Role": "Public Relations"
+                },
+                {
+                    "Name": "Sreya Hariharan",
+                    "Position": "Vice President",
+                    "ContactEmail": "sreyahari25@gmail.com",
+                    "Instagram": "",
+                    "Linkedin": "http://linkedin.com/in/sreya-hariharan-217509273",
+                    "Github": "",
+                    "Image": "https://drive.google.com/open?id=1-9iI4_fQZz3t_YAn0DsI56a85B4iYdkY",
+                    "Role": "Marketing Committee"
+                },
+                {
+                    "Name": "Shubhangi Ramamoorthy",
+                    "Position": "Vice President",
+                    "ContactEmail": "writetoshubhangi0608@gmail.com",
+                    "Instagram": "",
+                    "Linkedin": "https://www.linkedin.com/in/shubhangi-ramamoorthy-10075321b",
+                    "Github": "",
+                    "Image": "https://drive.google.com/open?id=1yeydklLsuH9re8Gyk53eRjZP68E1I9Kf",
+                    "Role": "Corporate Relations"
+                },
+                {
+                    "Name": "Kadhambari R",
+                    "Position": "Vice President",
+                    "ContactEmail": "cb.bu.p2asb23081@cb.students.amrita.edu",
+                    "Instagram": "",
+                    "Linkedin": "https://www.linkedin.com/in/kadhambari-rajendran-332644177",
+                    "Github": "",
+                    "Image": "https://drive.google.com/open?id=1io2UQv3z4tjr_ZvRsJH8QQBvDgnZGQ5_",
+                    "Role": "Finance Committee"
+                }
+            ],
+            "name": "Organization"
+        }
     }
-}
+    

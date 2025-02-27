@@ -30,10 +30,10 @@ export function ChatPopup() {
                 <div className="fixed bottom-4 right-4 w-96 h-[36rem] flex flex-col rounded-3xl shadow-2xl bg-[#fde6a8] bg-opacity-50 backdrop-blur-sm border-2 z-50 border-black">
                     <div className="flex flex-row items-center justify-between p-3 border-b border-black">
                         <div className="flex flex-row items-center gap-2">
-                        <Sparkles className="h-6 w-6" color="black" />
-                        <h2 className="text-2xl font-semibold text-black [font-family:var(--font-chicavenue)]">
-                            Ask Pragati AI
-                        </h2>
+                            <Sparkles className="h-6 w-6" color="black" />
+                            <h2 className="text-2xl font-semibold text-black [font-family:var(--font-chicavenue)]">
+                                Ask Pragati AI
+                            </h2>
                         </div>
                         <button
                             onClick={() => setIsOpen(false)}
@@ -114,7 +114,7 @@ export function ChatPopup() {
                             </button>
                             <button
                                 onClick={() => {
-                                    handleInputChange({ target: { value: "What's the venue?" }});
+                                    handleInputChange({ target: { value: "What's the venue?" } });
                                     setShowSample(false);
                                 }}
                                 className="p-2 bg-white/10 rounded-full border border-black text-black hover:bg-white/20 focus:outline-none"
@@ -145,6 +145,7 @@ export function ChatPopup() {
                             />
                             <button
                                 type="submit"
+                                onClick={() => setShowSample(false)}
                                 className="rounded-full p-3 bg-[linear-gradient(90deg,#FACC15,#E8D096)] text-black hover:bg-emerald-600 shadow-md border-2 border-black focus:outline-none"
                                 aria-label="Send message"
                             >

@@ -407,6 +407,7 @@ export default function Page() {
                                     role={member.Role}
                                     GreekSymbol={member.GreekSymbol}
                                     ORG={member.ORG}
+                                    Position={member.Position}
                                 />
                             </div>
                         ))}

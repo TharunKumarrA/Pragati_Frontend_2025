@@ -14,7 +14,8 @@ const ProfileCard = ({
     github,
     image,
     GreekSymbol,
-    ORG
+    ORG,
+    Position
 }) => {
     const cardRef = useRef(null);
     const textRef = useRef(null);
@@ -28,8 +29,8 @@ const ProfileCard = ({
         const romanNumerals = { 1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V' };
         return romanNumerals[num] || String(num || "");
     };
+    let details = ORG === 1 ? Position : `B.Tech ${numberToRoman(year)} Year`;
 
-    let details = `B.Tech ${dept} ${numberToRoman(year)} Year`;
 
     useEffect(() => {
         setImageLoaded(false);

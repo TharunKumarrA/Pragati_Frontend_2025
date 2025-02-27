@@ -1,7 +1,7 @@
 "use client";
-import { FaLinkedin, FaInstagram, FaEnvelope, FaGithub } from "react-icons/fa";
-import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { useEffect, useRef, useState } from "react";
+import { FaEnvelope, FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const ProfileCard = ({
     name,

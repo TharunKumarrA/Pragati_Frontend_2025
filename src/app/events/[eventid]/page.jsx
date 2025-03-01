@@ -66,10 +66,7 @@ const Event = () => {
         if (data.DATA && data.DATA.length > 0) {
           const event = data.DATA[0];
           setEventStatus(
-            event.eventStatus ||
-              event.numRegistrations >= event.maxRegistrations
-              ? "2"
-              : "1"
+            event.numRegistrations >= event.maxRegistrations ? "2" : "1"
           );
           setPosterSrc(
             event.eventImageUrl && event.eventImageUrl.trim() !== ""

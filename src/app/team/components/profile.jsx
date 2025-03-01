@@ -140,7 +140,7 @@ const ProfileCard = ({
                 <div ref={textRef} className="text-center space-y-2 w-full px-2">
                     <h2 className="text-white text-xl font-bold">{name}</h2>
                     {role && (
-                        <p className="text-[#E5C14E] text-base font-bold">{role}</p>
+                        <p className="text-[#E5C14E] text-base font-bold">{Position}</p>
                     )}
                     <p className="text-gray-300 text-md">{details}</p>
                 </div>

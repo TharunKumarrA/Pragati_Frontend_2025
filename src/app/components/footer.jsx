@@ -17,7 +17,7 @@ const Footer = ({ current_page }) => {
   const pages = [
     { name: "HOME", href: "/" },
     { name: "EVENTS", href: "/events" },
-    { name: "TEAM", href: "/upcoming" },
+    { name: "TEAM", href: "/team" },
     { name: "PRIVACY POLICY", href: "/privacyPolicy" },
   ];
 

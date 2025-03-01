@@ -18,6 +18,8 @@ const EventCard = ({
   isDisabled,
   type,
   isPerHeadFee,
+  numRegistrations,
+  maxRegistrations,
 }) => {
   // Define your placeholder image paths (ensure these images exist in your public folder)
   const placeholderPoster = "/Images/FallbackPoster.jpg";

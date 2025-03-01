@@ -46,6 +46,8 @@ const EventPage = () => {
             type: event.isGroup === 1 ? "Group" : "Individual",
             godName: event.godName, // Use godName from API
             isPerHeadFee: event.isPerHeadFee,
+            numRegistrations: event.numRegistrations,
+            maxRegistrations: event.maxRegistrations,
           }));
           setEvents(formattedEvents);
           const uniqueTags = [
@@ -146,7 +148,10 @@ const EventPage = () => {
                 poster={event.poster}
                 eventid={event.eventid}
                 tags={event.tags}
-                isDisabled={!(event.eventstatus === "1")}
+                isDisabled={
+                  event.eventstatus !== "1" ||
+                  event.numRegistrations >= event.maxRegistrations
+                }
                 emblem1={emblem1}
                 emblem2={emblem2}
                 type={event.type}

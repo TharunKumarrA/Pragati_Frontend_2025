@@ -254,7 +254,7 @@ export default function Page() {
 
       <nav
         ref={navRef}
-        className="w-full text-white transition-all duration-300 z-50 my-5 h-auto"
+        className="w-full text-white transition-all duration-300 z-30 my-5 h-auto"
       >
         <div className="h-full max-w-6xl mx-auto px-4 sm:px-6">
           <div className="lg:hidden h-full flex items-center justify-between gap-2">

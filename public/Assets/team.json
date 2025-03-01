@@ -179,20 +179,6 @@
         "ORG": 0
       },
       {
-        "Name": "Barath Kumar J",
-        "Position": "Senior Advisor",
-        "Dept": "CSE",
-        "Year": 4,
-        "ContactEmail": "barathkumarj001@gmail.com",
-        "Instagram": "https://www.instagram.com/_barath_j_121?igsh=ODAycGV5MmllYXVw",
-        "Linkedin": "https://www.linkedin.com/in/barath-kumar-j-3852a921b",
-        "Github": "https://GitHub.com/Barathj121",
-        "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxON0IHfD21xQDCo37FrXjmzfL1MIpknSZtAYi9d",
-        "Role": "Software Development",
-        "GreekSymbol": "φ",
-        "ORG": 0
-      },
-      {
         "Name": "Tharun Kumarr A",
         "Position": "Frontend Co-Lead & Project Coordinator",
         "Dept": "CSE",
@@ -263,6 +249,20 @@
         "ORG": 0
       },
       {
+        "Name": "Barath Kumar J",
+        "Position": "Backend Developer",
+        "Dept": "CSE",
+        "Year": 4,
+        "ContactEmail": "barathkumarj001@gmail.com",
+        "Instagram": "https://www.instagram.com/_barath_j_121?igsh=ODAycGV5MmllYXVw",
+        "Linkedin": "https://www.linkedin.com/in/barath-kumar-j-3852a921b",
+        "Github": "https://GitHub.com/Barathj121",
+        "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxON0IHfD21xQDCo37FrXjmzfL1MIpknSZtAYi9d",
+        "Role": "Software Development",
+        "GreekSymbol": "φ",
+        "ORG": 0
+      },
+      {
         "Name": "Adithya Ajay",
         "Position": "Frontend Developer",
         "Dept": "CSE",
@@ -288,9 +288,9 @@
         "Github": "https://github.com/akshayks13",
         "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxON6r16JxjoRvW0f2YyXQCeIc74HMPNLUsr9dOw",
         "Role": "Software Development",
-        "ORG" : 0
-    },
-    {
+        "ORG": 0
+      },
+      {
         "Name": "Amrith B",
         "Position": "Frontend Developer",
         "Dept": "CSE",
@@ -302,9 +302,9 @@
         "Github": "https://github.com/AMRITH03",
         "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONTWhj7iGPJ1mAlVEaHSv9Mqh5tBKbkyQwD2dj",
         "Role": "Software Development",
-        "ORG" : 0
-    },
-    {
+        "ORG": 0
+      },
+      {
         "Name": "Keerthivasan S V",
         "Position": "Frontend Developer",
         "Dept": "AIE",
@@ -316,9 +316,9 @@
         "Github": "https://github.com/Keerthivasan-Venkitajalam",
         "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONYls3c7FdEtpBQn5qLI8HKWFoaulX7JczmU9g",
         "Role": "Software Development",
-        "ORG" : 0
-    },
-    {
+        "ORG": 0
+      },
+      {
         "Name": "Kavinesh P",
         "Position": "Backend Developer",
         "Dept": "CSE",
@@ -330,9 +330,9 @@
         "Github": "https://github.com/Kavinesh11",
         "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONgUnD3rYOvFHWeMPpDCY1LnqNS9VEawT4toU0",
         "Role": "Software Development",
-        "ORG" : 0
-    },
-    {
+        "ORG": 0
+      },
+      {
         "Name": "Saran Hiruthik M",
         "Position": "Backend Developer",
         "Dept": "CSE",
@@ -344,8 +344,8 @@
         "Github": "https://github.com/hirux06",
         "Image": "https://zmobepwbyg.ufs.sh/f/4CSoFDIfsxONg7XTrMOvFHWeMPpDCY1LnqNS9VEawT4toU0G",
         "Role": "Software Development",
-        "ORG" : 0
-    }
+        "ORG": 0
+      }
     ],
     "name": "Development"
   }

@@ -29,7 +29,7 @@ const ProfileCard = ({
         const romanNumerals = { 1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V' };
         return romanNumerals[num] || String(num || "");
     };
-    let details = ORG === 1 ? Position : `B.Tech ${numberToRoman(year)} Year`;
+    let details = ORG === 1 ? Position : `B.Tech ${dept} ${numberToRoman(year)} Year`;
 
 
     useEffect(() => {
@@ -132,7 +132,7 @@ const ProfileCard = ({
                 <img
                     ref={imageRef}
                     alt={`${name}'s Profile Picture`}
-                    className={`w-full h-full rounded-2xl transition-opacity duration-300 ${!imageLoaded ? 'opacity-0' : 'opacity-100'}`}
+                    className={`w-full h-full object-cover rounded-2xl transition-opacity duration-300 ${!imageLoaded ? 'opacity-0' : 'opacity-100'}`}
                 />
             </div>
 
@@ -154,7 +154,7 @@ const ProfileCard = ({
                         </a>
                     )}
                     {instagram && instagram !== "-" && instagram !== "_" && (
-                        <a href={`https://instagram.com/${instagram}`} target="_blank" rel="noopener noreferrer"
+                        <a href={`${instagram}`} target="_blank" rel="noopener noreferrer"
                             className="text-white text-3xl hover:text-[#E5C14E] transition-colors duration-300">
                             <FaInstagram />
                         </a>

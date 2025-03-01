@@ -173,7 +173,7 @@ export default function Page() {
             });
 
             gsap.to(underlineRefs.current[index], {
-                scaleX: 1,
+                scaleX: 0.5,
                 backgroundColor: "#000",
                 duration: 0.3,
                 ease: "power3.out",
@@ -387,7 +387,7 @@ export default function Page() {
 
             <div className="w-full py-4 flex flex-col items-center">
                 <h1 ref={headingRef} className="hidden lg:block text-4xl text-white mb-8">
-                    {`${jsonData[verticals[activeButton]]?.name} TEAM`}</h1>
+                    {`${jsonData[verticals[activeButton]]?.name} Team`}</h1>
                 <section className="w-full max-w-screen-lg mx-auto mt-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         {jsonData[verticals[activeButton]]?.data.map((member, index) => (

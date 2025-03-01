@@ -91,7 +91,7 @@ const FullPageMenu = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 z-20 flex flex-col text-white"
+      className="fixed inset-0 z-50 flex flex-col text-white"
       style={{
         backgroundImage: "url(/Images/backgrounds/meteora_monasteries.webp)",
         backgroundSize: "cover",

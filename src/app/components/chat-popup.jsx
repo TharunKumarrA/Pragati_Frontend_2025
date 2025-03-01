@@ -12,7 +12,7 @@ export function ChatPopup() {
     const [showSample, setShowSample] = useState(true);
 
     return (
-        <>
+        <div className="z-50">
             {!isOpen && (
                 <button
                     className="fixed bottom-4 right-4 p-3 shadow-lg hover:shadow-xl transition-shadow flex flex-row justify-center items-center align-middle bg-[linear-gradient(90deg,#FACC15,#E8D096)] rounded-full border-2 border-black font-bold text-black focus:outline-none"
@@ -155,6 +155,6 @@ export function ChatPopup() {
                     </div>
                 </div>
             )}
-        </>
+        </div>
     )
 }

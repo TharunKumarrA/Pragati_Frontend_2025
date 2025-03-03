@@ -79,8 +79,9 @@ const FullPageMenu = ({ isOpen, onClose }) => {
     { name: "About", href: "/#about" },
     { name: "Events", href: "/events" },
     { name: "Notifications", href: "/notifications" },
-    { name: "Schedule", href: "/upcoming" },
+    { name: "Schedule", href: "/schedule" },
     { name: "Brochure", href: "/brochure" },
+    {name: "Team", href: "/team"},
   ];
 
   if (!isLoggedIn) {

@@ -64,10 +64,27 @@ const Signup = () => {
           },
         };
       }
-      return {
+      const updatedData = {
         ...prevData,
         [name]: type === "checkbox" ? checked : value,
       };
+  
+      if (name === "isAmrita" && checked) {
+        updatedData.collegeName = "Amrita Vishwa Vidyapeetham";
+  
+        if (updatedData.userEmail.startsWith("cb.")) {
+          updatedData.collegeCity = "Coimbatore";
+        }
+      } else if (name === "isAmrita" && !checked) {
+        updatedData.collegeName = "";
+        updatedData.collegeCity = "";
+      }
+  
+      if (name === "userEmail" && updatedData.isAmrita && value.startsWith("cb.")) {
+        updatedData.collegeCity = "Coimbatore";
+      }
+  
+      return updatedData;
     });
   };
 
